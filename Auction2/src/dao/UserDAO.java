@@ -1,5 +1,8 @@
 package dao;
 
-public class UserDAO {
+import beans.UserBean;
 
+public interface UserDAO {
+
+	UserBean findByLoginDetails(String username, String password) throws DataAccessException;
 }

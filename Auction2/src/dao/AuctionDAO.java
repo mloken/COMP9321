@@ -1,5 +1,7 @@
 package dao;
 
-public class AuctionDAO {
+import beans.AuctionItemBean;
 
+public interface AuctionDAO {
+	public AuctionItemBean getAuctionItemById(String id);
 }
