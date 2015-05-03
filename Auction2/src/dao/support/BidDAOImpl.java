@@ -1,7 +1,18 @@
 package dao.support;
 
-import dao.BidDAO;
+import common.DBConnectionFactory;
 
-public class BidDAOImpl implements BidDAO{
+import dao.BidDAO;
+import dao.GenericDAO;
+
+public class BidDAOImpl extends GenericDAO implements BidDAO{
+
+	public BidDAOImpl() {
+		super();
+	}
+
+	public BidDAOImpl(DBConnectionFactory services) {
+		super(services);
+	}
 	
 }

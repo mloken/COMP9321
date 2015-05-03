@@ -9,25 +9,21 @@ import common.DBConnectionFactory;
 import common.ServiceLocatorException;
 import beans.UserBean;
 import dao.DataAccessException;
+import dao.GenericDAO;
 import dao.UserDAO;
 
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl extends GenericDAO implements UserDAO{
 
 	/**
 	 * The service locator to retrieve database connections from
 	 */
-	private DBConnectionFactory services;
 	
 	public UserDAOImpl(){
-		try {
-			services = new DBConnectionFactory();
-		} catch (ServiceLocatorException e) {
-			e.printStackTrace();
-		}
+		super();
 	}
 	
 	public UserDAOImpl(DBConnectionFactory services) {
-		this.services = services;
+		super(services);
 	}
 	
 	@Override
