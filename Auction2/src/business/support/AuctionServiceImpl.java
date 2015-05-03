@@ -15,6 +15,7 @@ public class AuctionServiceImpl implements AuctionService{
 	
 	@Override
 	public AuctionItemBean addItem(AuctionItemBean item) {
-		return null;
+		AuctionItemBean addedItem = auctionItemDao.addAuctionItem(item);
+		return addedItem;
 	}
 }

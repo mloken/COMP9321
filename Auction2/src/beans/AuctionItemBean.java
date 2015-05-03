@@ -6,22 +6,31 @@ public class AuctionItemBean {
 	public AuctionItemBean() {
 		super();
 	}
-	private String title;
+	private String id;
+	private String ownerId;
+	private String itemName;
 	private String category;
 	private String picture;
 	private String description;
-	private AddressBean postalAddress;
-	private double reservePrice;
-	private double biddingStartPrice;
-	private double biddingIncrements;
+	private AddressBean Address;
+	private float reservePrice;
+	private float biddingStartPrice;
+	private float biddingIncrements;
+	private float currentBid;
 	private Date endTime;
-	private String id;
+	private String notes;
 	
-	public String getTitle() {
-		return title;
+	public String getOwnerId() {
+		return ownerId;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+	public void setOwnerId(String ownerId) {
+		this.ownerId = ownerId;
+	}
+	public String getItemName() {
+		return itemName;
+	}
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 	public String getCategory() {
 		return category;
@@ -41,28 +50,22 @@ public class AuctionItemBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public AddressBean getPostalAddress() {
-		return postalAddress;
-	}
-	public void setPostalAddress(AddressBean postalAddress) {
-		this.postalAddress = postalAddress;
-	}
-	public double getReservePrice() {
+	public float getReservePrice() {
 		return reservePrice;
 	}
-	public void setReservePrice(double reservePrice) {
+	public void setReservePrice(float reservePrice) {
 		this.reservePrice = reservePrice;
 	}
-	public double getBiddingStartPrice() {
+	public float getBiddingStartPrice() {
 		return biddingStartPrice;
 	}
-	public void setBiddingStartPrice(double biddingStartPrice) {
+	public void setBiddingStartPrice(float biddingStartPrice) {
 		this.biddingStartPrice = biddingStartPrice;
 	}
-	public double getBiddingIncrements() {
+	public float getBiddingIncrements() {
 		return biddingIncrements;
 	}
-	public void setBiddingIncrements(double biddingIncrements) {
+	public void setBiddingIncrements(float biddingIncrements) {
 		this.biddingIncrements = biddingIncrements;
 	}
 	public Date getEndTime() {
@@ -76,5 +79,23 @@ public class AuctionItemBean {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public AddressBean getAddress() {
+		return Address;
+	}
+	public void setAddress(AddressBean address) {
+		Address = address;
+	}
+	public float getCurrentBid() {
+		return currentBid;
+	}
+	public void setCurrentBid(float currentBid) {
+		this.currentBid = currentBid;
+	}
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
 	}
 }

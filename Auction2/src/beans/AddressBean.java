@@ -9,7 +9,7 @@ public class AddressBean {
 	private String city;
 	private String state;
 	private String country;
-	private short postalCode;
+	private String postalCode;
 	
 	public String getStreetAddress() {
 		return streetAddress;
@@ -35,10 +35,10 @@ public class AddressBean {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	public short getPostalCode() {
+	public String getPostalCode() {
 		return postalCode;
 	}
-	public void setPostalCode(short postalCode) {
+	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
 	
