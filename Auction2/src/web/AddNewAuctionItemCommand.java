@@ -68,7 +68,7 @@ public class AddNewAuctionItemCommand implements Command {
 		
 		auctionService.addItem(item);
 		request.setAttribute("item", item);
-		return "auctionAdded.jsp";
+		return "/auctionAdded.jsp";
 	}
 
 }

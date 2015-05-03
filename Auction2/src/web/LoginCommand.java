@@ -27,11 +27,12 @@ public class LoginCommand implements Command {
 			UserBean user = userService.login(request.getParameter("username"),
 					request.getParameter("password"));
 			if (user == null) {
+				System.out.println("user == null");
 				return "/login.jsp";
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-
+			
 			return "/homepage.jsp";
 		} catch (UserLoginFailedException e) {
 			e.printStackTrace();

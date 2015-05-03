@@ -10,6 +10,6 @@
 <title>Auction added</title>
 </head>
 <body>
-Your auction for ${item.item_name} was succesful!
+Your auction for ${item.itemName} was succesful!
 </body>
 </html>

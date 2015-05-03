@@ -23,7 +23,7 @@
 					<img alt="" src="login.jpg" class="img-responsive">
 			 </div>
 			 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-					<form action="UserService" method="GET">
+					<form action="dispatcher?operation=login" method="post">
 						<p></p>
 						
 						<input type="text" class="form-control"  name="username" placeholder="username">

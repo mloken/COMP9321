@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import common.DBConnectionFactory;
 import common.ServiceLocatorException;
+import beans.AddressBean;
+import beans.AuctionItemBean;
 import beans.UserBean;
 import dao.DataAccessException;
 import dao.GenericDAO;
@@ -37,6 +39,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
+				System.out.println("FOUND USER");
 				UserBean user = createUserBean(rs);
 				stmt.close(); 
 				return user;
@@ -57,9 +60,25 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		return null;
 	}
 
-	private UserBean createUserBean(ResultSet rs) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	private UserBean createUserBean(ResultSet rs) throws SQLException {
+		UserBean user = new UserBean();
+		System.out.println("Created user bean");
+		user.setUid(rs.getInt("uid"));
+		System.out.println("retrieved: uid");
+		user.setFirstName(rs.getString("firstname"));
+		System.out.println("retrieved: firstname");
+		user.setLastName(rs.getString("lastname"));
+		System.out.println("retrieved: lastname");
+		user.setAccessLevel(rs.getInt("access_level"));
+		System.out.println("retrieved: access_level");
+		user.setUsername(rs.getString("username"));
+		System.out.println("retrieved: username");
+		user.setPassword(rs.getString("password"));
+		System.out.println("retrieved: password");
+		user.setEmail(rs.getString("email"));
+		System.out.println("retrieved: email");
+		user.setContactNumber(rs.getString("contact_number"));
+		System.out.println("retrieved: contact_number");
+		return user;
+	}	
 }

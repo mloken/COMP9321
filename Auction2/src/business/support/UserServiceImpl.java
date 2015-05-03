@@ -21,6 +21,7 @@ public class UserServiceImpl implements UserService{
 		
 		try {
 			user = userDao.findByLoginDetails(username, password);
+			//System.out.println("User created correctly in UserServiceImpl: + " + user.getFirstName());
 			return user;
 		} catch (DataAccessException e) {
 			throw new UserLoginFailedException("Unable to find user", e);
