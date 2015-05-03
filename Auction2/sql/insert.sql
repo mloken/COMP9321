@@ -1,5 +1,4 @@
-DELETE FROM TBL_CONTACTS;
-DELETE FROM TBL_USERS;
+
 
 insert into TBL_USERS values (1, 'Helen', 'Paik', 1, 'helen', 'helen','abc@gmail.com','0403727910');
 insert into TBL_USERS values (2, 'Yun Ki', 'Lee', 2, 'yunki', 'yunki','jen@aniston.net', '22230098');
