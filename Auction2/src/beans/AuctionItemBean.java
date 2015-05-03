@@ -7,7 +7,7 @@ public class AuctionItemBean {
 		super();
 	}
 	private String id;
-	private String ownerId;
+	private int ownerId;
 	private String itemName;
 	private String category;
 	private String picture;
@@ -20,11 +20,11 @@ public class AuctionItemBean {
 	private Date endTime;
 	private String notes;
 	
-	public String getOwnerId() {
+	public int getOwnerId() {
 		return ownerId;
 	}
-	public void setOwnerId(String ownerId) {
-		this.ownerId = ownerId;
+	public void setOwnerId(int i) {
+		this.ownerId = i;
 	}
 	public String getItemName() {
 		return itemName;
