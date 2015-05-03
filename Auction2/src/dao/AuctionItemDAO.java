@@ -2,7 +2,7 @@ package dao;
 
 import beans.AuctionItemBean;
 
-public interface AuctionDAO {
+public interface AuctionItemDAO {
 	AuctionItemBean getAuctionItemById(String id);
 	AuctionItemBean deleteAuctionItemById(String id);
 }

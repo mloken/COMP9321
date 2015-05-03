@@ -3,9 +3,9 @@ package dao.support;
 import java.sql.ResultSet;
 
 import beans.AuctionItemBean;
-import dao.AuctionDAO;
+import dao.AuctionItemDAO;
 
-public class AuctionDAOImpl implements AuctionDAO{
+public class AuctionItemDAOImpl implements AuctionItemDAO{
 
 	@Override
 	public AuctionItemBean getAuctionItemById(String id) {

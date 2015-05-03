@@ -3,14 +3,14 @@ package dao;
 import java.util.HashMap;
 import java.util.Map;
 
-import dao.support.AuctionDAOImpl;
+import dao.support.AuctionItemDAOImpl;
 import dao.support.UserDAOImpl;
 
 public class DAOFactory {
 
 private static final String USER_DAO = "userDAO";
 	
-	private static final String AUCTION_DAO = "contactDAO";
+	private static final String AUCTION_ITEM_DAO = "contactDAO";
 	
 	private Map daos;
 	
@@ -20,7 +20,7 @@ private static final String USER_DAO = "userDAO";
 	private DAOFactory() {
 		daos = new HashMap();
 		daos.put(USER_DAO, new UserDAOImpl());
-		daos.put(AUCTION_DAO, new AuctionDAOImpl());
+		daos.put(AUCTION_ITEM_DAO, new AuctionItemDAOImpl());
 	}
 	
 	/**
@@ -35,8 +35,8 @@ private static final String USER_DAO = "userDAO";
 	 * Retrieves the contacts dao
 	 * @return
 	 */
-	public AuctionDAO getContactDAO() {
-		return (AuctionDAO) daos.get(AUCTION_DAO);
+	public AuctionItemDAO getContactDAO() {
+		return (AuctionItemDAO) daos.get(AUCTION_ITEM_DAO);
 	}
 	
 	public static DAOFactory getInstance() {
