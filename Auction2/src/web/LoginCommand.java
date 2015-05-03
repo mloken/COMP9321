@@ -13,18 +13,18 @@ import business.support.UserServiceImpl;
 
 public class LoginCommand implements Command {
 
-	private static UserServiceImpl userDao;
+	private static UserServiceImpl userService;
 
 	/** Creates a new instance of LoginCommand */
 	public LoginCommand() {
-		userDao = new UserServiceImpl();
+		userService = new UserServiceImpl();
 	}
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			UserBean user = userDao.login(request.getParameter("username"),
+			UserBean user = userService.login(request.getParameter("username"),
 					request.getParameter("password"));
 			if (user == null) {
 				return "/login.jsp";

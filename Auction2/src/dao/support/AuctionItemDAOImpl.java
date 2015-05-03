@@ -92,7 +92,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 			PreparedStatement stmt = con
 					.prepareStatement("insert into tbl_items (id, owner_id, item_name, category, description, picture, streetAddress, city, state, country, postalCode, reservePrice, biddingStartPrice, biddingIncrements, bidPrice, endTime, notes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, item.getId());
-			stmt.setString(2, item.getOwnerId());
+			stmt.setInt(2, item.getOwnerId());
 			stmt.setString(3, item.getItemName());
 			stmt.setString(4, item.getCategory());
 			stmt.setString(5, item.getDescription());
@@ -136,7 +136,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 	private AuctionItemBean createAuctionItemBean(ResultSet rs) throws SQLException {
 		AuctionItemBean item = new AuctionItemBean();
 		item.setId(rs.getString("id"));
-		item.setOwnerId(rs.getString("owner_id"));
+		item.setOwnerId(rs.getInt("owner_id"));
 		item.setItemName(rs.getString("item_name"));
 		item.setCategory(rs.getString("category"));
 		item.setDescription(rs.getString("description"));
