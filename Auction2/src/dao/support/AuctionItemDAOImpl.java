@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import common.DBConnectionFactory;
 import common.ServiceLocatorException;
+import beans.AddressBean;
 import beans.AuctionItemBean;
 import dao.AuctionItemDAO;
 import dao.DataAccessException;
@@ -24,17 +26,66 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 
 	@Override
 	public AuctionItemBean getAuctionItemById(String id) {
-		// TODO Auto-generated method stub
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE id = ?");
+			stmt.setString(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				AuctionItemBean contact = createAuctionItemBean(rs);
+				stmt.close();
+				return contact;
+			}
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public AuctionItemBean deleteAuctionItemById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public void deleteAuctionItemById(String id) {
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("delete from tbl_items where id = ?");
+			stmt.setString(1, id);
+			int n = stmt.executeUpdate();
+			if (n != 1)
+				throw new DataAccessException(
+						"Did not delete one row from database");
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+
+				}
+			}
+		}
 	}
 
-	public AuctionItemBean createAuctionItemBean(AuctionItemBean item) {
+	public AuctionItemBean addAuctionItem(AuctionItemBean item) {
 		Connection con = null;
 		try {
 			con = services.createConnection();
@@ -79,12 +130,30 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 				}
 			}
 		}
-		return null;
+		return item;
 	}
-
-	@Override
-	public AuctionItemBean addAuctionItem(AuctionItemBean item) {
-		// TODO Auto-generated method stub
-		return null;
+	
+	private AuctionItemBean createAuctionItemBean(ResultSet rs) throws SQLException {
+		AuctionItemBean item = new AuctionItemBean();
+		item.setId(rs.getString("id"));
+		item.setOwnerId(rs.getString("owner_id"));
+		item.setItemName(rs.getString("item_name"));
+		item.setCategory(rs.getString("category"));
+		item.setDescription(rs.getString("description"));
+		item.setPicture(rs.getString("picture"));
+		AddressBean addr = new AddressBean();
+		addr.setStreetAddress(rs.getString("streetAddress"));
+		addr.setCity(rs.getString("city"));
+		addr.setState(rs.getString("state"));
+		addr.setCountry(rs.getString("country"));
+		addr.setPostalCode(rs.getString("postalCode"));
+		item.setAddress(addr);
+		item.setReservePrice(rs.getFloat("reservePrice"));
+		item.setBiddingStartPrice(rs.getFloat("biddingStartPrice"));
+		item.setBiddingIncrements(rs.getFloat("biddingIncrements"));
+		item.setCurrentBid(rs.getFloat("bidPrice"));
+		item.setEndTime(rs.getDate("endTime"));
+		item.setNotes(rs.getString("notes"));
+		return item;
 	}
 }

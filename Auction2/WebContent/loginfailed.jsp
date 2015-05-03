@@ -7,6 +7,7 @@
 <title>Login failed</title>
 </head>
 <body>
-
+<h2>Login Failed</h2>
+Could not connect to database
 </body>
 </html>

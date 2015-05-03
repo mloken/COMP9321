@@ -18,4 +18,15 @@ public class AuctionServiceImpl implements AuctionService{
 		AuctionItemBean addedItem = auctionItemDao.addAuctionItem(item);
 		return addedItem;
 	}
+
+	@Override
+	public AuctionItemBean getItemById(String id) {
+		AuctionItemBean item = auctionItemDao.getAuctionItemById(id);
+		return item;
+	}
+
+	@Override
+	public void deleteItem(String id) {
+		auctionItemDao.deleteAuctionItemById(id);
+	}
 }
