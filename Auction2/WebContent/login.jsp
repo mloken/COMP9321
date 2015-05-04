@@ -30,9 +30,12 @@
 						<p></p>
 						<input type="text" class="form-control"  name="password" placeholder="password">
 						<p></p>
-						<center><button type="submit" class="btn btn-primary " type="button">LOGIN!</button></center>
+						<center><button type="submit" class="btn btn-primary " type="button">Login now!</button></center>
 					</form>
-						
+					<form method="get" action="registration.jsp">
+						<p></p>
+						<center><button type="submit" class="btn btn-warning " type="button">Register a new account</button></center>	
+					</form>
 			</div>
 		</div>
 	</div>
