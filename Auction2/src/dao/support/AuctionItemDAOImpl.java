@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import common.DBConnectionFactory;
@@ -55,6 +56,43 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		return null;
 	}
 
+	@Override
+	public ArrayList<AuctionItemBean> getAuctionItemBySearchKey(String searchKey) throws DataAccessException {
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<AuctionItemBean> list = new ArrayList<AuctionItemBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE UPPER(CATEGORY) LIKE UPPER(?) OR UPPER(ITEM_NAME) LIKE UPPER(?) OR UPPER(DESCRIPTION) LIKE UPPER(?)");
+			stmt.setString(1, "%"+searchKey+"%");
+			stmt.setString(2, "%"+searchKey+"%");
+			stmt.setString(3, "%"+searchKey+"%");
+			rs = stmt.executeQuery();
+			while (rs.next())
+				list.add(createAuctionItemBean(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
 	@Override
 	public void deleteAuctionItemById(String id) {
 		Connection con = null;

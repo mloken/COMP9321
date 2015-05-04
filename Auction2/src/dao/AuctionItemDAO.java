@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.ArrayList;
+
 import beans.AuctionItemBean;
 
 public interface AuctionItemDAO {
@@ -9,5 +11,7 @@ public interface AuctionItemDAO {
 	AuctionItemBean addAuctionItem(AuctionItemBean item);
 	
 	void deleteAuctionItemById(String id);
+
+	ArrayList<AuctionItemBean> getAuctionItemBySearchKey(String searchKey);
 	
 }

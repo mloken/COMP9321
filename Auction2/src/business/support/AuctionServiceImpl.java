@@ -1,5 +1,7 @@
 package business.support;
 
+import java.util.ArrayList;
+
 import dao.AuctionItemDAO;
 import dao.support.AuctionItemDAOImpl;
 import beans.AuctionItemBean;
@@ -25,6 +27,12 @@ public class AuctionServiceImpl implements AuctionService{
 		return item;
 	}
 
+	@Override
+	public ArrayList<AuctionItemBean> getItemBySearchKey(String searchKey) {
+		ArrayList<AuctionItemBean> searchResults = auctionItemDao.getAuctionItemBySearchKey(searchKey);
+		return searchResults;
+	}
+	
 	@Override
 	public void deleteItem(String id) {
 		auctionItemDao.deleteAuctionItemById(id);

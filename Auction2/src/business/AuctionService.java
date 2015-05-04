@@ -1,5 +1,7 @@
 package business;
 
+import java.util.ArrayList;
+
 import beans.AuctionItemBean;
 
 public interface AuctionService {
@@ -9,6 +11,8 @@ public interface AuctionService {
 	AuctionItemBean addItem(AuctionItemBean item);
 	
 	void deleteItem(String id);
+
+	ArrayList<AuctionItemBean> getItemBySearchKey(String searchKey);
 	
 	
 }
