@@ -59,26 +59,65 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		}
 		return null;
 	}
+	
+	@Override
+	public UserBean addNewUser(UserBean user) {
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("insert into tbl_user (uid, firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)");
+			stmt.setInt(1, user.getUid());
+			stmt.setString(2, user.getFirstName());
+			stmt.setString(3, user.getLastName());
+			stmt.setInt(4, user.getAccessLevel());
+			stmt.setString(5, user.getUsername());
+			stmt.setString(6, user.getPassword());
+			stmt.setString(7, user.getEmail());
+			stmt.setString(8, user.getContactNumber());
+
+			int n = stmt.executeUpdate();
+			if (n != 1)
+				throw new DataAccessException(
+						"Did not insert user row into database");
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user;
+	}	
 
 	private UserBean createUserBean(ResultSet rs) throws SQLException {
 		UserBean user = new UserBean();
-		System.out.println("Created user bean");
+//		System.out.println("Created user bean");
 		user.setUid(rs.getInt("uid"));
-		System.out.println("retrieved: uid");
+//		System.out.println("retrieved: uid");
 		user.setFirstName(rs.getString("firstname"));
-		System.out.println("retrieved: firstname");
+//		System.out.println("retrieved: firstname");
 		user.setLastName(rs.getString("lastname"));
-		System.out.println("retrieved: lastname");
+//		System.out.println("retrieved: lastname");
 		user.setAccessLevel(rs.getInt("access_level"));
-		System.out.println("retrieved: access_level");
+//		System.out.println("retrieved: access_level");
 		user.setUsername(rs.getString("username"));
-		System.out.println("retrieved: username");
+//		System.out.println("retrieved: username");
 		user.setPassword(rs.getString("password"));
-		System.out.println("retrieved: password");
+//		System.out.println("retrieved: password");
 		user.setEmail(rs.getString("email"));
-		System.out.println("retrieved: email");
+//		System.out.println("retrieved: email");
 		user.setContactNumber(rs.getString("contact_number"));
-		System.out.println("retrieved: contact_number");
+//		System.out.println("retrieved: contact_number");
 		return user;
-	}	
+	}
+
 }
