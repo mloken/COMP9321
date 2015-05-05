@@ -15,7 +15,7 @@
 </head>
 <body >
 <% String searchKey= (String) request.getAttribute("searchKey");%>
-
+<center><h3>Welcome back, ${user.username}!</h3></center>
 
 	<form action="dispatcher?operation=search" method="post">
 		 
@@ -81,7 +81,7 @@
 			   			${auctionItem.description}
 			   		</td>
 			   		<td>
-			   			 <form ACTION='MoreDetail' METHOD='GET'>
+			   			 <form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
 							<input type="hidden" name="id" value="${auctionItem.id}">
 							<input type="submit" class="btn btn-warning" value="Detail">
 						</form>		
@@ -90,7 +90,7 @@
 			   			${auctionItem.id}
 			   		</td>
 			   		<td>
-			   			 <form ACTION='AddWishList' METHOD='GET'>
+			   			 <form ACTION='AddWishList' METHOD='post'>
 							<input type="hidden" name="id" value="${auctionItem.id}">
 							<input type="submit" class="btn btn-primary" value="Add">
 						</form>		

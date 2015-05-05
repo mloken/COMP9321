@@ -40,3 +40,6 @@ insert into TBL_ITEMS values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', 7, 'Wall Q
 
 insert into TBL_BID values (1, 'eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', '2', '30', NOW());
 insert into TBL_BID values (2, '2e2b1078-22b6-431b-aca7-e29093e3af0e', '7', '120', NOW());
+
+insert into TBL_WISHLIST (item_id, user_id) values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', '1');
+insert into TBL_WISHLIST (item_id, user_id) values ('2e2b1078-22b6-431b-aca7-e29093e3af0e', '1');

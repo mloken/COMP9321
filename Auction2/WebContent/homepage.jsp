@@ -12,8 +12,8 @@
 </head>
 <body>
 <%@ include file="header.jsp"%>
-	
-	
+
+	<center><h3>Welcome back, ${user.username}!</h3></center>
 	<!-- search (action page need to be change!)-->
 	<form action="dispatcher?operation=search" method="post">
 		 

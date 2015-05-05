@@ -2,10 +2,10 @@ package beans;
 
 import java.util.ArrayList;
 
-public class WishlistBean {
+public class WishListBean {
 	private ArrayList<AuctionItemBean> auctionItems;
 
-	public WishlistBean(){ auctionItems = new ArrayList<AuctionItemBean>();}
+	public WishListBean(){ auctionItems = new ArrayList<AuctionItemBean>();}
 	
 	public void setAuctionItems(ArrayList<AuctionItemBean> auctionItems) {
 		this.auctionItems = auctionItems;

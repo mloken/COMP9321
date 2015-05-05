@@ -10,7 +10,7 @@
 						      <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">
 						      User <span class="caret"></span></button>
 						       <ul class="dropdown-menu" role="menu">
-						           <li><a href="#">Profile</a></li>
+						           <li><a href="userProfile.jsp">Profile</a></li>
 						           <li><a href="#">Log out</a></li>
 						      </ul>
 						  </div>

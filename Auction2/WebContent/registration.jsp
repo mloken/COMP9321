@@ -28,28 +28,31 @@ if (request.getAttribute("newuser")==null){
 					
 				</center>
 			</div>
-		</div>
 		<!-- MESSAGE : SUCCESS OR FAILED show message from arraylist-->
-		<div class="col-lg-5 col-md-push-1">
-	            <div class="col-md-12">
-	            <%
-	            	if (request.getAttribute("valid")!=null && request.getAttribute("valid").toString()=="true"){
-	            		%><div class="alert alert-success">
-	            		<strong><span class="glyphicon glyphicon-ok">
-	            		<%
-	            	}
-	            	else {
-	            		%>
-	            		<div class="alert alert-danger">
-                   			 <span class="glyphicon glyphicon-remove"></span><strong>
-	            		<%
-	            	}
-	            %>
-	                
-	                    ${message}
-	                    </span></strong>
-	                </div>
-	            </div>
+		<div class="row">
+			<div class="col-lg-2 col-md-push-1">
+		            <div class="col-md-12">
+		            <%
+		            	if (request.getAttribute("valid")!=null){
+		            		if (request.getAttribute("valid").toString()=="true"){
+		            		%><div class="alert alert-success">
+		            		<strong><span class="glyphicon glyphicon-ok">
+		            		<%
+			            	}
+			            	else {
+			            		%>
+			            		<div class="alert alert-danger">
+		                   			 <span class="glyphicon glyphicon-remove"></span><strong>
+			            		<%
+			            	}
+		            	}
+		            %>
+		                
+		                    ${message}
+		                    </span></strong>
+		                </div>
+		            </div>
+		    </div>
 	    </div>
 	    
 	    <div class="row">
@@ -101,6 +104,7 @@ if (request.getAttribute("newuser")==null){
 	                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
 	            </div>
 	        </form>
+	    </div>
 	    </div>
 	</div>
 </body>
