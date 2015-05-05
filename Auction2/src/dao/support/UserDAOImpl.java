@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import common.DBConnectionFactory;
 import common.ServiceLocatorException;
@@ -58,6 +59,40 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public ArrayList<UserBean> getAllUsers() {
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<UserBean> userList = new ArrayList<UserBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_USERS");
+			rs = stmt.executeQuery();
+			while (rs.next())
+				userList.add(createUserBean(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return userList;
 	}
 	
 	@Override
@@ -119,5 +154,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 //		System.out.println("retrieved: contact_number");
 		return user;
 	}
+
+
 
 }

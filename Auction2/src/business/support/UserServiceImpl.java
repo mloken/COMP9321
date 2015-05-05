@@ -11,6 +11,7 @@ import business.UserService;
 public class UserServiceImpl implements UserService{
 
 	private UserDAO userDao;
+	
 	public UserServiceImpl() {
 		userDao= new UserDAOImpl();
 	}
