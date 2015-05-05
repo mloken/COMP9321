@@ -1,6 +1,9 @@
 package business.support;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import dao.AuctionItemDAO;
 import dao.support.AuctionItemDAOImpl;
@@ -34,7 +37,22 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 	
 	@Override
+	public ArrayList<AuctionItemBean> getAllAuctionItems() {
+		ArrayList<AuctionItemBean> allItems = auctionItemDao.getAllAuctionItems();
+		return allItems;
+	}
+	
+	@Override
+	public List<AuctionItemBean> getTenRandomAuctionItems() {
+		ArrayList<AuctionItemBean> allItems = getAllAuctionItems();
+		List<AuctionItemBean> shuffledItems = new LinkedList<AuctionItemBean>(allItems);
+		Collections.shuffle(shuffledItems);
+		return shuffledItems.subList(0, 10);
+	}
+	
+	@Override
 	public void deleteItem(String id) {
 		auctionItemDao.deleteAuctionItemById(id);
 	}
+
 }
