@@ -8,28 +8,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.UserBean;
+import business.AdminService;
 import business.UserLoginFailedException;
-import business.UserService;
+import business.support.AdminServiceImpl;
 import business.support.UserServiceImpl;
 
-public class LoginCommand implements Command {
+public class AdminLoginCommand implements Command {
 
-	private static UserService userService;
+	private static AdminService adminService;
 
 	/** Creates a new instance of LoginCommand */
-	public LoginCommand() {
-		userService = new UserServiceImpl();
+	public AdminLoginCommand() {
+		adminService = new AdminServiceImpl();
 	}
-
+	
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			UserBean user = userService.login(request.getParameter("username"),
+			UserBean user = adminService.login(request.getParameter("username"),
 					request.getParameter("password"));
 			if (user == null) {
-				System.out.println("user == null");
-				return "/login.jsp";
+				System.out.println("user = null, i.e. not admin");
+				return "/adminLogin.jsp";
 			}
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);

@@ -26,6 +26,7 @@ public class ControllerServlet extends HttpServlet {
 		// commands.put("list", new ListCommand());
 		commands.put("addNewAuctionItem", new AddNewAuctionItemCommand());
 		commands.put("login", new LoginCommand());
+		commands.put("adminLogin", new AdminLoginCommand());
 		commands.put("logout", new LogoutCommand());
 		commands.put("register", new RegisterCommand());
 		commands.put("PAGE_NOT_FOUND", new ErrorCommand());
