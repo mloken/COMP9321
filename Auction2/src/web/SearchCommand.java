@@ -30,6 +30,8 @@ public class SearchCommand implements Command {
 		auctionItems = auctionService.getItemBySearchKey(searchKey);
 		if (auctionItems == null) {
 			System.out.println("searchKey == null");
+			/**BTW: for this to work  "|| auctionItems.size()==0" has to be included in the if,
+			however, this if is not needed since empty auctionItems is handled in searchResults.jsp**/
 //			RequestDispatcher rd = request.getRequestDispatcher("/homepage.jsp");
 //			rd.forward(request, response);
 			return "/homepage.jsp";
