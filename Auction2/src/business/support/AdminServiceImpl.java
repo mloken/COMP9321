@@ -2,8 +2,10 @@ package business.support;
 
 import java.util.ArrayList;
 
+import dao.AuctionItemDAO;
 import dao.DataAccessException;
 import dao.UserDAO;
+import dao.support.AuctionItemDAOImpl;
 import dao.support.UserDAOImpl;
 import beans.AuctionItemBean;
 import beans.UserBean;
@@ -13,9 +15,11 @@ import business.UserLoginFailedException;
 public class AdminServiceImpl implements AdminService {
 
 	private UserDAO userDao;
+	private AuctionItemDAO auctionItemDao;
 
 	public AdminServiceImpl() {
 		userDao = new UserDAOImpl();
+		auctionItemDao = new AuctionItemDAOImpl();
 	}
 
 	@Override
@@ -43,14 +47,14 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public AuctionItemBean deleteItemById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		AuctionItemBean deletedAuction = auctionItemDao.deleteAuctionItemById(id);
+		return deletedAuction;
 	}
 
 	@Override
-	public UserBean banUserById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserBean banUserById(int uid) {
+		UserBean deletedUser = userDao.banUserById(uid);
+		return deletedUser;
 	}
 
 	@Override

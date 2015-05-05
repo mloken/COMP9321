@@ -127,8 +127,9 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 	}
 	
 	@Override
-	public void deleteAuctionItemById(String id) {
+	public AuctionItemBean deleteAuctionItemById(String id) {
 		Connection con = null;
+		AuctionItemBean deletedItem = getAuctionItemById(id);
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
@@ -154,6 +155,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 				}
 			}
 		}
+		return deletedItem;
 	}
 
 	public AuctionItemBean addAuctionItem(AuctionItemBean item) {

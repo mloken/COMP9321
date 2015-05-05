@@ -133,6 +133,40 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		return user;
 	}	
 
+	@Override
+	public UserBean banUserById(int uid) {
+		Connection con = null;
+		UserBean user = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE TBL_USERS SET access_level = ? WHERE uid = ?");
+			stmt.setInt(1, 4); //an access_level of 4 corresponds to banned user
+			stmt.setInt(2, uid);
+			
+			int n = stmt.executeUpdate();
+			if (n != 1)
+				throw new DataAccessException(
+						"Did not update user row into database");
+			user = getUserById(uid);
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user;
+	}
+	
 	private UserBean createUserBean(ResultSet rs) throws SQLException {
 		UserBean user = new UserBean();
 //		System.out.println("Created user bean");
@@ -155,6 +189,32 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		return user;
 	}
 
-
-
+	private UserBean getUserById(int uid) {
+		Connection con = null;
+		ResultSet rs = null;
+		UserBean user = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("SELECT * FROM tbl_user WHERE uid = ?");
+			stmt.setInt(1, uid);
+			rs = stmt.executeQuery();
+			 user = createUserBean(rs);
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user;
+	}	
 }

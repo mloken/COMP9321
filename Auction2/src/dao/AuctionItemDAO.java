@@ -10,7 +10,7 @@ public interface AuctionItemDAO {
 	
 	AuctionItemBean addAuctionItem(AuctionItemBean item);
 	
-	void deleteAuctionItemById(String id);
+	AuctionItemBean deleteAuctionItemById(String id);
 
 	ArrayList<AuctionItemBean> getAuctionItemBySearchKey(String searchKey);
 	

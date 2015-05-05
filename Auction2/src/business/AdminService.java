@@ -13,7 +13,7 @@ public interface AdminService {
 	
 	AuctionItemBean deleteItemById(String id);
 	
-	UserBean banUserById(int id);
+	UserBean banUserById(int uid);
 	
 	ArrayList<UserBean> getAllUsers();
 

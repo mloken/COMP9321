@@ -12,4 +12,6 @@ public interface UserDAO {
 	ArrayList<UserBean> getAllUsers();
 	
 	UserBean addNewUser(UserBean user);
+	
+	UserBean banUserById(int uid);
 }

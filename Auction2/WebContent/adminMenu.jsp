@@ -7,6 +7,10 @@
 <title>Admin menu</title>
 </head>
 <body>
-
+<h2>Admin functions</h2>
+<p>
+<a href="dispatcher?operation=login">Halt auction</a>
+<a href="dispatcher?operation=login">Remove auction</a>
+<a href="dispatcher?operation=login">Ban user</a>
 </body>
 </html>
