@@ -101,15 +101,15 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("insert into tbl_users (uid, firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)");
-			stmt.setInt(1, user.getUid());
-			stmt.setString(2, user.getFirstName());
-			stmt.setString(3, user.getLastName());
-			stmt.setInt(4, user.getAccessLevel());
-			stmt.setString(5, user.getUsername());
-			stmt.setString(6, user.getPassword());
-			stmt.setString(7, user.getEmail());
-			stmt.setString(8, user.getContactNumber());
+					.prepareStatement("insert into tbl_users (firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?)");
+
+			stmt.setString(1, user.getFirstName());
+			stmt.setString(2, user.getLastName());
+			stmt.setInt(3, user.getAccessLevel());
+			stmt.setString(4, user.getUsername());
+			stmt.setString(5, user.getPassword());
+			stmt.setString(6, user.getEmail());
+			stmt.setString(7, user.getContactNumber());
 
 			int n = stmt.executeUpdate();
 			if (n != 1)
