@@ -30,16 +30,18 @@ public class SearchCommand implements Command {
 		auctionItems = auctionService.getItemBySearchKey(searchKey);
 		if (auctionItems == null) {
 			System.out.println("searchKey == null");
-			RequestDispatcher rd = request.getRequestDispatcher("/homepage.jsp");
-			rd.forward(request, response);
+//			RequestDispatcher rd = request.getRequestDispatcher("/homepage.jsp");
+//			rd.forward(request, response);
+			return "/homepage.jsp";
 		}
 		else{
 			request.setAttribute("auctionItems", auctionItems);
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/searchResults.jsp");
-			rd.forward(request, response);
+//			RequestDispatcher rd = request.getRequestDispatcher("/searchResults.jsp");
+//			rd.forward(request, response);
+			return "/searchResults.jsp";
 		}
-		return searchKey;
+//		return searchKey;
 		
 	}
 }
