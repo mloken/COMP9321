@@ -35,7 +35,7 @@ public class AdminLoginCommand implements Command {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
 			
-			return "/homepage.jsp";
+			return "/adminMenu.jsp";
 		} catch (UserLoginFailedException e) {
 			e.printStackTrace();
 			return "/loginfailed.jsp";
