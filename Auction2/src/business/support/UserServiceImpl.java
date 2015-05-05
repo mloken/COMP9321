@@ -43,5 +43,11 @@ public class UserServiceImpl implements UserService{
 			throw new UserLoginFailedException("Unable to find user", e);
 		}*/
 	}
+
+	@Override
+	public boolean isUsernameAvailable(String username) {
+		boolean isAvailable = userDao.isUsernameAvailable(username);
+		return isAvailable;
+	}
 	
 }

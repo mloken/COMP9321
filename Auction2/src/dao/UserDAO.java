@@ -14,4 +14,6 @@ public interface UserDAO {
 	UserBean addNewUser(UserBean user);
 	
 	UserBean banUserById(int uid);
+	
+	boolean isUsernameAvailable(String username);
 }

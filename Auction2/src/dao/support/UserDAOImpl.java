@@ -101,7 +101,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("insert into tbl_user (uid, firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)");
+					.prepareStatement("insert into tbl_users (uid, firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)");
 			stmt.setInt(1, user.getUid());
 			stmt.setString(2, user.getFirstName());
 			stmt.setString(3, user.getLastName());
@@ -167,6 +167,37 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		return user;
 	}
 	
+	@Override
+	public boolean isUsernameAvailable(String username) {
+		Connection con = null;
+		ResultSet rs = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("SELECT * FROM tbl_users WHERE username = ?");
+			stmt.setString(1, username);
+			rs = stmt.executeQuery();
+			if(rs.next()){
+				return false;
+			}
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return true;
+	}	
+	
 	private UserBean createUserBean(ResultSet rs) throws SQLException {
 		UserBean user = new UserBean();
 //		System.out.println("Created user bean");
@@ -196,7 +227,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("SELECT * FROM tbl_user WHERE uid = ?");
+					.prepareStatement("SELECT * FROM tbl_users WHERE uid = ?");
 			stmt.setInt(1, uid);
 			rs = stmt.executeQuery();
 			 user = createUserBean(rs);
@@ -216,5 +247,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			}
 		}
 		return user;
-	}	
+	}
+
+	
 }

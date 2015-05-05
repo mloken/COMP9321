@@ -8,6 +8,13 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script></head>
 
+<% 
+if (request.getAttribute("newuser")==null){
+	request.getAttribute("newuser");
+	request.getAttribute("message");
+	request.getAttribute("valid");
+}
+%>
 
 <title>Registration</title>
 </head>
@@ -22,8 +29,31 @@
 				</center>
 			</div>
 		</div>
+		<!-- MESSAGE : SUCCESS OR FAILED show message from arraylist-->
+		<div class="col-lg-5 col-md-push-1">
+	            <div class="col-md-12">
+	            <%
+	            	if (request.getAttribute("valid")!=null && request.getAttribute("valid").toString()=="true"){
+	            		%><div class="alert alert-success">
+	            		<strong><span class="glyphicon glyphicon-ok">
+	            		<%
+	            	}
+	            	else {
+	            		%>
+	            		<div class="alert alert-danger">
+                   			 <span class="glyphicon glyphicon-remove"></span><strong>
+	            		<%
+	            	}
+	            %>
+	                
+	                    ${message}
+	                    </span></strong>
+	                </div>
+	            </div>
+	    </div>
+	    
 	    <div class="row">
-	        <form role="form">
+	        <form role="form" action="dispatcher?operation=register" method="post">
 	            <div class="col-lg-6">
 	                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
 	                <div class="form-group">
@@ -71,16 +101,6 @@
 	                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
 	            </div>
 	        </form>
-	        <!-- <div class="col-lg-5 col-md-push-1">
-	            <div class="col-md-12">
-	                <div class="alert alert-success">
-	                    <strong><span class="glyphicon glyphicon-ok"></span> Congratulation! You have been successfully registered!</strong>
-	                </div>
-	                <div class="alert alert-danger">
-	                    <span class="glyphicon glyphicon-remove"></span><strong> Error! Please check all page inputs.</strong>
-	                </div>
-	            </div>
-	        </div> -->
 	    </div>
 	</div>
 </body>
