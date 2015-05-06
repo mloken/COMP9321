@@ -166,12 +166,10 @@ public class AddNewAuctionItemCommand implements Command {
 			request.setAttribute("valid", valid);
 
 			if (valid) {
-				alertmessage = "Congratulation! You have successfully add auction item "
+				alertmessage = "Congratulation! You have successfully added auction item "
 						+ itemname + "!<br>";
 				item.setId(UUID.randomUUID().toString());
-				// item.setOwnerId(5);
 				item.setOwnerId(ownerId);
-				// item.setCategory(request.getParameter("category"));
 				item.setItemName(itemname);
 				item.setCategory(category);
 				item.setDescription(description);
