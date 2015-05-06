@@ -34,8 +34,11 @@
 					</form>
 					<form method="get" action="registration.jsp">
 						<p></p>
-						<center><button type="submit" class="btn btn-warning " type="button">Register a new account</button></center>	
+						<center><button type="submit" class="btn btn-warning " type="button">Register a new account</button></center>
+						<p></p>
+						<p></p>
 					</form>
+					<center><a href="adminLogin.jsp">Admin Login</a></center>	
 			</div>
 		</div>
 	</div>

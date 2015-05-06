@@ -19,12 +19,13 @@ if (request.getAttribute("newuser")==null){
 <title>Registration</title>
 </head>
 <body>
-	<%@ include file="header.jsp"%>
+		
 		<div class="container">
 		<div class="row">
 			<div class="col-md-offset-2 col-md-8">
 				<center>
-					<h1><b>Registration</b></a></h1>
+					<h1><a href="login.jsp"><b>Auction Time</b></a></h1>
+					<h1><b>Registration</b></h1>
 					
 				</center>
 			</div>
@@ -37,6 +38,7 @@ if (request.getAttribute("newuser")==null){
 		            		if (request.getAttribute("valid").toString()=="true"){
 		            		%><div class="alert alert-success">
 		            		<strong><span class="glyphicon glyphicon-ok">
+		            		<b><a href="login.jsp" type="button" class="btn btn-warning">Login now!</a></b>
 		            		<%
 			            	}
 			            	else {
@@ -48,7 +50,8 @@ if (request.getAttribute("newuser")==null){
 		            	}
 		            %>
 		                
-		                    ${message}
+		                    <b>${message}</b>
+		                    
 		                    </span></strong>
 		                </div>
 		            </div>

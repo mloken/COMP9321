@@ -17,29 +17,27 @@
   <body style= "text-align:center" >  
   <h1><b>Your Wishlist</b></h1>  
     <h2>____________</h2>  
-    <c:if test= "${empty wishList}">  
+    <c:if test= "${empty wishlistItems}">  
  <font color= "red" >Still empty</font><br/>  
  
    you can  
     <a href= "homepage.jsp" >go shopping</a>  
     </c:if >  
-    <c:if test= "${!empty wishList}" >  
+    <c:if test= "${!empty wishlistItems}" >  
       <table class="table table-hover"   style="margin:0px auto; width:70%" >  
         <tr> 
            <th>ID</th>
            <th>Item name</th>  
            <th>Picture</th>  
            <th>Description</th>  
-           <th>EndTime</th>  
-           <th>Delete Item</th>     
+             
         </tr>  
-        <c:forEach var="item"  items= "${wishList}" >  
+        <c:forEach var="item"  items= "${wishlistItems}" >  
           <tr>  
            <td>${item.id}</td>  
-           <td>${item.item_name}</td>  
-           <td><img width="144" src="${item.picture}"></td>
-           <td>${item.description}</td>
-           <td>${item.endTime}</td>   
+           <td>${item.userId}</td>  
+           <td>${item.itemId}</td>
+             
            <td>  
                <form ACTION='dispatcher?operation=deleteFromWishList' METHOD='GET'>
 							<input type="hidden" name="id" value="${item.id}">

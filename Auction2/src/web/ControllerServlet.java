@@ -32,6 +32,7 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("PAGE_NOT_FOUND", new ErrorCommand());
 		commands.put("search", new SearchCommand());
 		commands.put("itemDetail", new ItemDetailCommand());
+		commands.put("showWishList", new ShowWishListCommand());
 //		commands.put("addToWishList", new AddToWishListCommand());
 //		commands.put("deleteFromWishList", new DeleteFromWishListCommand());
 //		commands.put("userProfile", new UserProfileCommand());
