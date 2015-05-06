@@ -15,35 +15,36 @@ import javax.servlet.http.HttpSession;
 import beans.AddressBean;
 import beans.AuctionItemBean;
 import beans.UserBean;
+import business.AuctionService;
 import business.UserLoginFailedException;
 import business.support.AuctionServiceImpl;
 import business.support.UserServiceImpl;
 
 public class AddNewAuctionItemCommand implements Command {
 
-	private static AuctionServiceImpl auctionService;
-	
+	private static AuctionService auctionService;
+
 	public AddNewAuctionItemCommand() {
 		auctionService = new AuctionServiceImpl();
 	}
-	
+
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession();
-//		UserBean currentUser = (UserBean) session.getAttribute("user");
+		HttpSession session = request.getSession();
+		UserBean currentUser = (UserBean) session.getAttribute("user");
 //		if (currentUser == null) {
 //			return "/login.jsp";
 //		}
-//		String ownerId = currentUser.getId();
-		
+		int ownerId = currentUser.getUid();
+
 		boolean success = true;
 		String alertmessage = "";
-		
+
 		AuctionItemBean item = new AuctionItemBean();
-		
-		//INPUT VALIDATION
-		if (request.getParameter("item_name")!=null){
+
+		// INPUT VALIDATION
+		if (request.getParameter("item_name") != null) {
 			String itemname = request.getParameter("item_name");
 			String category = request.getParameter("category");
 			String description = request.getParameter("description");
@@ -59,135 +60,118 @@ public class AddNewAuctionItemCommand implements Command {
 			String endtime = request.getParameter("endTime");
 			String notes = request.getParameter("notes");
 			boolean valid = true;
-			
-			if (itemname.isEmpty()){
-                alertmessage+= "Your Title can not be empty<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            if (category.isEmpty()){
-                alertmessage+= "Your Category can not be empty<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            /*if (picture.isEmpty()){
-                alertmessage+= "Your Picture can not be empty<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }*/
-            if (streetaddr.isEmpty()){
-                alertmessage+= "Please insert your street address<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            if (city.isEmpty()){
-                alertmessage+= "Please insert your city<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            if (state.isEmpty()){
-                alertmessage+= "Please insert your state<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            if (country.isEmpty()){
-                alertmessage+= "Please insert your country<br>";
-                valid = false;
-            }
-            else {
-                valid=valid&&true;
-            }
-            
-            
-            if (startbid.toString().isEmpty()){
-                alertmessage+= "Your Bidding Start Price can not be empty<br>";
-                valid = false;
-            }
-            else {
-                if (!startbid.toString().matches("[0-9]{1,8}+\\.?[0-9]*?")){
-                    alertmessage+="Your Bidding Start Price is not valid<br>";
-                    valid = false;
-                }
-                else {
-                    valid=valid&&true;
-                }
-            }
-            
-            if (resprice.toString().isEmpty()){
-                alertmessage+= "Your Reserve Price can not be empty<br>";
-                valid = false;
-            }
-            else {
-                if (!resprice.toString().matches("[0-9]{1,8}+\\.?[0-9]*?")){
-                    alertmessage+="Your Reserve Price is not valid<br>";
-                    valid = false;
-                }
-                else {
-                    valid=valid&&true;
-                }
-            }
-            
-            if (bidinc.toString().isEmpty()){
-                alertmessage+= "Your Bidding Increments can not be empty<br>";
-                valid = false;
-            }
-            else {
-                if (!bidinc.toString().matches("[0-9]{1,5}+\\.?[0-9]*?")){
-                    alertmessage+="Your Bidding Increments is not valid<br>";
-                    valid = false;
-                }
-                else {
-                    valid=valid&&true;
-                }
-            }
-            if (endtime.equals("")){
-                alertmessage+= "Your End Time can not be empty<br>";
-                valid = false;
-            }
-            else {
-            		if (!endtime.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")){
-            			alertmessage+="Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
-            			valid=false;
-            		}
-            		else {
-            			valid=valid&&true;
-            		}
-                }
-            
-            if (postcode.isEmpty()){
-                alertmessage+= "Your Postal Code can not be empty<br>";
-                    valid = false;
-                }
-                else {
-                    if (!postcode.matches("[0-9]{4,5}+")){
-                        alertmessage+= "Your Postal Address is not valid<br>";
-                        valid=false;
-                        }
-                        else{
-                            valid=valid&&true;
-                        }
-                }
-		
-            request.setAttribute("valid", valid);
-            
-	        if (valid){
-	        	alertmessage = "Congratulation! You have successfully add auction item "+itemname+"!<br>";
+
+			if (itemname.isEmpty()) {
+				alertmessage += "Your Title can not be empty<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+			if (category.isEmpty()) {
+				alertmessage += "Your Category can not be empty<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+			/*
+			 * if (picture.isEmpty()){ alertmessage+=
+			 * "Your Picture can not be empty<br>"; valid = false; } else {
+			 * valid=valid&&true; }
+			 */
+			if (streetaddr.isEmpty()) {
+				alertmessage += "Please insert your street address<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+			if (city.isEmpty()) {
+				alertmessage += "Please insert your city<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+			if (state.isEmpty()) {
+				alertmessage += "Please insert your state<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+			if (country.isEmpty()) {
+				alertmessage += "Please insert your country<br>";
+				valid = false;
+			} else {
+				valid = valid && true;
+			}
+
+			if (startbid.toString().isEmpty()) {
+				alertmessage += "Your Bidding Start Price can not be empty<br>";
+				valid = false;
+			} else {
+				if (!startbid.toString().matches("[0-9]{1,8}+\\.?[0-9]*?")) {
+					alertmessage += "Your Bidding Start Price is not valid<br>";
+					valid = false;
+				} else {
+					valid = valid && true;
+				}
+			}
+
+			if (resprice.toString().isEmpty()) {
+				alertmessage += "Your Reserve Price can not be empty<br>";
+				valid = false;
+			} else {
+				if (!resprice.toString().matches("[0-9]{1,8}+\\.?[0-9]*?")) {
+					alertmessage += "Your Reserve Price is not valid<br>";
+					valid = false;
+				} else {
+					valid = valid && true;
+				}
+			}
+
+			if (bidinc.toString().isEmpty()) {
+				alertmessage += "Your Bidding Increments can not be empty<br>";
+				valid = false;
+			} else {
+				if (!bidinc.toString().matches("[0-9]{1,5}+\\.?[0-9]*?")) {
+					alertmessage += "Your Bidding Increments is not valid<br>";
+					valid = false;
+				} else {
+					valid = valid && true;
+				}
+			}
+			if (endtime.equals("")) {
+				alertmessage += "Your End Time can not be empty<br>";
+				valid = false;
+			} else {
+				if (!endtime
+						.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")) {
+					alertmessage += "Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
+					valid = false;
+				} else {
+					valid = valid && true;
+				}
+			}
+
+			if (postcode.isEmpty()) {
+				alertmessage += "Your Postal Code can not be empty<br>";
+				valid = false;
+			} else {
+				if (!postcode.matches("[0-9]{4,5}+")) {
+					alertmessage += "Your Postal Address is not valid<br>";
+					valid = false;
+				} else {
+					valid = valid && true;
+				}
+			}
+
+			request.setAttribute("valid", valid);
+
+			if (valid) {
+				alertmessage = "Congratulation! You have successfully add auction item "
+						+ itemname + "!<br>";
 				item.setId(UUID.randomUUID().toString());
-				item.setOwnerId(5);
-		//		item.setOwnerId(ownerId);
-				//item.setCategory(request.getParameter("category"));
+				// item.setOwnerId(5);
+				item.setOwnerId(ownerId);
+				// item.setCategory(request.getParameter("category"));
 				item.setItemName(itemname);
 				item.setCategory(category);
 				item.setDescription(description);
@@ -212,13 +196,14 @@ public class AddNewAuctionItemCommand implements Command {
 					e1.printStackTrace();
 				}
 				item.setNotes(notes);
+				item.setStatus(1);
+				auctionService.addItem(item);
+			} else {
+				alertmessage = "Your auction item has not been added, there are some errors in your inputs <br>"
+						+ alertmessage;
 			}
-	        else {
-	        	alertmessage = "Your auction item has not been added, there are some errors in your inputs <br>"+alertmessage;
-	        }
 		}
-		
-		auctionService.addItem(item);
+
 		request.setAttribute("message", alertmessage);
 		request.setAttribute("item", item);
 		return "/addAuction.jsp";

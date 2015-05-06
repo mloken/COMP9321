@@ -19,6 +19,7 @@ public class AuctionItemBean {
 	private float currentBid;
 	private Date endTime;
 	private String notes;
+	private int status;
 	
 	public int getOwnerId() {
 		return ownerId;
@@ -97,5 +98,11 @@ public class AuctionItemBean {
 	}
 	public void setNotes(String notes) {
 		this.notes = notes;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
 }

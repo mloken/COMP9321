@@ -163,7 +163,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("insert into tbl_items (id, owner_id, item_name, category, description, picture, streetAddress, city, state, country, postalCode, reservePrice, biddingStartPrice, biddingIncrements, bidPrice, endTime, notes) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					.prepareStatement("insert into tbl_items (id, owner_id, item_name, category, description, picture, streetAddress, city, state, country, postalCode, reservePrice, biddingStartPrice, biddingIncrements, bidPrice, endTime, notes, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, item.getId());
 			stmt.setInt(2, item.getOwnerId());
 			stmt.setString(3, item.getItemName());
@@ -183,6 +183,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 					.getTime());
 			stmt.setDate(16, sqlDate);
 			stmt.setString(17, item.getNotes());
+			stmt.setInt(18, item.getStatus());
 
 			int n = stmt.executeUpdate();
 			if (n != 1)
