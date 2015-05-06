@@ -33,8 +33,10 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("search", new SearchCommand());
 		commands.put("itemDetail", new ItemDetailCommand());
 		commands.put("showWishList", new ShowWishListCommand());
-//		commands.put("addToWishList", new AddToWishListCommand());
-//		commands.put("deleteFromWishList", new DeleteFromWishListCommand());
+		commands.put("addToWishList", new AddToWishListCommand());
+		commands.put("deleteWishList", new DeleteWishListCommand());
+		commands.put("bid", new BidCommand());
+
 //		commands.put("userProfile", new UserProfileCommand());
 		
 	}

@@ -20,13 +20,19 @@ public class WishlistServiceImpl implements WishlistService{
 		return wishlist;
 	}
 	@Override
-	public WishlistItemBean addToWishlist(WishlistItemBean item) {
-		WishlistItemBean addedItem = wishlistDao.addToWishlist(item);
+	public String addToWishlist(String itemId, int userId) {
+		String addedItem = wishlistDao.addToWishlist(itemId,userId);
 		return addedItem;
 	}
 	@Override
 	public WishlistItemBean deleteWishlistItemById(int id) {
 		WishlistItemBean deletedItem = wishlistDao.deleteWishlistItemById(id);
+		return deletedItem;
+	}
+	
+	@Override
+	public WishlistItemBean deleteWishlistItemByItemAndUser(String itemId,int userId) {
+		WishlistItemBean deletedItem = wishlistDao.deleteWishlistItemByItemAndUser(itemId, userId);
 		return deletedItem;
 	}
 }

@@ -27,6 +27,10 @@ public class SearchCommand implements Command {
 		ArrayList<AuctionItemBean> auctionItems = null;
 		String searchKey = request.getParameter("searchKey");
 		request.setAttribute("searchKey", searchKey);
+		
+		String message =request.getParameter("message");
+		System.out.println("message"+message);
+		request.setAttribute("message", message);
 		auctionItems = auctionService.getItemBySearchKey(searchKey);
 		if (auctionItems == null) {
 			System.out.println("searchKey == null");

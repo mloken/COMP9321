@@ -7,12 +7,12 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <title>User Profile</title>
 </head>
 <%@ include file="header.jsp"%>
 <body>	
-		<center><h3>User Profile</h3></center>
+		<center><h1><b>User Profile</b></h1></center>
 		<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
 		  <tr>
 		    

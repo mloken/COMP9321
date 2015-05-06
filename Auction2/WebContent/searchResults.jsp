@@ -15,33 +15,45 @@
 </head>
 <body >
 <% String searchKey= (String) request.getAttribute("searchKey");%>
-<center><h3>Welcome back, ${user.username}!</h3></center>
 
-	<form action="dispatcher?operation=search" method="post">
-		 
-		 
-		 <div class="col-lg-6">
-	    	<div style="width:50%;margin:0px auto;"  class="input-group">
-				<input type="text" class="form-control"  name="searchKey" placeholder="New Search for...">
-	     		<span class="input-group-btn">
-	       		 <button type="submit" class="btn btn-primary " type="button">Go!</button>
-	      		</span>
-	   		 </div><!-- /input-group -->
-	 	 </div><!-- /.col-lg-6 -->
-	</form>
-	
-	<form method="get" action="http://www.google.com/search">
-		<div class="col-lg-6">
-			<div style="width:50%;margin:0px auto;"  class="input-group">
-			<input type="text"  class="form-control"  name="q"  placeholder="Or search on Google..."	/>
-			<span class="input-group-btn">
-	       		 <button type="submit" class="btn btn-warning " type="button">Go!</button>
-	      	</span>
-			</div>
+<center>
+   <div class="container">
+		<div class="row">
+			<form action="dispatcher?operation=search" method="post">
+				 <div class="col-md-offset-2 col-md-8">
+			    	<div style="width:50%;"  class="input-group">
+			    		
+						<input type="text" class="form-control"  name="searchKey" placeholder="New Search for...">
+			     		<span class="input-group-btn">
+			       		 <button type="submit" class="btn btn-primary " type="button">Go!</button>
+			      		</span>
+			      		
+			   		 </div><!-- /input-group -->
+			 	 </div><!-- /.col-lg-6 -->
+			</form>
 		</div>
-	</form>
+		<br>
+		<div class="row">
+			<form method="get" action="http://www.google.com/search">
+				<div class="col-md-offset-2 col-md-8">
+					<div style="width:50%;"  class="input-group">
+					
+					<input type="text"  class="form-control"  name="q"  placeholder="Or search on Google..."	/>
+					<span class="input-group-btn">
+			       		 <button type="submit" class="btn btn-warning " type="button">Go!</button>
+			      	</span>
+			      	
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</center>
+	<br>
 	<script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script>
-	<br><br>  
+	
+	<c:if test="${!empty message}"><center><font color= "red" >${message}</font></center></c:if>
+
 	<table class="table table-hover"  style="margin:0px auto; width:80%" >
 		<tr>
 		   		<th>
@@ -60,15 +72,19 @@
 		   			ID
 		   		</th>
 		   		<th>
-		   			
+		   			Add Wishlist
 		   		</th>
 		
 		</tr>
 	 <c:choose>
 	 	<c:when test="${empty auctionItems}">
-					<center><h2>Search for " <%out.println(searchKey);%> ": No results found</h2></center>
+					<center><h2>Search for "${searchKey}": No results found</h2></center>
 		</c:when>
 		 <c:otherwise>
+		 	<c:if test="${!empty searckKey}">
+		 			<center><h2>Search for "${searchKey}"</h2></center>
+		 	</c:if>
+		 	
 			<c:forEach var="auctionItem" items="${auctionItems}">
 			   <tr>
 			   		<td>
@@ -90,8 +106,10 @@
 			   			${auctionItem.id}
 			   		</td>
 			   		<td>
-			   			 <form ACTION='AddWishList' METHOD='post'>
-							<input type="hidden" name="id" value="${auctionItem.id}">
+			   			 <form ACTION='dispatcher?operation=addToWishList' METHOD='post'>
+							<input type="hidden" name="itemId" value="${auctionItem.id}">
+							<input type="hidden" name="searchKey" value="${searchKey}">
+							<input type="hidden" name="message" value="Item Added to Wishlist">
 							<input type="submit" class="btn btn-primary" value="Add">
 						</form>		
 			   		</td>

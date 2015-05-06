@@ -7,12 +7,19 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <title>Item Detail</title>
 </head>
 <%@ include file="header.jsp"%>
 <body>	
-
+<%
+	if (request.getAttribute("valid")!=null && request.getAttribute("valid").toString()=="false"){
+		%>
+		<center><font color= "red" >${message}</font></center>
+		<%
+	}
+%>
+	<form ACTION='dispatcher?operation=bid' METHOD='POST'>
 		<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
 		  <tr>
 		    
@@ -23,14 +30,14 @@
 		    <td colspan="2">${auctionItem.category}</td>
 		  </tr>
 		  <tr>
-		    <td colspan="2"><img width="600px" src="${auctionItem.picture}"></td>
+		    <td colspan="2"><img width="400px" src="${auctionItem.picture}"></td>
 		  </tr>
 		  <tr>
 		    <td colspan="2">${auctionItem.description}</td>
 		  </tr>
 		  <tr>
-		    <td >reservePrice</td>
-		    <td >${auctionItem.reservePrice}</td>
+		    <td >Current Price</td>
+		    <td >${currentprice}</td>
 		  </tr>
 		  <tr>
 		    <td >biddingStartPrice</td>
@@ -68,16 +75,31 @@
 			<td>Postal Code</td>
 			<td>${auctionItem.address.postalCode }</td>
 		 </tr>
+		  <tr>
+		 	<td>Input Bid Price</td>
+		 	<td><input type="text" class="form-control" id="bidPrice" name="bidPrice" placeholder="0.00" required></td>
+		 </tr>
 		  
 		</table>
 		<br><br>
 		<center>
-		<form ACTION='AddWishList' METHOD='GET'>
-							<input type="hidden" name="id" value="${auctionItem.id}">
-							<input type="submit" class="btn btn-primary" value="Cart">
+							<input type="hidden" name="iid" value="${auctionItem.id}">
+							<input type="hidden" name="uid" value="${user.uid}">
+							<input type="submit" class="btn btn-danger" value="Bid">
+		</center>
 		</form>		
+		
+		<br><br>
+
+		<center>
+		<form ACTION='dispatcher?operation=addToWishList' METHOD='post'>
+							<input type="hidden" name="itemId" value="${auctionItem.id}">
+							<input type="hidden" name="searchKey" value="">
+							<input type="hidden" name="message" value="Item Added to Wishlist">
+							<input type="submit" class="btn btn-primary" value="Add to Wishlist">
+		</form>			
 		</center>
 		<br><br>
-		<center><a href= "searchResults.jsp" >Back to shopping</a></center>  
+		<center><a href= homepage.jsp" class="btn btn-warning">Back to shopping</a></center>  
 </body>
 </html>

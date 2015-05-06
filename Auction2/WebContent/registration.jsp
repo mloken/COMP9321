@@ -31,8 +31,8 @@ if (request.getAttribute("newuser")==null){
 			</div>
 		<!-- MESSAGE : SUCCESS OR FAILED show message from arraylist-->
 		<div class="row">
-			<div class="col-lg-2 col-md-push-1">
-		            <div class="col-md-12">
+			<div class="col-md-offset-2 col-md-8">
+		           
 		            <%
 		            	if (request.getAttribute("valid")!=null){
 		            		if (request.getAttribute("valid").toString()=="true"){
@@ -54,13 +54,13 @@ if (request.getAttribute("newuser")==null){
 		                    
 		                    </span></strong>
 		                </div>
-		            </div>
+		            
 		    </div>
 	    </div>
 	    
 	    <div class="row">
 	        <form role="form" action="dispatcher?operation=register" method="post">
-	            <div class="col-lg-6">
+	            <div class="col-md-offset-2 col-md-8">
 	                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
 	                <div class="form-group">
 	                    <label for="InputName">Enter First Name</label>

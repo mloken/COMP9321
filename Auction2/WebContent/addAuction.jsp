@@ -7,12 +7,11 @@
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script></head>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
 <title>Add a new auction</title>
 </head>
 <body>
-	
-	<%@ include file="header.jsp"%>
+<%@ include file="header.jsp"%>
 
 	
 	<% 
@@ -60,7 +59,7 @@
 		    
 		    <div class="row">
 		        <form role="form" action="dispatcher?operation=addNewAuctionItem" method="post">
-		            <div class="col-lg-6">
+		            <div class="col-md-offset-2 col-md-8">
 		                <div class="well well-sm"><strong><span class="glyphicon glyphicon-asterisk"></span>Required Field</strong></div>
 		                <div class="form-group">
 		                    <label for="item_name">Title</label>

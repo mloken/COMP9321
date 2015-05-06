@@ -16,30 +16,34 @@
     
   <body style= "text-align:center" >  
   <h1><b>Your Wishlist</b></h1>  
-    <h2>____________</h2>  
-    <c:if test= "${empty wishlistItems}">  
+    
+    <c:if test= "${empty auctionItems}">  
  <font color= "red" >Still empty</font><br/>  
  
    you can  
     <a href= "homepage.jsp" >go shopping</a>  
     </c:if >  
-    <c:if test= "${!empty wishlistItems}" >  
+    <c:if test= "${!empty auctionItems}" >  
       <table class="table table-hover"   style="margin:0px auto; width:70%" >  
         <tr> 
-           <th>ID</th>
-           <th>Item name</th>  
+           <th>Item name</th>
            <th>Picture</th>  
-           <th>Description</th>  
-             
+           <th>Current price</th>  
+           <th>Item Detail</th>  
+           <th>Delete</th>  
         </tr>  
-        <c:forEach var="item"  items= "${wishlistItems}" >  
+        <c:forEach var="item"  items= "${auctionItems}" >  
           <tr>  
-           <td>${item.id}</td>  
-           <td>${item.userId}</td>  
-           <td>${item.itemId}</td>
-             
+           <td>${item.itemName}</td>  
+           <td><img width="150px" src="${item.picture}"> 
+           <td>${item.currentBid}</td>
+           <td><form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
+					<input type="hidden" name="id" value="${item.id}">
+					<input type="submit" class="btn btn-warning" value="Detail">
+				</form>	
+		   </td>  
            <td>  
-               <form ACTION='dispatcher?operation=deleteFromWishList' METHOD='GET'>
+               <form ACTION='dispatcher?operation=deleteWishList' METHOD='post'>
 							<input type="hidden" name="id" value="${item.id}">
 							<input type="submit" class="btn btn-danger" value="Delete">
 				</form>	
