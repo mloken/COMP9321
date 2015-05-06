@@ -138,18 +138,18 @@ public class AddNewAuctionItemCommand implements Command {
 					valid = valid && true;
 				}
 			}
-			if (endtime.equals("")) {
-				alertmessage += "Your End Time can not be empty<br>";
-				valid = false;
-			} else {
-				if (!endtime
-						.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")) {
-					alertmessage += "Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
-					valid = false;
-				} else {
-					valid = valid && true;
-				}
-			}
+//			if (endtime.equals("")) {
+//				alertmessage += "Your End Time can not be empty<br>";
+//				valid = false;
+//			} else {
+//				if (!endtime
+//						.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")) {
+//					alertmessage += "Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
+//					valid = false;
+//				} else {
+//					valid = valid && true;
+//				}
+//			}
 
 			if (postcode.isEmpty()) {
 				alertmessage += "Your Postal Code can not be empty<br>";
