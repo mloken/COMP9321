@@ -163,10 +163,10 @@
 		                <div class="form-group">
 		                    <label for="endTime">End Time</label>
 		                    <div class="input-group">
-		                        <input type="text" class="form-control" id="endTime" name="endTime" placeholder="Eg. 2015-01-31-23:59" required>
-		                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+		                        <input type="text" class="form-control" id="endTime" name="endTime" placeholder="Eg. 2015-01-31-23:59">
+		                        <span class="input-group-addon"></span>
 		                    </div>
-		                    <p class="help-block">Must have format: yyyy-MM-dd-hh:mm</p>
+		                    <p class="help-block">Must have format: yyyy-MM-dd-hh:mm (If left empty: end time set to 10 minutes from now)</p>
 		                </div>
 		                <div class="form-group">
 		                    <label for="notes">Notes</label>
