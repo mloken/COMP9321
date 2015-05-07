@@ -24,19 +24,23 @@ public class LoginCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String message = "";
 		try {
 			UserBean user = userService.login(request.getParameter("username"),
 					request.getParameter("password"));
 			if (user == null) {
-				System.out.println("user == null");
+				message += "Wrong username and/or password <br>";
+				request.setAttribute("message", message);
+				request.setAttribute("valid", false);
 				return "/login.jsp";
 			}
+			request.setAttribute("valid", true);
+			request.setAttribute("message", message);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", user);
-			
-			return "/homepage.jsp";
+			return "homepage";
 		} catch (UserLoginFailedException e) {
-			e.printStackTrace();
+			message += "Can't open database <br>";
 			return "/loginfailed.jsp";
 		}
 	}

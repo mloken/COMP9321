@@ -19,7 +19,6 @@ public class LogoutCommand implements Command{
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			session.invalidate();
-			System.out.println("Log Out");
 		}
 		return "/login.jsp";
 	}

@@ -9,7 +9,7 @@
 <title>Admin menu</title>
 </head>
 <body>
-	<a href="login.jsp">Back to login</a>
+	<a href="dispatcher?operation=logout">Log out</a>
 	<c:if test="${user.uid < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
 		<h2>Admin functions</h2>

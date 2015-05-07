@@ -40,7 +40,6 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			stmt.setString(2, password);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				System.out.println("FOUND USER");
 				UserBean user = createUserBean(rs);
 				stmt.close(); 
 				return user;

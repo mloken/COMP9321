@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
 
 		try {
 			user = userDao.findByLoginDetails(username, password);
-			if (user.getAccessLevel() == 1) {
+			if (user != null && user.getAccessLevel() == 1) {
 				return user;
 			} else {
 				return null;
