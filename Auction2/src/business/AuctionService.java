@@ -17,5 +17,7 @@ public interface AuctionService {
 	
 	ArrayList<AuctionItemBean> getAllAuctionItems();
 	
+	ArrayList<AuctionItemBean> getAllActiveAuctionItems();
+	
 	List<AuctionItemBean> getTenRandomAuctionItems();
 }

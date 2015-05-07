@@ -40,5 +40,18 @@ public class DeleteWishListCommand implements Command {
 		wishlistItem = wishlistService.deleteWishlistItemByItemAndUser(itemId,currentUser.getUid());
 		
 		return "showWishList";
+<<<<<<< .mine
+		return "showWishList";
+
+
+
+
+=======
+		
+//		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=showWishList");
+//		rd.forward(request, response);
+//		return request.getParameter("id");
+		return "showWishList";
+>>>>>>> .theirs
 	}
 }

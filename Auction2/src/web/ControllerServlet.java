@@ -36,6 +36,8 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("addToWishList", new AddToWishListCommand());
 		commands.put("deleteWishList", new DeleteWishListCommand());
 		commands.put("bid", new BidCommand());
+		commands.put("adminBanUser", new AdminBanUserCommand());
+		commands.put("adminRemoveItem", new AdminRemoveItemCommand());
 
 //		commands.put("userProfile", new UserProfileCommand());
 		

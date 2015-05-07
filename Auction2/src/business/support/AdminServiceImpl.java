@@ -52,15 +52,33 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public UserBean banUserById(int uid) {
-		UserBean deletedUser = userDao.banUserById(uid);
-		return deletedUser;
+	public boolean banUserById(int uid) {
+		boolean success = userDao.banUserById(uid);
+		return success;
 	}
 
+	@Override
+	public boolean unbanUserById(int uid) {
+		boolean success = userDao.unbanUserById(uid);
+		return success;
+	}
+	
 	@Override
 	public ArrayList<UserBean> getAllUsers() {
 		ArrayList<UserBean> allUsers = userDao.getAllUsers();
 		return allUsers;
+	}
+
+	@Override
+	public ArrayList<UserBean> getAllRegularUsers() {
+		ArrayList<UserBean> allUsers = userDao.getAllUsers();
+		ArrayList<UserBean> regUsers = new ArrayList<UserBean>();
+		for(int i = 0; i < allUsers.size(); i++){
+			int accessLvl = allUsers.get(i).getAccessLevel();
+			if(accessLvl == 2 || accessLvl == 4)
+				regUsers.add(allUsers.get(i));
+		}
+		return regUsers;
 	}
 
 }

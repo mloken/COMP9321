@@ -42,6 +42,18 @@ public class AuctionServiceImpl implements AuctionService{
 		return allItems;
 	}
 	
+
+	@Override
+	public ArrayList<AuctionItemBean> getAllActiveAuctionItems() {
+		ArrayList<AuctionItemBean> allItems = auctionItemDao.getAllAuctionItems();
+		ArrayList<AuctionItemBean> allActiveItems = new ArrayList<AuctionItemBean>();
+		for(int i = 0 ; i < allItems.size(); i++){
+			if(allItems.get(i).getEndTime().getTime() > System.currentTimeMillis())
+				allActiveItems.add(allItems.get(i));
+		}
+		return allActiveItems;
+	}
+	
 	@Override
 	public List<AuctionItemBean> getTenRandomAuctionItems() {
 		ArrayList<AuctionItemBean> allItems = getAllAuctionItems();
