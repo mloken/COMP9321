@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 import common.DBConnectionFactory;
@@ -215,9 +219,13 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 			stmt.setFloat(13, item.getBiddingStartPrice());
 			stmt.setFloat(14, item.getBiddingIncrements());
 			stmt.setFloat(15, item.getCurrentBid());
-			java.sql.Date sqlDate = new java.sql.Date(item.getEndTime()
-					.getTime());
-			stmt.setDate(16, sqlDate);
+//			java.sql.Date sqlDate = new java.sql.Date(item.getEndTime()
+//					.getTime());
+//			stmt.setDate(16, sqlDate);
+			java.sql.Timestamp sqlTimestamp = new java.sql.Timestamp(item.getEndTime().getTime());
+			System.out.println("sqlTimestamp:" + sqlTimestamp);
+			stmt.setTimestamp(16, sqlTimestamp);
+			
 			stmt.setString(17, item.getNotes());
 			stmt.setInt(18, item.getStatus());
 
@@ -324,7 +332,18 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		item.setBiddingStartPrice(rs.getFloat("biddingStartPrice"));
 		item.setBiddingIncrements(rs.getFloat("biddingIncrements"));
 		item.setCurrentBid(rs.getFloat("bidPrice"));
-		item.setEndTime(rs.getDate("endTime"));
+		
+		//Date handling (timestamp > long > date > formated date string > date)
+		java.sql.Timestamp sqlTimestamp = rs.getTimestamp("endTime");
+		long timeMillis = sqlTimestamp.getTime();
+		Date date = new Date(timeMillis);
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd-kk:mm");
+		try {
+			item.setEndTime(df.parse(df.format(date)));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 		item.setNotes(rs.getString("notes"));
 		item.setStatus(rs.getInt("status"));
 		return item;

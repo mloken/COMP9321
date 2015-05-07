@@ -150,7 +150,14 @@ public class AddNewAuctionItemCommand implements Command {
 //					valid = valid && true;
 //				}
 //			}
-
+			if (endtime.isEmpty()){
+				/*Sets the time to current time + 10 minutes*/
+				long systemTime = System.currentTimeMillis();
+				Date closingTime = new Date(systemTime + 10*60*1000);
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd-kk:mm");
+				endtime = df.format(closingTime);
+			}
+			
 			if (postcode.isEmpty()) {
 				alertmessage += "Your Postal Code can not be empty<br>";
 				valid = false;

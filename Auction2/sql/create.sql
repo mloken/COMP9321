@@ -26,7 +26,7 @@ CREATE TABLE TBL_ITEMS (
     biddingIncrements FLOAT,
     bidPrice FLOAT,
     notes VARCHAR(200),
-    endTime DATETIME,
+    endTime TIMESTAMP,
     status INTEGER NOT NULL,
     CONSTRAINT pk_items PRIMARY KEY (id),
     CONSTRAINT fk_owner_id FOREIGN KEY (owner_id) REFERENCES TBL_USERS(uid));
