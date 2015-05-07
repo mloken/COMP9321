@@ -52,5 +52,9 @@ public class BidServiceImpl implements BidService{
 		System.out.println("delete All Bid Items");
 		bidDao.deleteAllBidItems();
 	}
+	
+	public ArrayList<BidBean> getBidItemsByUser(int userid){
+		return bidDao.getBidItemsByUser(userid);
+	}
 
 }

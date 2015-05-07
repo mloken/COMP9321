@@ -11,6 +11,7 @@ import common.DBConnectionFactory;
 import common.ServiceLocatorException;
 import beans.AddressBean;
 import beans.AuctionItemBean;
+import beans.BidBean;
 import dao.AuctionItemDAO;
 import dao.DataAccessException;
 import dao.GenericDAO;
@@ -30,8 +31,9 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		Connection con = null;
 		try {
 			con = services.createConnection();
-			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE id = ?");
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE id = ? AND reservePrice <> ?");
 			stmt.setString(1, id);
+			stmt.setFloat(2, 0);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				AuctionItemBean contact = createAuctionItemBean(rs);
@@ -65,13 +67,17 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		try {
 			
 			con = services.createConnection();
-			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE UPPER(CATEGORY) LIKE UPPER(?) OR UPPER(ITEM_NAME) LIKE UPPER(?) OR UPPER(DESCRIPTION) LIKE UPPER(?)");
-			stmt.setString(1, "%"+searchKey+"%");
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE reservePrice <> ? AND (UPPER(CATEGORY) LIKE UPPER(?) OR UPPER(ITEM_NAME) LIKE UPPER(?) OR UPPER(DESCRIPTION) LIKE UPPER(?))");
 			stmt.setString(2, "%"+searchKey+"%");
 			stmt.setString(3, "%"+searchKey+"%");
+			stmt.setString(4, "%"+searchKey+"%");
+			stmt.setFloat(1, 0);
 			rs = stmt.executeQuery();
-			while (rs.next())
-				list.add(createAuctionItemBean(rs));
+			while (rs.next()){
+				AuctionItemBean i = createAuctionItemBean(rs); 
+				list.add(i);
+				//System.out.println("add item : " + i.getItemName() +" price : "+i.getReservePrice());
+			}
 			
 		} catch (ServiceLocatorException e) {
 			throw new DataAccessException("Unable to retrieve connection; "
@@ -93,6 +99,35 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		return list;
 	}
 	
+	@Override
+	public AuctionItemBean updatePriceToZero(AuctionItemBean item){
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_items SET reservePrice = ? WHERE id = ?");
+
+			update.setFloat(1, 0);
+			update.setString(2, item.getId());
+			
+			int n = update.executeUpdate();
+			} catch (ServiceLocatorException e) {
+				throw new DataAccessException("Unable to retrieve connection; "
+						+ e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new DataAccessException("Unable to execute query; "
+						+ e.getMessage(), e);
+			} finally {
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+		}
+		return item;
+	}
+	
 	public ArrayList<AuctionItemBean> getAllAuctionItems(){
 		Connection con = null;
 		ResultSet rs = null;
@@ -101,7 +136,8 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		try {
 			
 			con = services.createConnection();
-			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS");
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE reservePrice <> ?");
+			stmt.setFloat(1, 0);
 			rs = stmt.executeQuery();
 			while (rs.next())
 				list.add(createAuctionItemBean(rs));

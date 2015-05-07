@@ -230,4 +230,38 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 		return null;
 	}
 	
+	public ArrayList<BidBean> getBidItemsByUser(int userid){
+		ArrayList<BidBean> list = new ArrayList<>();
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_BID WHERE bidder_id = ?");
+			stmt.setInt(1, userid);
+			rs = stmt.executeQuery();
+			while (rs.next())
+				list.add(createBidItemBean(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
 }
