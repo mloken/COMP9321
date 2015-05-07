@@ -44,6 +44,7 @@ public class BidCommand implements Command {
 		Float reserveprice = item.getReservePrice();
 		Float startprice = item.getBiddingStartPrice();
 		Float bidprice = Float.parseFloat(request.getParameter("bidPrice"));
+		boolean win = false;
 		
 		boolean resetBid = false; //set this to true if you want to reset Bid List --> debugging purpose
 		if (resetBid){
@@ -51,8 +52,15 @@ public class BidCommand implements Command {
 			resetBid = false;
 		}
 		
+		if (bidprice > reserveprice){//win because bid price is higher than reserve price
+			System.out.println(userid + " win item "+item_id);
+			//Remove item from auctionlist & auction table
+			auctionService.updatePriceToZero(item);
+			win = true;
+		}
+		
 		if (bidItem == null) {
-			if ((bidprice - startprice) < 0){
+			if ((bidprice - startprice) < 0){ //user put bid price less than bidding start price
 				System.out.println("lower bid price");
 				request.setAttribute("valid", false);
 				request.setAttribute("message", "Please put bid price higher than start price<br>");
@@ -67,13 +75,9 @@ public class BidCommand implements Command {
 			bidItem.setDate(new Date());
 			bidService.addBidItem(bidItem);
 			System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice());
-			
-			ArrayList<BidBean> bidlist = bidService.getAllBidItems();
-			request.setAttribute("bidlist", bidlist);
-			return "/bidSuccess.jsp";
 		}
 		else{
-			if ((bidprice - bidItem.getPrice()) < inc){
+			if ((bidprice - bidItem.getPrice()) < inc){ //user put bid price with increment lower than minimum increment from current price
 				System.out.println("less than increment");
 				request.setAttribute("valid", false);
 				request.setAttribute("message", "Please put bid price higher than bidding increment value from current price<br>");
@@ -82,11 +86,16 @@ public class BidCommand implements Command {
 				return "/itemDetail.jsp";
 			}
 			bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
-			request.setAttribute("bidItem", bidItem);
-			ArrayList<BidBean> bidlist = bidService.getAllBidItems();
-			request.setAttribute("bidlist", bidlist);
-			return "/bidSuccess.jsp";
+			
 		}
+		
+		request.setAttribute("bidItem", bidItem);
+		ArrayList<BidBean> bidlist = bidService.getAllBidItems();
+		request.setAttribute("bidlist", bidlist);
+		request.setAttribute("valid", true);
+		request.setAttribute("win", win);
+		return "/bidSuccess.jsp";
+		
 //		return searchKey;
 		
 	}

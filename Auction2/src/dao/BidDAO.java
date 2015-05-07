@@ -16,5 +16,7 @@ public interface BidDAO {
 	
 	ArrayList<BidBean> getAllBidItems();
 	
+	ArrayList<BidBean> getBidItemsByUser(int userid);
+	
 	BidBean deleteAllBidItems();
 }

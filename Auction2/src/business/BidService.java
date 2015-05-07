@@ -17,4 +17,6 @@ public interface BidService {
 	void deleteBidItem(String id);
 	
 	ArrayList<BidBean> getAllBidItems();
+	
+	ArrayList<BidBean> getBidItemsByUser(int userid);
 }

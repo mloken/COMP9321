@@ -13,6 +13,8 @@ public interface AuctionService {
 	
 	void deleteItem(String id);
 
+	AuctionItemBean updatePriceToZero(AuctionItemBean item);
+	
 	ArrayList<AuctionItemBean> getItemBySearchKey(String searchKey);
 	
 	ArrayList<AuctionItemBean> getAllAuctionItems();

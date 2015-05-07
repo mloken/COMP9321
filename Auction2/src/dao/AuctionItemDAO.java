@@ -14,6 +14,8 @@ public interface AuctionItemDAO {
 
 	ArrayList<AuctionItemBean> getAuctionItemBySearchKey(String searchKey);
 	
+	AuctionItemBean updatePriceToZero(AuctionItemBean item);
+	
 	ArrayList<AuctionItemBean> getAllAuctionItems();
 	
 }
