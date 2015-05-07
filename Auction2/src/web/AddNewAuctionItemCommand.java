@@ -144,19 +144,28 @@ public class AddNewAuctionItemCommand implements Command {
 //			} else {
 //				if (!endtime
 //						.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")) {
-//					alertmessage += "Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
+//					alertmessage += "Your end time is invalid. Please follow the format yyyy-MM-dd-kk:mm<br>";
 //					valid = false;
 //				} else {
 //					valid = valid && true;
 //				}
 //			}
+			
 			if (endtime.isEmpty()){
 				/*Sets the time to current time + 10 minutes*/
 				long systemTime = System.currentTimeMillis();
 				Date closingTime = new Date(systemTime + 10*60*1000);
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd-kk:mm");
 				endtime = df.format(closingTime);
-			}
+			} 
+//			else {
+//				if (!endtime.matches("blablabla")){
+//					alertmessage += "Your end time is invalid. Please follow the format yyyy-MM-dd-kk:mm<br>";
+//					valid = false;
+//				} else {
+//					valid = valid && true;
+//				}
+//			}
 			
 			if (postcode.isEmpty()) {
 				alertmessage += "Your Postal Code can not be empty<br>";
