@@ -40,8 +40,8 @@ public class AddToWishListCommand implements Command {
 		
 		wishlistItems = wishlistService.addToWishlist(itemId,userId);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=search");
-		rd.forward(request, response);
-		return itemId;
+//		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=search");
+//		rd.forward(request, response);
+		return "search";
 	}
 }
