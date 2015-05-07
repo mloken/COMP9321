@@ -9,7 +9,9 @@ public interface AdminService {
 	
 	UserBean login(String username, String password) throws UserLoginFailedException;
 	
-	AuctionItemBean haltAuctionById(String id);
+	boolean haltAuctionById(String id);
+
+	boolean unhaltAuctionById(String itemIdToUnhalt);
 	
 	AuctionItemBean deleteItemById(String id);
 	

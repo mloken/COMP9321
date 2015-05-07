@@ -40,9 +40,15 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public AuctionItemBean haltAuctionById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean haltAuctionById(String id) {
+		boolean success = auctionItemDao.haltAuctionItemById(id);
+		return success;
+	}
+	
+	@Override
+	public boolean unhaltAuctionById(String id) {
+		boolean success = auctionItemDao.unhaltAuctionItemById(id);
+		return success;
 	}
 
 	@Override
@@ -80,5 +86,4 @@ public class AdminServiceImpl implements AdminService {
 		}
 		return regUsers;
 	}
-
 }

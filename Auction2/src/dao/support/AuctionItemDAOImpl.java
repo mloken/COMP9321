@@ -243,6 +243,68 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		return item;
 	}
 	
+	@Override
+	public boolean haltAuctionItemById(String id) {
+		Connection con = null;
+		boolean success = false;
+		try {
+			con = services.createConnection();
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_items SET status = ? WHERE id = ?");
+
+			update.setFloat(1, 0);
+			update.setString(2, id);
+			
+			update.executeUpdate();
+			success = true;
+			} catch (ServiceLocatorException e) {
+				throw new DataAccessException("Unable to retrieve connection; "
+						+ e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new DataAccessException("Unable to execute query; "
+						+ e.getMessage(), e);
+			} finally {
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+		}
+		return success;
+	}
+
+	@Override
+	public boolean unhaltAuctionItemById(String id) {
+		Connection con = null;
+		boolean success = false;
+		try {
+			con = services.createConnection();
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_items SET status = ? WHERE id = ?");
+
+			update.setFloat(1, 1);
+			update.setString(2, id);
+			
+			update.executeUpdate();
+			success = true;
+			} catch (ServiceLocatorException e) {
+				throw new DataAccessException("Unable to retrieve connection; "
+						+ e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new DataAccessException("Unable to execute query; "
+						+ e.getMessage(), e);
+			} finally {
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+		}
+		return success;
+	}
+	
 	private AuctionItemBean createAuctionItemBean(ResultSet rs) throws SQLException {
 		AuctionItemBean item = new AuctionItemBean();
 		item.setId(rs.getString("id"));
@@ -264,6 +326,8 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		item.setCurrentBid(rs.getFloat("bidPrice"));
 		item.setEndTime(rs.getDate("endTime"));
 		item.setNotes(rs.getString("notes"));
+		item.setStatus(rs.getInt("status"));
 		return item;
 	}
+
 }

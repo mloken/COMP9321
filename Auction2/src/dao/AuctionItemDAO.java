@@ -17,5 +17,9 @@ public interface AuctionItemDAO {
 	AuctionItemBean updatePriceToZero(AuctionItemBean item);
 	
 	ArrayList<AuctionItemBean> getAllAuctionItems();
+
+	boolean haltAuctionItemById(String id);
+	
+	boolean unhaltAuctionItemById(String id);
 	
 }
