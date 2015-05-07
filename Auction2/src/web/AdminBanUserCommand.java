@@ -24,10 +24,39 @@ public class AdminBanUserCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+
+		String userIdToBan = request.getParameter("userIdToBan");
+		String userIdToUnban = request.getParameter("userIdToUnban");
 		
-		ArrayList<UserBean> allUsers = adminService.getAllUsers();
-		HttpSession session = request.getSession();
-		session.setAttribute("allUsers", allUsers);
+		if(userIdToBan != null){
+			System.out.println("userIdToBan exists!");
+			int userId = Integer.parseInt(userIdToBan);
+			boolean success = adminService.banUserById(userId);
+			if(success){
+				System.out.println(userIdToBan + " was banned");
+				ArrayList<UserBean> allUsers = adminService.getAllUsers();
+				HttpSession session = request.getSession();
+				session.setAttribute("allUsers", allUsers);
+			} else {
+				System.out.println("Ban was not succcessful");
+			}
+		}else if (userIdToUnban != null){
+			System.out.println("userIdToUnban exists!");
+			int userId = Integer.parseInt(userIdToUnban);
+			boolean success = adminService.unbanUserById(userId);
+			if(success){
+				System.out.println(userIdToBan + " was unbanned");
+				ArrayList<UserBean> allUsers = adminService.getAllUsers();
+				HttpSession session = request.getSession();
+				session.setAttribute("allUsers", allUsers);
+			} else {
+				System.out.println("Unban was not succcessful");
+			}
+		}else{
+			ArrayList<UserBean> allUsers = adminService.getAllUsers();
+			HttpSession session = request.getSession();
+			session.setAttribute("allUsers", allUsers);
+		}
 		
 		return "/adminBanUser.jsp";
 	}

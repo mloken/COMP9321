@@ -13,7 +13,9 @@ public interface AdminService {
 	
 	AuctionItemBean deleteItemById(String id);
 	
-	UserBean banUserById(int uid);
+	boolean banUserById(int uid);
+
+	boolean unbanUserById(int userId);
 	
 	ArrayList<UserBean> getAllUsers();
 

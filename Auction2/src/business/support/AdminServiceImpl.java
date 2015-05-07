@@ -52,15 +52,22 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public UserBean banUserById(int uid) {
-		UserBean deletedUser = userDao.banUserById(uid);
-		return deletedUser;
+	public boolean banUserById(int uid) {
+		boolean success = userDao.banUserById(uid);
+		return success;
 	}
 
+	@Override
+	public boolean unbanUserById(int uid) {
+		boolean success = userDao.unbanUserById(uid);
+		return success;
+	}
+	
 	@Override
 	public ArrayList<UserBean> getAllUsers() {
 		ArrayList<UserBean> allUsers = userDao.getAllUsers();
 		return allUsers;
 	}
+
 
 }

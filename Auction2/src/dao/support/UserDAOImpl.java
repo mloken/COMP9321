@@ -134,9 +134,9 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 	}	
 
 	@Override
-	public UserBean banUserById(int uid) {
+	public boolean banUserById(int uid) {
 		Connection con = null;
-		UserBean user = null;
+		boolean success = false;
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
@@ -148,7 +148,8 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			if (n != 1)
 				throw new DataAccessException(
 						"Did not update user row into database");
-			user = getUserById(uid);
+			else
+				success = true;
 		} catch (ServiceLocatorException e) {
 			throw new DataAccessException("Unable to retrieve connection; "
 					+ e.getMessage(), e);
@@ -164,9 +165,44 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 				}
 			}
 		}
-		return user;
+		return success;
 	}
 	
+	@Override
+	public boolean unbanUserById(int uid) {
+		Connection con = null;
+		boolean success = false;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE TBL_USERS SET access_level = ? WHERE uid = ?");
+			stmt.setInt(1, 2); //an access_level of 2 corresponds to regular user
+			stmt.setInt(2, uid);
+			
+			int n = stmt.executeUpdate();
+			if (n != 1)
+				throw new DataAccessException(
+						"Did not update user row into database");
+			else
+				success = true;
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return success;
+	}
+
 	@Override
 	public boolean isUsernameAvailable(String username) {
 		Connection con = null;
@@ -200,23 +236,14 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 	
 	private UserBean createUserBean(ResultSet rs) throws SQLException {
 		UserBean user = new UserBean();
-//		System.out.println("Created user bean");
 		user.setUid(rs.getInt("uid"));
-//		System.out.println("retrieved: uid");
 		user.setFirstName(rs.getString("firstname"));
-//		System.out.println("retrieved: firstname");
 		user.setLastName(rs.getString("lastname"));
-//		System.out.println("retrieved: lastname");
 		user.setAccessLevel(rs.getInt("access_level"));
-//		System.out.println("retrieved: access_level");
 		user.setUsername(rs.getString("username"));
-//		System.out.println("retrieved: username");
 		user.setPassword(rs.getString("password"));
-//		System.out.println("retrieved: password");
 		user.setEmail(rs.getString("email"));
-//		System.out.println("retrieved: email");
 		user.setContactNumber(rs.getString("contact_number"));
-//		System.out.println("retrieved: contact_number");
 		return user;
 	}
 
@@ -248,6 +275,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		}
 		return user;
 	}
+
 
 	
 }

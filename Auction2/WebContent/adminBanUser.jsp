@@ -25,12 +25,29 @@
 					</td>
 					<!-- Status and Ban/Unban-button-->
 					<c:if test="${itUser.accessLevel <= 3}">
-					<td>Not banned</td><td>Ban</td>
+					<td>Not banned</td>
+					<td>
+
+							<form action='dispatcher?operation=adminBanUser' METHOD='post'>
+								<input type="hidden" name="userIdToBan" value="${itUser.uid}" /> 
+								<input type="submit" value="Ban" />
+							</form>
+
+					</td>
 					</c:if>
 					<c:if test="${itUser.accessLevel == 4}">
-					<td>Banned</td><td>Unban</td>
+					<td>Banned</td>
+					<td>
+
+							<form action='dispatcher?operation=adminBanUser' METHOD='post'>
+								<input type="hidden" name="userIdToUnban" value="${itUser.uid}" />
+								<input type="submit" value="Unban" />
+							</form>
+
+						</td>
 					</c:if>
 
+<!-- 		String userIdToBan = request.getParameter("userIdToBan"); -->
 				</tr>
 			</c:forEach>
 		</table>
