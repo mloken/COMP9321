@@ -14,7 +14,7 @@
 <title>Search Result</title>
 </head>
 <body >
-<% String searchKey= (String) request.getAttribute("searchKey");%>
+
 
 <center>
    <div class="container">
@@ -53,6 +53,7 @@
 	<script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script>
 	
 	<c:if test="${!empty message}"><center><font color= "red" >${message}</font></center></c:if>
+	
 
 	<table class="table table-hover"  style="margin:0px auto; width:80%" >
 		<tr>
@@ -81,10 +82,10 @@
 					<center><h2>Search for "${searchKey}": No results found</h2></center>
 		</c:when>
 		 <c:otherwise>
-		 	<c:if test="${!empty searckKey}">
+		 	<c:if test="${!empty searchKey}">
 		 			<center><h2>Search for "${searchKey}"</h2></center>
-		 	</c:if>
 		 	
+		 	</c:if>
 			<c:forEach var="auctionItem" items="${auctionItems}">
 			   <tr>
 			   		<td>
@@ -99,6 +100,7 @@
 			   		<td>
 			   			 <form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
 							<input type="hidden" name="id" value="${auctionItem.id}">
+							<input type="hidden" name="searchKey" value="${searchKey}">
 							<input type="submit" class="btn btn-warning" value="Detail">
 						</form>		
 			   		</td>

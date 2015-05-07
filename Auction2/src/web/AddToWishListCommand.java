@@ -26,6 +26,8 @@ public class AddToWishListCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		ArrayList<WishlistItemBean> wishlistItems = null;
+		String message=null;
 		String searchKey = request.getParameter("searchKey");
 		request.setAttribute("searchKey", searchKey);
 		HttpSession session = request.getSession();
@@ -36,10 +38,20 @@ public class AddToWishListCommand implements Command {
 		}
 		String itemId = request.getParameter("itemId");
 		int userId = currentUser.getUid();
-		String wishlistItems;
+		wishlistItems=wishlistService.getWishlistFromUserId(userId);
+		for(WishlistItemBean element : wishlistItems) {
+			if(element.getItemId().equalsIgnoreCase(itemId)){
+				message="This item is already in your Wishlist";
+				request.setAttribute("message", message);
+				return "search";
+			}
+	    }
 		
-		wishlistItems = wishlistService.addToWishlist(itemId,userId);
-
+		String wishlistItem;
+		wishlistItem = wishlistService.addToWishlist(itemId,userId);
+//		
+		message="Item added to your Wishlist";
+		request.setAttribute("message", message);
 //		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=search");
 //		rd.forward(request, response);
 		return "search";

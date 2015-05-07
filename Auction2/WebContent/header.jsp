@@ -3,9 +3,9 @@
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
 				
-					<h1><a href="homepage.jsp"><b>Auction Time</b></a></h1>
+					<h1><a href="dispatcher?operation=homepage"><b>Auction Time</b></a></h1>
 					<div class="btn-group">
-						  <a href="homepage.jsp" type="button" class="btn btn-primary">Shopping</a>
+						  <a href="dispatcher?operation=homepage" type="button" class="btn btn-primary">Shopping</a>
 						  <a href="addAuction.jsp" type="button" class="btn btn-success">Add Auction</a>
 						  <a href="dispatcher?operation=showWishList" type="button" class="btn btn-danger">My Wish List</a>
 						  <a href="dispatcher?operation=showBidList" type="button" class="btn btn-warning">My Bid List</a>

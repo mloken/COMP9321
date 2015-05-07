@@ -94,7 +94,7 @@
 		<center>
 		<form ACTION='dispatcher?operation=addToWishList' METHOD='post'>
 							<input type="hidden" name="itemId" value="${auctionItem.id}">
-							<input type="hidden" name="searchKey" value="">
+							<input type="hidden" name="searchKey" value="${searchKey}">
 							<input type="hidden" name="message" value="Item Added to Wishlist">
 							<input type="submit" class="btn btn-primary" value="Add to Wishlist">
 		</form>			

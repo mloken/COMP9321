@@ -6,7 +6,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script></head>
+  	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>      
 <title>Auction Time</title>
 </head>
@@ -14,7 +16,7 @@
 <%@ include file="header.jsp"%>
 
 	
-
+<c:forTokens items="" delims=""></c:forTokens>
 	  
 	<!-- search-->
 	<form action="dispatcher?operation=search" method="post">
@@ -46,74 +48,43 @@
 	    <!-- Wrapper for slides -->
 	    <div class="carousel-inner" role="listbox">
 	
-	      <div class="item active">
-	        <img src="http://www.target.com.au/medias/static_content/product/images/large/76/52/A717652.jpg" alt="Chania" width="400" height="300">
-	        <div class="carousel-caption">
-	          <h3>Camera</h3>
-	          <p>SONY Compact Digital Camera DSC-W830V</p>
-	        </div>
-	      </div>
-		 <div class="item">
-	        <img src="http://i.ebayimg.com/00/s/MTYwMFgxMjAw/z/OzMAAOSw7aBVETW2/$_12.JPG" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Cars, Boats</h3>
-	          <p>Nissan gq patrol tb42 auto</p>
-	        </div>
-	      </div>
 
-	      <div class="item">
-	        <img src="http://www.target.com.au/medias/static_content/product/images/grid/38/12/A793812.jpg" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Women Tops</h3>
-	          <p>Yours Sincerely Silk Longline Shirt</p>
-	        </div>
-	      </div>
-	      <div class="item">
-	        <img src="http://thumbs1.ebaystatic.com/d/l225/pict/201327141904_1.jpg" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Art</h3>
-	          <p>Wall Quotes Art Stretched Canvas Prints Framed Wall Decor Restaurant Bar Cafe AU</p>
-	        </div>
-	      </div>
-	      <div class="item">
-	        <img src="http://i.ebayimg.com/00/s/NTAwWDc5MA==/z/A60AAOSw1ZBUxDAG/$_12.JPG" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Sporting</h3>
-	          <p>Brand New Cyber Black and Red 26 inch 27 Gears Shimano Mountain bike</p>
-	        </div>
-	      </div>
 
-	      <div class="item">
-	        <img src="http://thumbs2.ebaystatic.com/d/l225/m/m0lDuWFegaq8MKeuAER1UEw.jpg" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Electronics</h3>
-	          <p>Yamaha CD-S300S CD Player CD/MP3/WMA iPod, Flash Drive via Front USB - Silver</p>
-	        </div>
-	      </div>
+	     <c:set var="active" value="no" /> 
+	     <c:forEach var="auctionItem" items="${randomTenAuctionItems}">
+	      	 <c:choose>
+	      		<c:when test="${active=='no'}">
+		      		<div class="item active">
+					<img src="${auctionItem.picture}" alt="Flower" width="400" height="345" >
+			        	<div class="carousel-caption">
+			        	 <h3>${auctionItem.itemName}</h3>
+			        	 
+				        	 <form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
+										<input type="hidden" name="id" value="${auctionItem.id}">
+										<input type="hidden" name="searchKey" value="${searchKey}">
+										<input type="submit" class="btn btn-warning" value="Detail">
+							</form>	
+						</div>					
+			 		</div>
+	      			<c:set var="active" value="1" />
+	      		</c:when>
+	      	<c:otherwise>
+	      		<div class="item">
+					<img src="${auctionItem.picture}" alt="Flower" width="400" height="345" >
+		        	<div class="carousel-caption">
+		        	 <h3>${auctionItem.itemName}</h3>
+		        	 
+			        	 <form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
+									<input type="hidden" name="id" value="${auctionItem.id}">
+									<input type="hidden" name="searchKey" value="${searchKey}">
+									<input type="submit" class="btn btn-warning" value="Detail">
+						</form>	
+					</div>					
+				</div>
+	      	</c:otherwise>
+		  </c:choose>
+		</c:forEach>
 	      
-	      <div class="item">
-	        <img src="http://www.target.com.au/medias/static_content/product/images/large/35/99/A713599.jpg" alt="Chania" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Beauty</h3>
-	          <p>Philips Sonicare Flexcare HX9182</p>
-	        </div>
-	      </div>
-	    
-	      <div class="item">
-	        <img src="http://www.target.com.au/medias/static_content/product/images/grid/30/23/A113023.jpg" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Kitchen</h3>
-	          <p>Breville 'The Original' Sandwich Maker - BTS200</p>
-	        </div>
-	      </div>
-	
-	      <div class="item">
-	        <img src="http://www.target.com.au/medias/static_content/product/images/grid/38/12/A793812.jpg" alt="Flower" width="400" height="345">
-	        <div class="carousel-caption">
-	          <h3>Women Tops</h3>
-	          <p>Yours Sincerely Silk Longline Shirt</p>
-	        </div>
-	      </div>
 	  	
 	    </div>
 	
@@ -128,6 +99,9 @@
 	    </a>
 	  </div>
 	</div>
+	
+	
+	
 	</center>
 </body>
 </html>

@@ -26,11 +26,9 @@ public class SearchCommand implements Command {
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<AuctionItemBean> auctionItems = null;
 		String searchKey = request.getParameter("searchKey");
-		request.setAttribute("searchKey", searchKey);
-		
 		String message =request.getParameter("message");
 		System.out.println("message"+message);
-		request.setAttribute("message", message);
+		
 		auctionItems = auctionService.getItemBySearchKey(searchKey);
 		if (auctionItems == null) {
 			System.out.println("searchKey == null");
@@ -43,6 +41,7 @@ public class SearchCommand implements Command {
 		else{
 			request.setAttribute("auctionItems", auctionItems);
 			
+			request.setAttribute("searchKey", searchKey);
 //			RequestDispatcher rd = request.getRequestDispatcher("/searchResults.jsp");
 //			rd.forward(request, response);
 			return "/searchResults.jsp";
