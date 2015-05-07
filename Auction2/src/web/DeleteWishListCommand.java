@@ -38,20 +38,10 @@ public class DeleteWishListCommand implements Command {
 		WishlistItemBean wishlistItem;
 		
 		wishlistItem = wishlistService.deleteWishlistItemByItemAndUser(itemId,currentUser.getUid());
+
 		
-		return "showWishList";
-<<<<<<< .mine
-		return "showWishList";
-
-
-
-
-=======
-		
-//		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=showWishList");
-//		rd.forward(request, response);
-//		return request.getParameter("id");
-		return "showWishList";
->>>>>>> .theirs
+		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=showWishList");
+		rd.forward(request, response);
+		return request.getParameter("id");
 	}
 }
