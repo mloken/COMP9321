@@ -14,7 +14,7 @@
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
 		<h2>Admin functions</h2>
 		<p>
-			<a href="adminHalt.jsp">Halt auction</a> 
+			<a href="dispatcher?operation=adminHaltAuction">Halt auction</a> 
 			<a href="dispatcher?operation=adminRemoveItem">Remove auction</a> 
 			<a href="dispatcher?operation=adminBanUser">Ban user</a>
 	</c:if>

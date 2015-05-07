@@ -21,9 +21,6 @@ public class ControllerServlet extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		commands = new HashMap<String, Command>();
-		// commands.put("add", new AddCommand());
-		// commands.put("delete", new DeleteCommand());
-		// commands.put("list", new ListCommand());
 		commands.put("addNewAuctionItem", new AddNewAuctionItemCommand());
 		commands.put("login", new LoginCommand());
 		commands.put("adminLogin", new AdminLoginCommand());
@@ -39,6 +36,7 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("bid", new BidCommand());
 		commands.put("adminBanUser", new AdminBanUserCommand());
 		commands.put("adminRemoveItem", new AdminRemoveItemCommand());
+		commands.put("adminHaltUser", new AdminHaltUserCommand());
 
 //		commands.put("userProfile", new UserProfileCommand());
 		

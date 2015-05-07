@@ -31,24 +31,12 @@ public class AdminBanUserCommand implements Command {
 
 		/* First if is if Ban-button is pressed */
 		if (userIdToBan != null) {
-			System.out.println("userIdToBan exists!");
 			int userId = Integer.parseInt(userIdToBan);
-			boolean success = adminService.banUserById(userId);
-			if (success) {
-				System.out.println(userIdToBan + " was banned");
-			} else {
-				System.out.println("Ban was not succcessful");
-			}
-			/* else if is if Unban-button is pressed */
+			adminService.banUserById(userId);
+		/* else if is if Unban-button is pressed */
 		} else if (userIdToUnban != null) {
-			System.out.println("userIdToUnban exists!");
 			int userId = Integer.parseInt(userIdToUnban);
-			boolean success = adminService.unbanUserById(userId);
-			if (success) {
-				System.out.println(userIdToBan + " was unbanned");
-			} else {
-				System.out.println("Unban was not succcessful");
-			}
+			adminService.unbanUserById(userId);
 		}
 		ArrayList<UserBean> allRegularUsers = adminService.getAllRegularUsers();
 		session.setAttribute("allUsers", allRegularUsers);
