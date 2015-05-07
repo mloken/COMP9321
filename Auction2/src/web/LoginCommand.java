@@ -33,12 +33,23 @@ public class LoginCommand implements Command {
 				request.setAttribute("message", message);
 				request.setAttribute("valid", false);
 				return "/login.jsp";
+			} else if (user.getAccessLevel() == 3){
+				message += "You have not authorized your user yet <br>";
+				request.setAttribute("message", message);
+				request.setAttribute("valid", false);
+				return "/login.jsp";
+			} else if (user.getAccessLevel() == 4){
+				message += "Your user has been banned <br>";
+				request.setAttribute("message", message);
+				request.setAttribute("valid", false);
+				return "/login.jsp";
+			} else {				
+				request.setAttribute("valid", true);
+				request.setAttribute("message", message);
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				return "homepage";
 			}
-			request.setAttribute("valid", true);
-			request.setAttribute("message", message);
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
-			return "homepage";
 		} catch (UserLoginFailedException e) {
 			message += "Can't open database <br>";
 			return "/loginfailed.jsp";
