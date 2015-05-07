@@ -20,7 +20,7 @@ public class AdminBanUserCommand implements Command {
 	public AdminBanUserCommand() {
 		adminService = new AdminServiceImpl();
 	}
-	
+
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -28,36 +28,31 @@ public class AdminBanUserCommand implements Command {
 		String userIdToBan = request.getParameter("userIdToBan");
 		String userIdToUnban = request.getParameter("userIdToUnban");
 		HttpSession session = request.getSession();
-		
-		/*First if is if Ban-button is pressed*/
-		if(userIdToBan != null){
+
+		/* First if is if Ban-button is pressed */
+		if (userIdToBan != null) {
 			System.out.println("userIdToBan exists!");
 			int userId = Integer.parseInt(userIdToBan);
 			boolean success = adminService.banUserById(userId);
-			if(success){
+			if (success) {
 				System.out.println(userIdToBan + " was banned");
-				ArrayList<UserBean> allRegularUsers = adminService.getAllRegularUsers();
-				session.setAttribute("allUsers", allRegularUsers);
 			} else {
 				System.out.println("Ban was not succcessful");
 			}
-		/*else if is if Unban-button is pressed*/
-		}else if (userIdToUnban != null){
+			/* else if is if Unban-button is pressed */
+		} else if (userIdToUnban != null) {
 			System.out.println("userIdToUnban exists!");
 			int userId = Integer.parseInt(userIdToUnban);
 			boolean success = adminService.unbanUserById(userId);
-			if(success){
+			if (success) {
 				System.out.println(userIdToBan + " was unbanned");
-				ArrayList<UserBean> allRegularUsers = adminService.getAllRegularUsers();
-				session.setAttribute("allUsers", allRegularUsers);
 			} else {
 				System.out.println("Unban was not succcessful");
 			}
-		}else{
-			ArrayList<UserBean> allRegularUsers = adminService.getAllRegularUsers();
-			session.setAttribute("allUsers", allRegularUsers);
 		}
-		
+		ArrayList<UserBean> allRegularUsers = adminService.getAllRegularUsers();
+		session.setAttribute("allUsers", allRegularUsers);
+
 		return "/adminBanUser.jsp";
 	}
 

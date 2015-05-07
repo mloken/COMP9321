@@ -12,8 +12,32 @@
 
 	<c:if test="${user.uid < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
-    Remove auction items here:
-    </c:if>
+    <a href="adminMenu.jsp">Back</a>
+    <p> 
+    <h2>Remove auction items here:</h2>
+
+		<table cellpadding="2px" cellspacing="2px">
+			<tr>
+				<th>Auction name</th>
+				<th>Auction ID</th>
+				<th>Owner ID</th>
+			</tr>
+			<c:forEach var="item" items="${allAuctionItems}">
+				<tr>
+					<td>${item.itemName}</td>
+					<td>${item.id}</td>
+					<td>${item.ownerId}</td>
+					<td>
+						<form action='dispatcher?operation=adminRemoveItem' METHOD='post'>
+							<input type="hidden" name="itemIdToRemove" value="${item.id}" />
+							<input type="submit" value="Remove" />
+						</form>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+
+	</c:if>
     
 	<c:if test="${user.uid >= 2}">
 	<!--USED WHEN USER LOGGED IN IS NOT ADMIN-->
