@@ -19,4 +19,6 @@ public interface AdminService {
 	
 	ArrayList<UserBean> getAllUsers();
 
+	ArrayList<UserBean> getAllRegularUsers();
+
 }

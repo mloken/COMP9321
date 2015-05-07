@@ -11,7 +11,10 @@
 
 	<c:if test="${user.uid < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
-    Ban users here:
+    <a href="adminMenu.jsp">Back</a>
+    <p> 
+    
+    <h2>Ban users here:</h2>
 		
 		<table cellpadding="2px" cellspacing="2px">
 			<tr>
@@ -46,8 +49,6 @@
 
 						</td>
 					</c:if>
-
-<!-- 		String userIdToBan = request.getParameter("userIdToBan"); -->
 				</tr>
 			</c:forEach>
 		</table>

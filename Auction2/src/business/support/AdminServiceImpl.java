@@ -69,5 +69,16 @@ public class AdminServiceImpl implements AdminService {
 		return allUsers;
 	}
 
+	@Override
+	public ArrayList<UserBean> getAllRegularUsers() {
+		ArrayList<UserBean> allUsers = userDao.getAllUsers();
+		ArrayList<UserBean> regUsers = new ArrayList<UserBean>();
+		for(int i = 0; i < allUsers.size(); i++){
+			int accessLvl = allUsers.get(i).getAccessLevel();
+			if(accessLvl == 2 || accessLvl == 4)
+				regUsers.add(allUsers.get(i));
+		}
+		return regUsers;
+	}
 
 }
