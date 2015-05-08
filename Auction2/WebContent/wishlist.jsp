@@ -21,7 +21,7 @@
  <font color= "red" >Still empty</font><br/>  
  
    you can  
-    <a href= "homepage.jsp" >go shopping</a>  
+    <a href= "dispatcher?operation=homepage" >go shopping</a>  
     </c:if >  
     <c:if test= "${!empty auctionItems}" >  
       <table class="table table-hover"   style="margin:0px auto; width:70%" >  
@@ -56,7 +56,7 @@
   
       </table>  
       <br><br>
-      <a href= "homepage.jsp" >Back to shopping</a>  
+      <a href= "dispatcher?operation=homepage" >Back to shopping</a>  
        </c:if >  
   </body>  
 </html>

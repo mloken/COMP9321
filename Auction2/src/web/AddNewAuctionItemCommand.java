@@ -144,29 +144,13 @@ public class AddNewAuctionItemCommand implements Command {
 //			} else {
 //				if (!endtime
 //						.matches("[1-3]{1}+[0-9]{3}+\\-[0-12]{1,2}+\\-[1-31]{1,2}")) {
-//					alertmessage += "Your end time is invalid. Please follow the format yyyy-MM-dd-kk:mm<br>";
+//					alertmessage += "Your end time is invalid. Please follow the format YYYY-MM-DD<br>";
 //					valid = false;
 //				} else {
 //					valid = valid && true;
 //				}
 //			}
-			
-			if (endtime.isEmpty()){
-				/*Sets the time to current time + 10 minutes*/
-				long systemTime = System.currentTimeMillis();
-				Date closingTime = new Date(systemTime + 10*60*1000);
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd-kk:mm");
-				endtime = df.format(closingTime);
-			} 
-//			else {
-//				if (!endtime.matches("blablabla")){
-//					alertmessage += "Your end time is invalid. Please follow the format yyyy-MM-dd-kk:mm<br>";
-//					valid = false;
-//				} else {
-//					valid = valid && true;
-//				}
-//			}
-			
+
 			if (postcode.isEmpty()) {
 				alertmessage += "Your Postal Code can not be empty<br>";
 				valid = false;
@@ -211,7 +195,17 @@ public class AddNewAuctionItemCommand implements Command {
 				}
 				item.setNotes(notes);
 				item.setStatus(1);
+				
+				UserServiceImpl userService = new UserServiceImpl();
+				UserBean owner = currentUser;//userService.getUserByID(item.getOwnerId());
+				
+				item.setOwner(owner);
+						
 				auctionService.addItem(item);
+
+				int closingtime =	3*1000;
+				
+				item.setClosing(closingtime);
 			} else {
 				alertmessage = "Your auction item has not been added, there are some errors in your inputs <br>"
 						+ alertmessage;

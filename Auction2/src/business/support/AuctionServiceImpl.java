@@ -29,13 +29,19 @@ public class AuctionServiceImpl implements AuctionService{
 		AuctionItemBean item = auctionItemDao.getAuctionItemById(id);
 		return item;
 	}
-
+	
+	@Override
+	public AuctionItemBean getItemByIdALL(String id) {
+		System.out.println("service");
+		AuctionItemBean item = auctionItemDao.getAuctionItemByIdALL(id);
+		return item;
+	}
+	
 	public AuctionItemBean updatePriceToZero(AuctionItemBean item){
 		AuctionItemBean updated = auctionItemDao.updatePriceToZero(item);
 		return item;
-		}
-	
-		
+	}
+
 	@Override
 	public ArrayList<AuctionItemBean> getItemBySearchKey(String searchKey) {
 		ArrayList<AuctionItemBean> searchResults = auctionItemDao.getAuctionItemBySearchKey(searchKey);
@@ -48,7 +54,6 @@ public class AuctionServiceImpl implements AuctionService{
 		return allItems;
 	}
 	
-
 	@Override
 	public ArrayList<AuctionItemBean> getAllActiveAuctionItems() {
 		ArrayList<AuctionItemBean> allItems = auctionItemDao.getAllAuctionItems();

@@ -8,6 +8,8 @@ public interface AuctionItemDAO {
 	
 	AuctionItemBean getAuctionItemById(String id);
 	
+	AuctionItemBean getAuctionItemByIdALL(String id);
+	
 	AuctionItemBean addAuctionItem(AuctionItemBean item);
 	
 	AuctionItemBean deleteAuctionItemById(String id);
@@ -17,7 +19,7 @@ public interface AuctionItemDAO {
 	AuctionItemBean updatePriceToZero(AuctionItemBean item);
 	
 	ArrayList<AuctionItemBean> getAllAuctionItems();
-
+	
 	boolean haltAuctionItemById(String id);
 	
 	boolean unhaltAuctionItemById(String id);

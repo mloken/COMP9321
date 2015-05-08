@@ -1,10 +1,27 @@
 package beans;
 
 import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import business.support.AuctionServiceImpl;
+import business.support.BidServiceImpl;
+import business.support.UserServiceImpl;
 
 public class AuctionItemBean {
+	
+	private UserBean owner;
+	
+	public UserBean getOwner() {
+		return owner;
+	}
+	
+	public void setOwner(UserBean owner) {
+		this.owner = owner;
+	}
 	public AuctionItemBean() {
 		super();
+		//System.out.println("create item bean");
 	}
 	private String id;
 	private int ownerId;
@@ -20,7 +37,18 @@ public class AuctionItemBean {
 	private Date endTime;
 	private String notes;
 	private int status;
+	private boolean isOpen;
 	
+	private static BidServiceImpl bidService;
+	private static AuctionServiceImpl auctionService;
+	private static UserServiceImpl userService;
+	
+	public boolean isOpen() {
+		return isOpen;
+	}
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
+	}
 	public int getOwnerId() {
 		return ownerId;
 	}
@@ -104,5 +132,32 @@ public class AuctionItemBean {
 	}
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public synchronized void setClosing(int closingtime){
+
+		System.out.println("owner : "+this.ownerId);
+		this.isOpen = true;
+		final String id = this.getId();
+		(new Timer(true)).schedule(new TimerTask() {
+			@Override
+			public void run() {
+				AuctionItemBean.this.close(id);
+			}
+		}, closingtime);
+		System.out.println("Timer set!");
+	}
+	
+	private synchronized void close(String id){
+		System.out.println("item id : "+id);
+		//BidBean biditem = bidService.getBidItemById(this.getId());
+		//AuctionItemBean itemm = auctionService.getItemByIdALL(id);
+		//UserBean owner = userService.getUserByID(this.getOwnerId());
+		this.isOpen = false;
+		System.out.println("Auction for item "+this.itemName+" is closed now");
+		//userService = new UserServiceImpl();
+		//UserBean bidder = userService.getUserByID(biditem.getBidderId());
+		this.owner.notify(this, 1);
+		//bidder.notify(this, 2);
 	}
 }

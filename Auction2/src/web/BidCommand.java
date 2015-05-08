@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.BidBean;
+import beans.UserBean;
 import business.support.BidServiceImpl;
 import beans.AuctionItemBean;
 import business.support.AuctionServiceImpl;
@@ -32,7 +33,10 @@ public class BidCommand implements Command {
 		BidBean bidItem = null;
 		AuctionItemBean item = null;
 		
-		int userid = Integer.parseInt(request.getParameter("uid"));
+		HttpSession session = request.getSession();
+		UserBean currentUser = (UserBean) session.getAttribute("user");
+		
+		int userid = currentUser.getUid();//Integer.parseInt(request.getParameter("uid"));
 		String item_id = request.getParameter("iid");
 		
 		System.out.println("user ID : "+request.getParameter("uid"));
@@ -85,6 +89,7 @@ public class BidCommand implements Command {
 				request.setAttribute("auctionItem", item);
 				return "/itemDetail.jsp";
 			}
+			System.out.println("notify user id : "+bidItem.getBidderId()+" that he/she lost the bidding of item "+bidItem.getItemId());
 			bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
 			
 		}

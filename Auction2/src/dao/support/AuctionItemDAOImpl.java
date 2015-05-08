@@ -61,7 +61,42 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		}
 		return null;
 	}
-
+	
+	@Override
+	public AuctionItemBean getAuctionItemByIdALL(String id) {
+		Connection con = null;
+		System.out.println("seacrh item");
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE id = ?");
+			stmt.setString(1, id);
+			stmt.setFloat(2, 0);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				System.out.println("Found Item");
+				AuctionItemBean contact = createAuctionItemBean(rs);
+				stmt.close();
+				return contact;
+			}
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	
 	@Override
 	public ArrayList<AuctionItemBean> getAuctionItemBySearchKey(String searchKey) throws DataAccessException {
 		Connection con = null;
