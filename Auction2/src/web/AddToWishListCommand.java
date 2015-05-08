@@ -43,6 +43,7 @@ public class AddToWishListCommand implements Command {
 			if(element.getItemId().equalsIgnoreCase(itemId)){
 				message="This item is already in your Wishlist";
 				request.setAttribute("message", message);
+				request.setAttribute("valid", false);
 				return "search";
 			}
 	    }
@@ -52,6 +53,7 @@ public class AddToWishListCommand implements Command {
 //		
 		message="Item added to your Wishlist";
 		request.setAttribute("message", message);
+		request.setAttribute("valid", true);
 //		RequestDispatcher rd = request.getRequestDispatcher("/dispatcher?operation=search");
 //		rd.forward(request, response);
 		return "search";

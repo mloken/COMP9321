@@ -73,8 +73,10 @@
 		                    <div class="input-group">
 		                        <select id="category" name="category" class="input-xlarge">
 								<option>Computers</option>
-								<option>Photography</option>
+								<option>Art</option>
+								<option>Car, Boat</option>
 								<option>Television</option>
+								<option>Kid</option>
 								<option>Sports</option>
 								<option>Clothes</option>
 								<option>Beauty</option>

@@ -19,4 +19,12 @@ public interface BidService {
 	ArrayList<BidBean> getAllBidItems();
 	
 	ArrayList<BidBean> getBidItemsByUser(int userid);
+
+	ArrayList<BidBean> getBidItemsByUserAndStatus(int userid, int status);
+
+	ArrayList<BidBean> getAllWinBidItems();
+
+	BidBean getWinBidItemById(String id);
+
+	BidBean updateBidStatus(String itemid, int newstatus);
 }

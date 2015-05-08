@@ -34,7 +34,13 @@ public class UserServiceImpl implements UserService{
 		UserBean newUser = userDao.addNewUser(user);
 		return newUser;
 	}
-
+	
+	public UserBean editProfile(UserBean user){
+		
+		UserBean currentUser = userDao.addNewUser(user);
+		return currentUser;
+	}
+	
 	@Override
 	public boolean isUsernameAvailable(String username) {
 		boolean isAvailable = userDao.isUsernameAvailable(username);

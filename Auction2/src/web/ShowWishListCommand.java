@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 
 
+
 import beans.AuctionItemBean;
 import beans.UserBean;
 import beans.WishlistItemBean;
@@ -44,6 +45,11 @@ public class ShowWishListCommand implements Command {
 		HttpSession session = request.getSession();
 		UserBean currentUser = (UserBean) session.getAttribute("user");
 		
+		
+		if (currentUser == null) {
+			System.out.println("user = null, not login");
+			return "/login.jsp";
+		}
 		System.out.println("user_id= "+currentUser.getUid());
 		wishlistItems = wishlistService.getWishlistFromUserId(currentUser.getUid());
 //		auctionItems = auctionService.getItemById(wishlistItems);

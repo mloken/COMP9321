@@ -13,30 +13,95 @@
 <%@ include file="header.jsp"%>
 <body>	
 		<center><h1><b>User Profile</b></h1></center>
-		<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
-		  <tr>
-		    
-		    <td colspan="2"><h1>${user.username}</h1></td>
-		  </tr>
-		  <tr>
-		    <td>First name</td>
-		    <td >${user.firstName}</td>
-		  </tr>
-		  <tr>
-		     <td>Last name</td>
-		    <td>${user.lastName}</td>
-		  </tr>
-		  <tr>
-		    <td>Email</td>
-		    <td>${user.email}</td>
-		  </tr>
-		  <tr>
-		    <td >Contact number</td>
-		    <td >${user.contactNumber}</td>
-		  </tr>
-		  
-
-		  
-		</table>
+		<div class="container">
+		<!-- MESSAGE : SUCCESS OR FAILED show message from arraylist-->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+		           
+		            <%
+		            	if (request.getAttribute("valid")!=null){
+		            		if (request.getAttribute("valid").toString()=="true"){
+		            		%><div class="alert alert-success">
+		            		<strong><span class="glyphicon glyphicon-ok">
+		            		
+		            		<%
+			            	}
+			            	else {
+			            		%>
+			            		<div class="alert alert-danger">
+		                   			 <span class="glyphicon glyphicon-remove"></span><strong>
+			            		<%
+			            	}
+		            	}
+		            %>
+		                
+		                    <b>${message}</b>
+		                    
+		                    </span></strong>
+		                </div>
+		            
+		    </div>
+	    </div>
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+			<table class="table table-hover"  style="margin:0px auto; text-align: center;">
+			  <tr>
+			    
+			    <td colspan="2"><h1>${user.username}</h1></td>
+			  </tr>
+			  <tr>
+			    <td><b>First name</b></td>
+			    <td>${user.firstName}</td>
+			 </tr>
+	
+	  			
+			  <tr>
+			     <td>Last name</td>
+			    <td>${user.lastName}</td>
+			  </tr>
+			  <tr>
+			    <td>Email</td>
+			    <td>${user.email}</td>
+			  </tr>
+			  <tr>
+			    <td >Contact number</td>
+			    <td >${user.contactNumber}</td>
+			  </tr>
+			  <tr>
+			    <td >Contact number</td>
+			    <td >${user.contactNumber}</td>
+			  </tr>
+			  <tr>
+			    <td >nickname</td>
+			    <td >${user.nickname}</td>
+			  </tr>
+			  <tr>
+			    <td >year_of_birth</td>
+			    <td >${user.yearOfBirth}</td>
+			  </tr>
+			  <tr>
+			    <td >credit card</td>
+			    <td >${user.creditCard}</td>
+			  </tr>
+			  <tr>
+			    <td >Address</td>
+			    <td >${user.address.streetAddress}, ${user.address.city}, ${user.address.state}, ${user.address.country}, ${user.address.postalCode}</td>
+			  </tr>
+			  <tr>
+			    <td >Password</td>
+			    <td >${user.password}</td>
+			  </tr>
+	
+			  
+	
+			  
+			</table>
+		
+			<center>
+				<a href= "./editUserProfile.jsp" class="btn btn-info">Edit</a>  
+			</center>
+			</div>
+			</div>
+		</div>
 </body>
 </html>

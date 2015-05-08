@@ -29,7 +29,7 @@
  
    see  
     <a href= "wishlist.jsp" >My Wishlist</a> 
-    <!-- 
+    
     <table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
     	<c:forEach var="bid" items="${bidlist}">
 			   <tr>
@@ -59,4 +59,4 @@
 				<td>&nbsp</td>
 			</c:forEach>
 		</table>
-		 -->
+		

@@ -23,5 +23,7 @@ public interface AuctionItemDAO {
 	boolean haltAuctionItemById(String id);
 	
 	boolean unhaltAuctionItemById(String id);
+
+	ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid);
 	
 }

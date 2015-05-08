@@ -51,8 +51,35 @@
 </center>
 	<br>
 	<script type="text/javascript" src="https%3A%2F%2Fcse.google.com%2Fcse/tools/onthefly?form=searchbox_demo&lang="></script>
+			<!-- MESSAGE : SUCCESS OR FAILED show message from arraylist-->
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+		           
+		            <%
+		            	if (request.getAttribute("valid")!=null){
+		            		if (request.getAttribute("valid").toString()=="true"){
+		            		%><div class="alert alert-success">
+		            		<strong><span class="glyphicon glyphicon-ok">
+		            		
+		            		<%
+			            	}
+			            	else {
+			            		%>
+			            		<div class="alert alert-danger">
+		                   			 <span class="glyphicon glyphicon-remove"></span><strong>
+			            		<%
+			            	}
+		            	}
+		            %>
+		                
+		                    <b>${message}</b>
+		                    
+		                    </span></strong>
+		                </div>
+		            
+		    </div>
+	    </div>
 	
-	<c:if test="${!empty message}"><center><font color= "red" >${message}</font></center></c:if>
 	
 
 	<table class="table table-hover"  style="margin:0px auto; width:80%" >
@@ -63,15 +90,11 @@
 		   		<th>
 		   			Picture
 		   		</th>
-		   		<th>
-		   			Description
-		   		</th>
+		   		
 		   		<th>
 		   			More Detail
 		   		</th>
-		   		<th>
-		   			ID
-		   		</th>
+		   		
 		   		<th>
 		   			Add Wishlist
 		   		</th>
@@ -94,9 +117,7 @@
 			   		<td>
 			   			<img width="144" src="${auctionItem.picture}">
 			   		</td>
-					<td>
-			   			${auctionItem.description}
-			   		</td>
+					
 			   		<td>
 			   			 <form ACTION='dispatcher?operation=itemDetail' METHOD='post'>
 							<input type="hidden" name="id" value="${auctionItem.id}">
@@ -104,9 +125,7 @@
 							<input type="submit" class="btn btn-warning" value="Detail">
 						</form>		
 			   		</td>
-			   		<td>
-			   			${auctionItem.id}
-			   		</td>
+			   		
 			   		<td>
 			   			 <form ACTION='dispatcher?operation=addToWishList' METHOD='post'>
 							<input type="hidden" name="itemId" value="${auctionItem.id}">

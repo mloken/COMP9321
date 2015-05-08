@@ -33,9 +33,9 @@ public class AddNewAuctionItemCommand implements Command {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		UserBean currentUser = (UserBean) session.getAttribute("user");
-//		if (currentUser == null) {
-//			return "/login.jsp";
-//		}
+		if (currentUser == null) {
+			return "/login.jsp";
+		}
 		int ownerId = currentUser.getUid();
 
 		boolean success = true;

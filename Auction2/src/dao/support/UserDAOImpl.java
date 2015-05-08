@@ -139,6 +139,52 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		}
 		return user;
 	}	
+	
+	@Override
+	public UserBean editUser(UserBean user) {
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("UPDATE tbl_users SET firstname = ? , lastname = ?,  nickname= ? , password = ? ,  email = ? ,  contact_number= ? , year_of_birth  = ? , credit_card= ? , streetAddress = ? , city= ? ,  state = ? , country= ? , postalCode= ? ,WHERE uid = ?");
+
+			stmt.setString(1, user.getFirstName());
+			stmt.setString(2, user.getLastName());
+			stmt.setString(3, user.getNickname());
+//			stmt.setInt(4, user.getAccessLevel());
+//			stmt.setString(5, user.getUsername());
+			stmt.setString(5, user.getPassword());
+			stmt.setString(6, user.getEmail());
+			stmt.setString(7, user.getContactNumber());
+			stmt.setString(8, user.getYearOfBirth());
+			stmt.setString(9, user.getCreditCard());
+			stmt.setString(10, user.getAddress().getStreetAddress());
+			stmt.setString(11, user.getAddress().getCity());
+			stmt.setString(12, user.getAddress().getState());
+			stmt.setString(13, user.getAddress().getCountry());
+			stmt.setString(14, user.getAddress().getPostalCode());
+			stmt.setInt(15, user.getUid());
+			int n = stmt.executeUpdate();
+			if (n != 1)
+				throw new DataAccessException(
+						"Did not insert user row into database");
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return user;
+	}	
 
 	@Override
 	public boolean banUserById(int uid) {

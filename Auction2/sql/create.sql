@@ -48,8 +48,9 @@ CREATE TABLE TBL_BID (
     bidder_id INTEGER NOT NULL,
     price FLOAT,
     bid_date DATETIME,
+    status INTEGER NOT NULL,
     CONSTRAINT pk_bid PRIMARY KEY (id),
---    FOREIGN KEY (item_id) REFERENCES TBL_ITEMS(id),
+--    CONSTRAINT fk_item_id FOREIGN KEY (item_id) REFERENCES TBL_ITEMS(id),
     FOREIGN KEY (bidder_id) REFERENCES TBL_USERS(uid));
 
  CREATE TABLE TBL_WISHLIST (

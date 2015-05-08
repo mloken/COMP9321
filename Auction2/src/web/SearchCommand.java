@@ -27,6 +27,7 @@ public class SearchCommand implements Command {
 		ArrayList<AuctionItemBean> auctionItems = null;
 		String searchKey = request.getParameter("searchKey");
 		String message =request.getParameter("message");
+		request.setAttribute("valid", request.getAttribute("valid"));
 		System.out.println("message"+message);
 		
 		auctionItems = auctionService.getItemBySearchKey(searchKey);
@@ -42,6 +43,10 @@ public class SearchCommand implements Command {
 			request.setAttribute("auctionItems", auctionItems);
 			
 			request.setAttribute("searchKey", searchKey);
+			
+//			if (request.getParameter("message")!=null){
+//				request.setAttribute("valid", true);
+//			}
 //			RequestDispatcher rd = request.getRequestDispatcher("/searchResults.jsp");
 //			rd.forward(request, response);
 			return "/searchResults.jsp";

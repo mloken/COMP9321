@@ -19,4 +19,14 @@ public interface BidDAO {
 	ArrayList<BidBean> getBidItemsByUser(int userid);
 	
 	BidBean deleteAllBidItems();
+
+	BidBean getWinBidItemById(String item_id);
+
+	BidBean getLoseBidItemById(String item_id);
+
+	ArrayList<BidBean> getAllWinBidItems();
+
+	ArrayList<BidBean> getBidItemsByUserAndStatus(int userid, int status);
+
+	BidBean updateBidStatus(String itemid, int newstatus);
 }

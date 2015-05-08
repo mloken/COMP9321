@@ -77,5 +77,10 @@ public class AuctionServiceImpl implements AuctionService{
 	public void deleteItem(String id) {
 		auctionItemDao.deleteAuctionItemById(id);
 	}
+	
+	@Override
+	public ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid){
+		return auctionItemDao.getAllAuctionItemsByOwner(uid);
+	}
 
 }

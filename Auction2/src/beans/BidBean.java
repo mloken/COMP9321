@@ -8,7 +8,16 @@ public class BidBean {
 	private float price;
 	private Date date;
 	private int id;
+	private int status;//0 if lost, 1 if win
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	public BidBean(){
 		super();
 	}

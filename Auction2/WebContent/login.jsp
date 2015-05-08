@@ -35,7 +35,7 @@
 					<input type="text" class="form-control" name="username"
 						placeholder="username">
 					<p></p>
-					<input type="text" class="form-control" name="password"
+					<input type="password" class="form-control" name="password"
 						placeholder="password">
 					<p></p>
 					<center>

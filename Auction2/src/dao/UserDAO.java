@@ -18,4 +18,6 @@ public interface UserDAO {
 	boolean isUsernameAvailable(String username);
 
 	boolean unbanUserById(int uid);
+
+	UserBean editUser(UserBean user);
 }

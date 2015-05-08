@@ -10,6 +10,8 @@ import business.support.UserServiceImpl;
 
 public class AuctionItemBean {
 	
+	public static boolean check = false;
+	
 	private UserBean owner;
 	
 	public UserBean getOwner() {

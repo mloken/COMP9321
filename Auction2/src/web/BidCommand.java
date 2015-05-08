@@ -36,6 +36,11 @@ public class BidCommand implements Command {
 		HttpSession session = request.getSession();
 		UserBean currentUser = (UserBean) session.getAttribute("user");
 		
+		if (currentUser == null) {
+			System.out.println("user = null, not login");
+			return "/login.jsp";
+		}
+		
 		int userid = currentUser.getUid();//Integer.parseInt(request.getParameter("uid"));
 		String item_id = request.getParameter("iid");
 		
@@ -63,7 +68,7 @@ public class BidCommand implements Command {
 			win = true;
 		}
 		
-		if (bidItem == null) {
+		if (bidItem == null) {//the item hasn't been bid by other users
 			if ((bidprice - startprice) < 0){ //user put bid price less than bidding start price
 				System.out.println("lower bid price");
 				request.setAttribute("valid", false);
@@ -72,13 +77,6 @@ public class BidCommand implements Command {
 				request.setAttribute("currentprice", startprice);
 				return "/itemDetail.jsp";
 			}
-			bidItem = new BidBean();
-			bidItem.setItemId(item_id);
-			bidItem.setBidderId(userid);
-			bidItem.setPrice(bidprice);
-			bidItem.setDate(new Date());
-			bidService.addBidItem(bidItem);
-			System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice());
 		}
 		else{
 			if ((bidprice - bidItem.getPrice()) < inc){ //user put bid price with increment lower than minimum increment from current price
@@ -90,12 +88,21 @@ public class BidCommand implements Command {
 				return "/itemDetail.jsp";
 			}
 			System.out.println("notify user id : "+bidItem.getBidderId()+" that he/she lost the bidding of item "+bidItem.getItemId());
-			bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
-			
+			//bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
+			bidService.updateBidStatus(item_id, 0);
 		}
 		
+		bidItem = new BidBean();
+		bidItem.setItemId(item_id);
+		bidItem.setBidderId(userid);
+		bidItem.setPrice(bidprice);
+		bidItem.setDate(new Date());
+		bidItem.setStatus(1);
+		bidService.addBidItem(bidItem);
+		System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice());
+		
 		request.setAttribute("bidItem", bidItem);
-		ArrayList<BidBean> bidlist = bidService.getAllBidItems();
+		ArrayList<BidBean> bidlist = bidService.getAllWinBidItems();
 		request.setAttribute("bidlist", bidlist);
 		request.setAttribute("valid", true);
 		request.setAttribute("win", win);

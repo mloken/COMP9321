@@ -167,6 +167,41 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		return item;
 	}
 	
+	@Override
+	public ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid){
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<AuctionItemBean> list = new ArrayList<AuctionItemBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ?");
+			stmt.setInt(1, uid);
+			rs = stmt.executeQuery();
+			while (rs.next())
+				list.add(createAuctionItemBean(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
 	public ArrayList<AuctionItemBean> getAllAuctionItems(){
 		Connection con = null;
 		ResultSet rs = null;

@@ -9,13 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
-
-
-
-
-
 import beans.AuctionItemBean;
 import beans.BidBean;
 import beans.UserBean;
@@ -41,16 +34,24 @@ public class ShowBidListCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<BidBean> bidItems = new ArrayList<>();
+		ArrayList<BidBean> winbidItems = new ArrayList<>();
+		ArrayList<BidBean> lostbidItems = new ArrayList<>();
 		AuctionItemBean auctionItem = null;
 		HttpSession session = request.getSession();
 		UserBean currentUser = (UserBean) session.getAttribute("user");
 		
+		
+		if (currentUser == null) {
+			System.out.println("user = null, not login");
+			return "/login.jsp";
+		}
 		System.out.println("user_id= "+currentUser.getUid());
-		bidItems = bidService.getBidItemsByUser(currentUser.getUid());
+		winbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 1);
+		lostbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 0);
 //		auctionItems = auctionService.getItemById(wishlistItems);
 		
-		request.setAttribute("bidlist", bidItems);
+		request.setAttribute("winbidlist", winbidItems);
+		request.setAttribute("lostbidlist", lostbidItems);
 		return "/bidlist.jsp";
 		
 		

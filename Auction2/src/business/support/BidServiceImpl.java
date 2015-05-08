@@ -30,16 +30,34 @@ public class BidServiceImpl implements BidService{
 		BidBean updatedItem = bidDao.updateBid(itemid, bidderid, price, date);
 		return updatedItem;
 	}
+	
+	@Override
+	public BidBean updateBidStatus(String itemid, int newstatus){
+		BidBean updatedItem = bidDao.updateBidStatus(itemid, newstatus);
+		return updatedItem;
+	}
 
 	@Override
 	public BidBean getBidItemById(String id) {
 		BidBean item = bidDao.getBidItemById(id);
 		return item;
 	}
+	
+	@Override
+	public BidBean getWinBidItemById(String id) {
+		BidBean item = bidDao.getWinBidItemById(id);
+		return item;
+	}
 
 	@Override
 	public ArrayList<BidBean> getAllBidItems() {
 		ArrayList<BidBean> allItems = bidDao.getAllBidItems();
+		return allItems;
+	}
+	
+	@Override
+	public ArrayList<BidBean> getAllWinBidItems() {
+		ArrayList<BidBean> allItems = bidDao.getAllWinBidItems();
 		return allItems;
 	}
 	
@@ -55,6 +73,11 @@ public class BidServiceImpl implements BidService{
 	
 	public ArrayList<BidBean> getBidItemsByUser(int userid){
 		return bidDao.getBidItemsByUser(userid);
+	}
+	
+	@Override
+	public ArrayList<BidBean> getBidItemsByUserAndStatus(int userid, int status){
+		return bidDao.getBidItemsByUserAndStatus(userid, status);
 	}
 
 }
