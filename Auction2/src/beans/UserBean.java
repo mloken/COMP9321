@@ -4,13 +4,35 @@ public class UserBean {
 	private int uid;
 	private String firstName;
 	private String lastName;
+	private String nickname;
 	private int accessLevel;
 	private String username;
 	private String password;
 	private String email;
 	private String contactNumber;
+	private String yearOfBirth;
+	private AddressBean address;
+	private String creditCard;
 	public UserBean(){
 		super();
+	}
+	public String getYearOfBirth() {
+		return yearOfBirth;
+	}
+	public void setYearOfBirth(String yearOfBirth) {
+		this.yearOfBirth = yearOfBirth;
+	}
+	public AddressBean getAddress() {
+		return address;
+	}
+	public void setAddress(AddressBean address) {
+		this.address = address;
+	}
+	public String getCreditCard() {
+		return creditCard;
+	}
+	public void setCreditCard(String creditCard) {
+		this.creditCard = creditCard;
 	}
 	public int getUid() {
 		return uid;
@@ -59,5 +81,11 @@ public class UserBean {
 	}
 	public void setContactNumber(String contactNumber) {
 		this.contactNumber = contactNumber;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 }

@@ -100,15 +100,23 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("insert into tbl_users (firstname, lastname, access_level, username, password, email, contact_number) values (?, ?, ?, ?, ?, ?, ?)");
+					.prepareStatement("insert into tbl_users (firstname, lastname, nickname, access_level, username, password, email, contact_number, year_of_birth, credit_card, streetAddress, city, state, country, postalCode) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
 			stmt.setString(1, user.getFirstName());
 			stmt.setString(2, user.getLastName());
-			stmt.setInt(3, user.getAccessLevel());
-			stmt.setString(4, user.getUsername());
-			stmt.setString(5, user.getPassword());
-			stmt.setString(6, user.getEmail());
-			stmt.setString(7, user.getContactNumber());
+			stmt.setString(3, user.getNickname());
+			stmt.setInt(4, user.getAccessLevel());
+			stmt.setString(5, user.getUsername());
+			stmt.setString(6, user.getPassword());
+			stmt.setString(7, user.getEmail());
+			stmt.setString(8, user.getContactNumber());
+			stmt.setString(9, user.getYearOfBirth());
+			stmt.setString(10, user.getCreditCard());
+			stmt.setString(11, user.getAddress().getStreetAddress());
+			stmt.setString(12, user.getAddress().getCity());
+			stmt.setString(13, user.getAddress().getState());
+			stmt.setString(14, user.getAddress().getCountry());
+			stmt.setString(15, user.getAddress().getPostalCode());
 
 			int n = stmt.executeUpdate();
 			if (n != 1)
@@ -243,6 +251,16 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		user.setPassword(rs.getString("password"));
 		user.setEmail(rs.getString("email"));
 		user.setContactNumber(rs.getString("contact_number"));
+		user.setNickname(rs.getString("nickname"));
+		user.setYearOfBirth(rs.getString("year_of_birth"));
+		user.setCreditCard(rs.getString("credit_card"));
+		AddressBean address = new AddressBean();
+		address.setStreetAddress(rs.getString("streetAddress"));
+		address.setCity(rs.getString("city"));
+		address.setState(rs.getString("state"));
+		address.setCountry(rs.getString("country"));
+		address.setPostalCode(rs.getString("postalCode"));
+		user.setAddress(address);
 		return user;
 	}
 

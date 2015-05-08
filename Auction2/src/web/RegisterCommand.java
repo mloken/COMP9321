@@ -47,9 +47,17 @@ public class RegisterCommand implements Command {
 			String firstname = request.getParameter("NewFirstName");
 			String lastname = request.getParameter("NewLastName");
 			String username = request.getParameter("NewUserName");
+			String nickname = request.getParameter("NewNickname");
 			String email = request.getParameter("NewEmail");
 			String password = request.getParameter("NewPassword");
 			String number = request.getParameter("NewNumber");
+			String yearOfBirth = request.getParameter("NewYearOfBirth");
+			String creditCard = request.getParameter("NewCreditCard");
+			String streetAddress = request.getParameter("NewStreetAddress");
+			String city = request.getParameter("NewCity");
+			String state = request.getParameter("NewState");
+			String country = request.getParameter("NewCountry");
+			String postalCode = request.getParameter("NewPostalCode");
 			boolean valid = true;
 			
 			if(!userService.isUsernameAvailable(username)){
@@ -73,6 +81,13 @@ public class RegisterCommand implements Command {
 			
 			if(lastname==""){
                 message+="Please fill your last name<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(nickname==""){
+                message+="Please fill in your nickname<br>";
                 valid = false;
 	        } else {
 	                valid = valid&&true;
@@ -108,14 +123,73 @@ public class RegisterCommand implements Command {
 	        valid = valid&&true;
 	        }
 			
+			if(yearOfBirth==""){
+                message+="Your year of birth can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(creditCard==""){
+                message+="Your credit card can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(streetAddress==""){
+                message+="Your street address can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(city==""){
+                message+="Your city can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(state==""){
+                message+="Your state can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(country==""){
+                message+="Your country can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
+			if(postalCode==""){
+                message+="Your postal code can not be empty!<br>";
+                valid = false;
+	        } else {
+	                valid = valid&&true;
+	        }
+			
 			if (valid){
 				//newuser.setUid(Integer.parseInt(UUID.randomUUID().toString()));
 				newuser.setFirstName(firstname);
 				newuser.setLastName(lastname);
 				newuser.setUsername(username);
+				newuser.setNickname(nickname);
 				newuser.setEmail(email);
 				newuser.setPassword(password);
 				newuser.setContactNumber(number);
+				newuser.setYearOfBirth(yearOfBirth);
+				newuser.setCreditCard(creditCard);
+				AddressBean addr = new AddressBean();
+				addr.setStreetAddress(streetAddress);
+				addr.setCity(city);
+				addr.setState(state);
+				addr.setCountry(country);
+				addr.setPostalCode(postalCode);
+				newuser.setAddress(addr);
 				newuser.setAccessLevel(2);
 				userService.register(newuser);
 				message+="Congratulation! You have been successfully registered";

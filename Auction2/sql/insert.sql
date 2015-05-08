@@ -1,11 +1,11 @@
-insert into TBL_USERS values (1, 'Helen', 'Paik', 1, 'helen', 'helen','abc@gmail.com','0403727910');
-insert into TBL_USERS values (2, 'Yun Ki', 'Lee', 2, 'yunki', 'yunki','jen@aniston.net', '22230098');
-insert into TBL_USERS values (3, 'Chaa', 'Parker', 1, 'cha', 'cha','cha@gmail.com','044403727910');
-insert into TBL_USERS values (4, 'Ann', 'Lee', 1, 'lll', 'lll','lll@aniston.net', '5522230098');
-insert into TBL_USERS values (5, 'Marcus', 'Loken', 2, 'marcus', 'marcus','marcus@gmail.com','044403727910');
-insert into TBL_USERS values (6, 'Chien', 'Huang', 2, 'ccc', 'ccc','ccc@aniston.net', '5522230098');
-insert into TBL_USERS values (7, 'Bryan', 'Park', 2, 'bbb', 'bbbb','cha@gmail.com','044403727910');
-insert into TBL_USERS values (8, 'Harry', 'Harry', 4, 'hrrr', 'hhhlll','hrrr@aniston.net', '5522230098');
+insert into TBL_USERS values (1, 'Helen', 'Paik', 'Hel', 1, 'helen', 'helen','abc@gmail.com','0403727910', '1985', '1000200030004000', 'George Street 2', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (2, 'Yun Ki', 'Lee', 'Yun', 2, 'yunki', 'yunki','jen@aniston.net', '22230098', '1965', '1000200030004000', 'Park Street 3', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (3, 'Chaa', 'Parker', 'Park', 1, 'cha', 'cha','cha@gmail.com','044403727910', '1975', '1000200030004000', 'Short Street 2', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (4, 'Ann', 'Lee', 'Annie', 1, 'lll', 'lll','lll@aniston.net', '5522230098', '1995', '1000200030004000', 'Long Street 1', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (5, 'Marcus', 'Loken', 'Marc', 2, 'marcus', 'marcus','marcus@gmail.com','044403727910', '1991', '1000200030004000', 'Anzac Parade 303', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (6, 'Chien', 'Huang', 'Chi', 2, 'ccc', 'ccc','ccc@aniston.net', '5522230098', '1993', '1000200030004000', 'Wide Street 3', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (7, 'Bryan', 'Park', 'Bry', 2, 'bbb', 'bbbb','cha@gmail.com','044403727910', '1992', '1000200030004000', 'Narrow Street 55', 'Sydney', 'NSW', 'Australia', '2000');
+insert into TBL_USERS values (8, 'Harry', 'Harry', 'Har', 4, 'hrrr', 'hhhlll','hrrr@aniston.net', '5522230098', '1985', '1000200030004000', 'The Street 2', 'Sydney', 'NSW', 'Australia', '2000');
 
 
 

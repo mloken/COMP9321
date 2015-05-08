@@ -77,6 +77,13 @@ if (request.getAttribute("newuser")==null){
 	                    </div>
 	                </div>
 	                <div class="form-group">
+	                    <label for="InputName">Enter Nickname</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" name="NewNickname" id="NewNickname" placeholder="Enter Nickname" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
 	                    <label for="InputName">Enter Username</label>
 	                    <div class="input-group">
 	                        <input type="text" class="form-control" name="NewUserName" id="NewUserName" placeholder="Enter Username" required>
@@ -101,6 +108,55 @@ if (request.getAttribute("newuser")==null){
 	                    <label for="InputEmail">Enter Contact Number</label>
 	                    <div class="input-group">
 	                        <input type="text" class="form-control" id="NewNumber" name="NewNumber" placeholder="Enter Contact Number" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter Year of Birth</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewYearOfBirth" name="NewYearOfBirth" placeholder="Enter Year of Birth" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter Credit Card Number</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewCreditCard" name="NewCreditCard" placeholder="Enter Credit Card Number" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter Street Address</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewStreetAddress" name="NewStreetAddress" placeholder="Enter Street Address" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter City</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewCity" name="NewCity" placeholder="Enter City" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter State</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewState" name="NewState" placeholder="Enter State" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter Country</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewCountry" name="NewCountry" placeholder="Enter Country" required>
+	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label for="InputEmail">Enter Postal Code</label>
+	                    <div class="input-group">
+	                        <input type="text" class="form-control" id="NewPostalCode" name="NewPostalCode" placeholder="Enter Postal Code" required>
 	                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
 	                    </div>
 	                </div>
