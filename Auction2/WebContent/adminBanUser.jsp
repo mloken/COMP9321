@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<c:if test="${user.uid < 2}">
+	<c:if test="${user.accessLevel < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
     <a href="adminMenu.jsp">Back</a>
     <p> 
@@ -18,7 +18,7 @@
 		
 		<table cellpadding="2px" cellspacing="2px">
 			<tr>
-				<th>Username</th>
+				<th>User name</th>
 				<th>Status</th>
 			</tr>
 			<c:forEach var="itUser" items="${allUsers}">
@@ -27,7 +27,7 @@
 						${itUser.username}
 					</td>
 					<!-- Status and Ban/Unban-button-->
-					<c:if test="${itUser.accessLevel <= 3}">
+					<c:if test="${itUser.accessLevel == 2}">
 					<td>Not banned</td>
 					<td>
 
@@ -56,12 +56,12 @@
 
 	</c:if>
     
-	<c:if test="${user.uid >= 2}">
+	<c:if test="${user.accessLevel >= 2}">
 	<!--USED WHEN USER LOGGED IN IS NOT ADMIN-->
     You do not have admin permission
     </c:if>
     
-	<c:if test="${user.uid == null}">
+	<c:if test="${user.accessLevel == null}">
 	<!--USED WHEN NO USER IS LOGGED IN-->
     You are not logged in with admin permission
     </c:if>

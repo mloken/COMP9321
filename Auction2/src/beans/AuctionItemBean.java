@@ -144,14 +144,16 @@ public class AuctionItemBean {
 		(new Timer(true)).schedule(new TimerTask() {
 			@Override
 			public void run() {
-				AuctionItemBean.this.close(id);
+					AuctionItemBean.this.close(id);
+				
 			}
 		}, closingtime);
 		System.out.println("Timer set!");
 	}
 	
-	private synchronized void close(String id){
+	private synchronized void close(String id) {
 		System.out.println("item id : "+id);
+		check = true; 
 		//BidBean biditem = bidService.getBidItemById(this.getId());
 		//AuctionItemBean itemm = auctionService.getItemByIdALL(id);
 		//UserBean owner = userService.getUserByID(this.getOwnerId());

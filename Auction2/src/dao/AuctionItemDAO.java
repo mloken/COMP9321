@@ -25,5 +25,7 @@ public interface AuctionItemDAO {
 	boolean unhaltAuctionItemById(String id);
 
 	ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid);
+
+	AuctionItemBean updateCurrentPrice(AuctionItemBean item, Float price);
 	
 }

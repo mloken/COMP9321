@@ -59,6 +59,7 @@ public class AddNewAuctionItemCommand implements Command {
 			String bidinc = request.getParameter("biddingIncrements");
 			String endtime = request.getParameter("endTime");
 			String notes = request.getParameter("notes");
+			//String closingTime = request.getParameter("closingTime");
 			boolean valid = true;
 
 			if (itemname.isEmpty()) {
@@ -203,7 +204,9 @@ public class AddNewAuctionItemCommand implements Command {
 						
 				auctionService.addItem(item);
 
-				int closingtime =	3*1000;
+				int x = Math.round(item.getEndTime().getTime() - new Date().getTime());
+				//System.out.println("time :" +x);
+				int closingtime = (x);//*60*1000;
 				
 				item.setClosing(closingtime);
 			} else {

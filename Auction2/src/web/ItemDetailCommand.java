@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import beans.AuctionItemBean;
 import beans.BidBean;
+import beans.UserBean;
 import business.support.AuctionServiceImpl;
 import business.support.BidServiceImpl;
 
@@ -33,7 +34,7 @@ public class ItemDetailCommand implements Command {
 		BidBean bidItem = null;
 
 		auctionItem = auctionService.getItemById(id);
-		bidItem = bidService.getBidItemById(id);
+		bidItem = bidService.getWinBidItemById(id);
 
 		if (auctionItem == null) {
 			System.out.println("searchKey == null");
@@ -47,6 +48,20 @@ public class ItemDetailCommand implements Command {
 			else {
 				request.setAttribute("currentprice", bidItem.getPrice());
 			}
+			
+			if (auctionItem.getStatus()==0){
+				request.setAttribute("halt", true);
+				System.out.println("item halted");
+			}
+			else {
+				request.setAttribute("halt", false);
+			}
+			
+			HttpSession session = request.getSession();
+			UserBean currentUser = (UserBean) session.getAttribute("user");
+			//if (currentUser.getAccessLevel() == 3){
+				request.setAttribute("level", currentUser.getAccessLevel());
+			//}
 
 			request.setAttribute("auctionItem", auctionItem);
 			return "/itemDetail.jsp";

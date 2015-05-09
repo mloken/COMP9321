@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import dao.AuctionItemDAO;
 import dao.DataAccessException;
 import dao.UserDAO;
+import dao.WishlistDAO;
 import dao.support.AuctionItemDAOImpl;
 import dao.support.UserDAOImpl;
 import beans.AuctionItemBean;
 import beans.UserBean;
+import beans.WishlistItemBean;
 import business.AdminService;
 import business.UserLoginFailedException;
 
@@ -16,6 +18,7 @@ public class AdminServiceImpl implements AdminService {
 
 	private UserDAO userDao;
 	private AuctionItemDAO auctionItemDao;
+	private WishlistDAO wishlistDao;
 
 	public AdminServiceImpl() {
 		userDao = new UserDAOImpl();
@@ -76,13 +79,26 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public ArrayList<WishlistItemBean> getAllWishlists() {
+		ArrayList<WishlistItemBean> allWishlists = wishlistDao.getAllWishlists();
+		return allWishlists;
+	}
+	
+	@Override
 	public ArrayList<UserBean> getAllRegularUsers() {
 		ArrayList<UserBean> allUsers = userDao.getAllUsers();
 		ArrayList<UserBean> regUsers = new ArrayList<UserBean>();
-		for(int i = 0; i < allUsers.size(); i++){
-			int accessLvl = allUsers.get(i).getAccessLevel();
-			if(accessLvl == 2 || accessLvl == 4)
-				regUsers.add(allUsers.get(i));
+		UserBean user;
+//		for(int i = 0; i < allUsers.size(); i++){
+//			int accessLvl = allUsers.get(i).getAccessLevel();
+//			if(accessLvl == 2 || accessLvl == 4)
+//				regUsers.add(allUsers.get(i));
+//		}
+		
+		for(UserBean element: allUsers){
+			if(element.getAccessLevel()==2 || element.getAccessLevel()==4){
+				regUsers.add(element);
+			}
 		}
 		return regUsers;
 	}

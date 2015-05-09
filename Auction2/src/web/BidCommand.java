@@ -47,7 +47,7 @@ public class BidCommand implements Command {
 		System.out.println("user ID : "+request.getParameter("uid"));
 		System.out.println("item id : "+item_id);
 		
-		bidItem = bidService.getBidItemById(item_id);
+		bidItem = bidService.getWinBidItemById(item_id);
 		item = auctionService.getItemById(item_id);
 		Float inc = item.getBiddingIncrements();
 		Float reserveprice = item.getReservePrice();
@@ -64,6 +64,9 @@ public class BidCommand implements Command {
 		if (bidprice > reserveprice){//win because bid price is higher than reserve price
 			System.out.println(userid + " win item "+item_id);
 			//Remove item from auctionlist & auction table
+			session.setAttribute("winsomething", true);
+			bidService.updateBidStatusFrom2(item.getId(), 1);
+			auctionService.updateBidPrice(item, bidprice);
 			auctionService.updatePriceToZero(item);
 			win = true;
 		}
@@ -89,6 +92,7 @@ public class BidCommand implements Command {
 			}
 			System.out.println("notify user id : "+bidItem.getBidderId()+" that he/she lost the bidding of item "+bidItem.getItemId());
 			//bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
+			auctionService.updateBidPrice(item, bidprice);
 			bidService.updateBidStatus(item_id, 0);
 		}
 		
@@ -97,8 +101,9 @@ public class BidCommand implements Command {
 		bidItem.setBidderId(userid);
 		bidItem.setPrice(bidprice);
 		bidItem.setDate(new Date());
-		bidItem.setStatus(1);
+		bidItem.setStatus(2);
 		bidService.addBidItem(bidItem);
+		auctionService.updateBidPrice(item, bidprice);
 		System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice());
 		
 		request.setAttribute("bidItem", bidItem);

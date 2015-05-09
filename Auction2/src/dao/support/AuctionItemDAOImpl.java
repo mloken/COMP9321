@@ -70,7 +70,7 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 			con = services.createConnection();
 			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE id = ?");
 			stmt.setString(1, id);
-			stmt.setFloat(2, 0);
+			
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				System.out.println("Found Item");
@@ -168,6 +168,35 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 	}
 	
 	@Override
+	public AuctionItemBean updateCurrentPrice(AuctionItemBean item, Float price){
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_items SET bidPrice = ? WHERE id = ?");
+
+			update.setFloat(1, price);
+			update.setString(2, item.getId());
+			
+			int n = update.executeUpdate();
+			} catch (ServiceLocatorException e) {
+				throw new DataAccessException("Unable to retrieve connection; "
+						+ e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new DataAccessException("Unable to execute query; "
+						+ e.getMessage(), e);
+			} finally {
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+		}
+		return item;
+	}
+	
+	@Override
 	public ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid){
 		Connection con = null;
 		ResultSet rs = null;
@@ -176,8 +205,9 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		try {
 			
 			con = services.createConnection();
-			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ?");
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ? AND reservePrice = ?");
 			stmt.setInt(1, uid);
+			stmt.setFloat(2, 0);
 			rs = stmt.executeQuery();
 			while (rs.next())
 				list.add(createAuctionItemBean(rs));

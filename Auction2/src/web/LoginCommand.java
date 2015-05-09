@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.AuctionItemBean;
 import beans.UserBean;
 import business.UserLoginFailedException;
 import business.UserService;
@@ -48,6 +49,29 @@ public class LoginCommand implements Command {
 				request.setAttribute("message", message);
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
+				System.out.println("CHECK : "+AuctionItemBean.check);
+				boolean sellsomething = user.checkAuction();
+				if (sellsomething){
+					session.setAttribute("sellsomething", true);
+					System.out.println("sell : "+session.getAttribute("sellsomething"));
+				}
+				else {
+					session.setAttribute("sellsomething", false);
+					System.out.println("sell : "+session.getAttribute("sellsomething"));
+				}
+				//user.sendemail("");
+				if (AuctionItemBean.check){
+					session.setAttribute("checkauction", true);
+					//AuctionItemBean.check = false;
+					
+					boolean winsomething = user.checkBid();
+					if (winsomething){
+						session.setAttribute("winsomething", true);
+					}
+					else {
+						session.setAttribute("winsomething", false);
+					}
+				}
 				return "homepage";
 			}
 		} catch (UserLoginFailedException e) {

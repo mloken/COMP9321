@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import beans.AuctionItemBean;
 import beans.UserBean;
+import beans.WishlistItemBean;
 
 public interface AdminService {
 	
@@ -22,5 +23,7 @@ public interface AdminService {
 	ArrayList<UserBean> getAllUsers();
 
 	ArrayList<UserBean> getAllRegularUsers();
+
+	ArrayList<WishlistItemBean> getAllWishlists();
 
 }

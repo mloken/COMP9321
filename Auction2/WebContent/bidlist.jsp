@@ -12,7 +12,8 @@
 <title>Bid List</title>
 </head>
 <body>
-<h1>Bid List with highest price</h1>
+<body style= "text-align:center" >  
+  <h1><b>Win Items</b></h1>
 	<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
     	<c:forEach var="bid" items="${winbidlist}">
 			   <tr>
@@ -44,7 +45,41 @@
 		</table>
 		<br>
 		<br>
-<h1>Lost Bid List</h1>
+<body style= "text-align:center" >  
+  <h1><b>Bid List with highest price</b></h1>
+	<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
+    	<c:forEach var="bid" items="${highbidlist}">
+			   <tr>
+			   		<td>Item ID</td>
+					<td>
+			   			${bid.itemId}
+			   		</td>
+			   	</tr>
+			   	<tr>
+			   		<td>Bidder ID</td>
+			   		<td>
+			   			${bid.bidderId}
+			   		</td>
+			   	</tr>
+			   	<tr>
+			   		<td>Bid Price</td>
+			   		<td>
+			   			${bid.price}
+			   		</td>
+			   	</tr>
+			   	<tr>
+			   		<td>Bid Date</td>
+			   		<td>
+			   			${bid.date}
+			   		</td>
+				</tr>
+				<td>&nbsp</td>
+			</c:forEach>
+		</table>
+		<br>
+		<br>
+<body style= "text-align:center" >  
+  <h1><b>Lost Bid List</h1></b></h1>
 	<table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
     	<c:forEach var="bid" items="${lostbidlist}">
 			   <tr>
@@ -75,4 +110,15 @@
 			</c:forEach>
 		</table>
 </body>
+
+		<%
+		if (request.getAttribute("from")!=null && request.getAttribute("from").equals("winnotif")){
+					session.setAttribute("winsomething", false);
+					request.setAttribute("from", "bidlist");
+		}
+		
+		if (request.getAttribute("ischeck")!=null){
+			session.setAttribute("ischeck", null);
+}
+		%>
 </html>

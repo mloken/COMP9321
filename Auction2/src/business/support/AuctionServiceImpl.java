@@ -41,6 +41,12 @@ public class AuctionServiceImpl implements AuctionService{
 		AuctionItemBean updated = auctionItemDao.updatePriceToZero(item);
 		return item;
 	}
+	
+	@Override
+	public AuctionItemBean updateBidPrice(AuctionItemBean item, Float price){
+		AuctionItemBean updated = auctionItemDao.updateCurrentPrice(item, price);
+		return item;
+	}
 
 	@Override
 	public ArrayList<AuctionItemBean> getItemBySearchKey(String searchKey) {

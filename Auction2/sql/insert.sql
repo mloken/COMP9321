@@ -36,8 +36,8 @@ insert into TBL_ITEMS values ('54cbbd68-4560-4703-8ae1-9b96b43e9fd2', 8, 'FRIEND
 insert into TBL_ITEMS values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', 7, 'Wall Quotes Art Stretched Canvas Prints Framed Wall Decor Restaurant Bar Cafe AU', 'Art', 'Package received:1 Pcs Canvas print stretched on frame + Free Installation Accessories Pack (2 Screws+2 Hanging Rings+2 Markless Nails+1 Mini Level Tester+Hanging Lanyard)', 'http://thumbs1.ebaystatic.com/d/l225/pict/201327141904_1.jpg','770 Eastern Parkway','SYDNEY','NSW','AUS','2032','57.0','20.0','1','20','','2015-05-12 12:00:00.0',1);
 
 
-insert into TBL_BID (item_id, bidder_id,price,bid_date,status) values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', '2', '30', NOW());
-insert into TBL_BID (item_id, bidder_id,price,bid_date,status) values ('2e2b1078-22b6-431b-aca7-e29093e3af0e', '7', '120', NOW());
+--insert into TBL_BID (item_id, bidder_id,price,bid_date,status) values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', '2', '30', NOW());
+--insert into TBL_BID (item_id, bidder_id,price,bid_date,status) values ('2e2b1078-22b6-431b-aca7-e29093e3af0e', '7', '120', NOW());
 
 insert into TBL_WISHLIST (item_id, user_id) values ('eb8b66a6-265b-4e4a-a17f-3f9c3ffca8e8', '1');
 insert into TBL_WISHLIST (item_id, user_id) values ('2e2b1078-22b6-431b-aca7-e29093e3af0e', '1');

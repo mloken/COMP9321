@@ -3,7 +3,28 @@
 			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			</div>
 			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+			<%
+	 		
+				if (session.getAttribute("winsomething")!=null && session.getAttribute("winsomething").toString()=="true"){
+					
+					request.setAttribute("from", "winnotif");
+				%>
 				
+				<h2>You won something, go to your <a href="dispatcher?operation=showBidList">Bid List</a> page to check</h2><br>
+				
+				<%
+				}
+			%>
+				<%
+				if (session.getAttribute("sellsomething")!=null && session.getAttribute("sellsomething").toString()=="true"){
+					
+				%>
+				
+				<h2>You have items which have reached closing time, go to your <a href="dispatcher?operation=showAuctionList">Auction Item List</a> page to check</h2><br>
+				
+				<%
+				}
+			%>	
 					<h1><a href="dispatcher?operation=homepage"><b>Auction Time</b></a></h1>
 					<div class="btn-group">
 						  <a href="dispatcher?operation=homepage" type="button" class="btn btn-primary">Shopping</a>
@@ -31,6 +52,7 @@
 							       <ul class="dropdown-menu" role="menu">
 							           <li><a href="userProfile.jsp">Profile</a></li>
 							           <li><a href="dispatcher?operation=logout">Log out</a></li>
+							           <li><a href="dispatcher?operation=showAuctionList">My Auction</a></li>
 							      </ul>
 						 </div>
 		 			</c:otherwise>

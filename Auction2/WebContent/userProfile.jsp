@@ -50,45 +50,66 @@
 			    <td colspan="2"><h1>${user.username}</h1></td>
 			  </tr>
 			  <tr>
+			    <td><b>Status</b></td>
+			    <td>
+			    	
+			    		<c:if test="${user.accessLevel==4}">
+			    		Ban-- Currently you can not make a bid.
+			    		</c:if>
+			    		<c:if test="${user.accessLevel =='2'}">
+			    		Authorized User
+			    		</c:if>
+			    		<c:if test="${user.accessLevel == '3'}">
+			    		Unauthorized User-- Please check your authorization letter in your email.
+			    		</c:if>
+			    		<c:if test="${user.accessLevel == '1'}">
+			    		Admin
+			    		</c:if>
+			    				    	
+			    	
+			    	
+			    </td>
+			 </tr>
+			  <tr>
 			    <td><b>First name</b></td>
 			    <td>${user.firstName}</td>
 			 </tr>
 	
 	  			
 			  <tr>
-			     <td>Last name</td>
+			     <td><b>Last name</b></td>
 			    <td>${user.lastName}</td>
 			  </tr>
 			  <tr>
-			    <td>Email</td>
+			    <td><b>Email</b></td>
 			    <td>${user.email}</td>
 			  </tr>
 			  <tr>
-			    <td >Contact number</td>
+			    <td ><b>Contact number</b></td>
 			    <td >${user.contactNumber}</td>
 			  </tr>
 			  <tr>
-			    <td >Contact number</td>
+			    <td ><b>Contact number</b></td>
 			    <td >${user.contactNumber}</td>
 			  </tr>
 			  <tr>
-			    <td >nickname</td>
+			    <td ><b>Nickname</b></td>
 			    <td >${user.nickname}</td>
 			  </tr>
 			  <tr>
-			    <td >year_of_birth</td>
+			    <td ><b>Year of Birth</b></td>
 			    <td >${user.yearOfBirth}</td>
 			  </tr>
 			  <tr>
-			    <td >credit card</td>
+			    <td ><b>Credit card</b></td>
 			    <td >${user.creditCard}</td>
 			  </tr>
 			  <tr>
-			    <td >Address</td>
+			    <td ><b>Address</b></td>
 			    <td >${user.address.streetAddress}, ${user.address.city}, ${user.address.state}, ${user.address.country}, ${user.address.postalCode}</td>
 			  </tr>
 			  <tr>
-			    <td >Password</td>
+			    <td ><b>Password</b></td>
 			    <td >${user.password}</td>
 			  </tr>
 	

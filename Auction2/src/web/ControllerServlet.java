@@ -39,6 +39,7 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("adminHaltAuction", new AdminHaltAuctionCommand());
 		commands.put("homepage", new HomepageCommand());
 		commands.put("editProfile", new EditProfileCommand());
+		commands.put("showAuctionList", new ShowAuctionListCommand());
 		
 	}
 

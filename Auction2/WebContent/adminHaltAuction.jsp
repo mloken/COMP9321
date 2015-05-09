@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<c:if test="${user.uid < 2}">
+	<c:if test="${user.accessLevel < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
     <a href="adminMenu.jsp">Back</a>
     <h2>Halt active auction items here:</h2>
@@ -55,12 +55,12 @@
 
 	</c:if>
     
-	<c:if test="${user.uid >= 2}">
+	<c:if test="${user.accessLevel >= 2}">
 	<!--USED WHEN USER LOGGED IN IS NOT ADMIN-->
     You do not have admin permission
     </c:if>
     
-	<c:if test="${user.uid == null}">
+	<c:if test="${user.accessLevel == null}">
 	<!--USED WHEN NO USER IS LOGGED IN-->
     You are not logged in with admin permission
     </c:if>

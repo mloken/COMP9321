@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import beans.AddressBean;
 import beans.AuctionItemBean;
+import beans.UserBean;
 import beans.WishlistItemBean;
 import common.DBConnectionFactory;
 import common.ServiceLocatorException;
@@ -23,6 +24,40 @@ public class WishlistDAOImpl extends GenericDAO implements WishlistDAO{
 
 	public WishlistDAOImpl(DBConnectionFactory services) {
 		super(services);
+	}
+	
+	@Override
+	public ArrayList<WishlistItemBean> getAllWishlists() {
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<WishlistItemBean> wishlists = new ArrayList<WishlistItemBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_WISHLIST");
+			rs = stmt.executeQuery();
+			while (rs.next())
+				wishlists.add(createWishlistItem(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return wishlists;
 	}
 	
 	public ArrayList<WishlistItemBean> getWishlistFromUserId(int userId){
@@ -148,6 +183,38 @@ public class WishlistDAOImpl extends GenericDAO implements WishlistDAO{
 			}
 		}
 		return deletedItem;
+	}
+	
+	
+	public boolean deleteWishlistItemByItemId(String itemId){
+		Connection con = null;
+		ArrayList<WishlistItemBean> deletedItems = new ArrayList<WishlistItemBean>();
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con
+					.prepareStatement("DELETE FROM TBL_WISHLIST where item_id = ?");
+			stmt.setString(1, itemId);
+			int n = stmt.executeUpdate();
+//			if (n != 1)
+//				throw new DataAccessException(
+//						"Did not delete row from database");
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+
+				}
+			}
+		}
+		return true;
 	}
 	
 	private WishlistItemBean getWishlistItemFromId(int id) {

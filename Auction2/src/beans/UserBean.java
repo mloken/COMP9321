@@ -3,8 +3,17 @@ package beans;
 
 import java.awt.Component;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
+
+/*import javax.mail.*;
+import javax.mail.internet.*;*/
 import javax.swing.JOptionPane;
+
+import business.support.AuctionServiceImpl;
+import business.support.BidServiceImpl;
+
 import com.sun.glass.ui.Window;
 import com.sun.java.swing.plaf.windows.resources.windows;
 
@@ -133,9 +142,36 @@ public class UserBean {
 		}
 	}
 	
+	public boolean checkBid(){
+		BidServiceImpl bidService = new BidServiceImpl();
+		ArrayList<BidBean> winbidlist = bidService.getBidItemsByUserAndStatus(this.uid, 1);
+		if (winbidlist.isEmpty()){
+			return false;
+		}
+		return true;
+	}
+	
+	public boolean checkAuction(){
+		AuctionServiceImpl auctionService = new AuctionServiceImpl();
+		ArrayList<AuctionItemBean> closedbidlist = auctionService.getAllAuctionItemsByOwner(uid);
+		if (closedbidlist.isEmpty()){
+			return false;
+		}
+		for (int i=0; i<closedbidlist.size(); i++){
+			if (closedbidlist.get(i).getEndTime().getTime() < new Date().getTime()){
+				BidServiceImpl bidService = new BidServiceImpl();
+				//BidBean closedbid = bidService.getBidItemById(closedbidlist.get(i).getId());
+				auctionService.updatePriceToZero(closedbidlist.get(i));
+				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1);
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void sendemail(String email){
 		System.out.println("send email");
-	/*	final String username = "christa.chiquita@gmail.com";
+		/*final String username = "christa.chiquita@gmail.com";
         final String password = "Rndyxta11";
 
         Properties props = new Properties();
@@ -154,7 +190,7 @@ public class UserBean {
         try {
 
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("christa.chiquita@gmail.com"));
+            message.setFrom(new InternetAddress(username));
             message.setRecipients(Message.RecipientType.TO,
                 InternetAddress.parse("christa.chiquita@gmail.com"));
             message.setSubject("Testing Subject");
@@ -168,6 +204,48 @@ public class UserBean {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }*/
+        /*
+		// Recipient's email ID needs to be mentioned.
+	      String to = "christa.chiquita@gmail.com";
+
+	      // Sender's email ID needs to be mentioned
+	      String from = "swps64@gmail.com";
+
+	      // Assuming you are sending email from localhost
+	      String host = "localhost";
+
+	      // Get system properties
+	      Properties properties = System.getProperties();
+
+	      // Setup mail server
+	      properties.setProperty("mail.smtp.host", host);
+
+	      // Get the default Session object.
+	      Session session = Session.getDefaultInstance(properties);
+
+	      try{
+	         // Create a default MimeMessage object.
+	         MimeMessage message = new MimeMessage(session);
+
+	         // Set From: header field of the header.
+	         message.setFrom(new InternetAddress(from));
+
+	         // Set To: header field of the header.
+	         message.addRecipient(Message.RecipientType.TO,
+	                                  new InternetAddress(to));
+
+	         // Set Subject: header field
+	         message.setSubject("This is the Subject Line!");
+
+	         // Now set the actual message
+	         message.setText("This is actual message");
+
+	         // Send message
+	         Transport.send(message);
+	         System.out.println("Sent message successfully....");
+	      }catch (MessagingException mex) {
+	         mex.printStackTrace();
+	      }*/
     }
 	
 }

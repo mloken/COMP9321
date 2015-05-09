@@ -29,4 +29,6 @@ public interface BidDAO {
 	ArrayList<BidBean> getBidItemsByUserAndStatus(int userid, int status);
 
 	BidBean updateBidStatus(String itemid, int newstatus);
+
+	BidBean updateBidStatusFrom2(String itemid, int newstatus);
 }

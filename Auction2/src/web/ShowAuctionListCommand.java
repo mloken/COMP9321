@@ -17,14 +17,14 @@ import business.support.AuctionServiceImpl;
 import business.support.BidServiceImpl;
 import business.support.WishlistServiceImpl;
 
-public class ShowBidListCommand implements Command {
+public class ShowAuctionListCommand implements Command {
 
 	private static BidServiceImpl bidService;
 	private static AuctionServiceImpl auctionService;
 
 
 	/** Creates a new instance of LoginCommand */
-	public ShowBidListCommand() {
+	public ShowAuctionListCommand() {
 		bidService = new BidServiceImpl();
 		auctionService = new AuctionServiceImpl();
 
@@ -33,9 +33,8 @@ public class ShowBidListCommand implements Command {
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		ArrayList<BidBean> winbidItems = new ArrayList<>();
-		ArrayList<BidBean> lostbidItems = new ArrayList<>();
-		ArrayList<BidBean> highbidItems = new ArrayList<>();
+		ArrayList<AuctionItemBean> openItems = new ArrayList<>();
+		ArrayList<AuctionItemBean> closedItems = new ArrayList<>();
 		AuctionItemBean auctionItem = null;
 		HttpSession session = request.getSession();
 		UserBean currentUser = (UserBean) session.getAttribute("user");
@@ -46,15 +45,11 @@ public class ShowBidListCommand implements Command {
 			return "/login.jsp";
 		}
 		System.out.println("user_id= "+currentUser.getUid());
-		winbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 1);
-		highbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 2);
-		lostbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 0);
+		closedItems = auctionService.getAllAuctionItemsByOwner(currentUser.getUid());
 //		auctionItems = auctionService.getItemById(wishlistItems);
-		
-		request.setAttribute("winbidlist", winbidItems);
-		request.setAttribute("highbidlist", highbidItems);
-		request.setAttribute("lostbidlist", lostbidItems);
-		return "/bidlist.jsp";
+		request.setAttribute("from", "sellnotif");
+		request.setAttribute("closedItems", closedItems);
+		return "/auctionlist.jsp";
 		
 		
 	}

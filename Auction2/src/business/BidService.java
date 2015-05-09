@@ -27,4 +27,6 @@ public interface BidService {
 	BidBean getWinBidItemById(String id);
 
 	BidBean updateBidStatus(String itemid, int newstatus);
+
+	BidBean updateBidStatusFrom2(String itemid, int newstatus);
 }

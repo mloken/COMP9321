@@ -19,6 +19,9 @@ public class WishlistServiceImpl implements WishlistService{
 		ArrayList<WishlistItemBean> wishlist = wishlistDao.getWishlistFromUserId(userId);
 		return wishlist;
 	}
+	
+
+	
 	@Override
 	public String addToWishlist(String itemId, int userId) {
 		String addedItem = wishlistDao.addToWishlist(itemId,userId);
@@ -34,5 +37,12 @@ public class WishlistServiceImpl implements WishlistService{
 	public WishlistItemBean deleteWishlistItemByItemAndUser(String itemId,int userId) {
 		WishlistItemBean deletedItem = wishlistDao.deleteWishlistItemByItemAndUser(itemId, userId);
 		return deletedItem;
+	}
+	
+	
+	@Override
+	public boolean deleteWishlistItemByItemId(String itemId){
+		boolean deleted = wishlistDao.deleteWishlistItemByItemId(itemId);
+		return deleted;
 	}
 }

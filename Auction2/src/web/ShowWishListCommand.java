@@ -31,7 +31,7 @@ public class ShowWishListCommand implements Command {
 	public ShowWishListCommand() {
 		wishlistService = new WishlistServiceImpl();
 		auctionService = new AuctionServiceImpl();
-
+		
 	}
 
 	

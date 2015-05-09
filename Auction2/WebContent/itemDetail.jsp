@@ -76,9 +76,13 @@
 			<td>${auctionItem.address.postalCode }</td>
 		 </tr>
 		  <tr>
+		  <%
+		  	if (request.getAttribute("halt").toString()=="false"){
+		  		System.out.println("item not halted");
+		  %>
 		 	<td>Input Bid Price</td>
 		 	<td><input type="text" class="form-control" id="bidPrice" name="bidPrice" placeholder="0.00" required></td>
-		 </tr>
+		 	</tr>
 		  
 		</table>
 		<br><br>
@@ -87,6 +91,33 @@
 							<input type="hidden" name="uid" value="${user.uid}">
 							<input type="submit" class="btn btn-danger" value="Bid">
 		</center>
+		 	<%
+		  	}
+		  	else {
+		  		%>
+		  		<td colspan="2">Sorry, this item is halted by admin.</td>
+		  		</tr>
+		  		</table>
+		  		<%
+		  	}
+		  if (request.getAttribute("level")=="3"){
+			  %>
+			  <td colspan="2">Sorry, you can not bid this item because you haven't registered yet. <a href= registration.jsp">Register?</a></td>
+		  		</tr>
+		  		</table>
+			  
+			  <%
+		  }
+		  if (request.getAttribute("level")=="4"){
+			  %>
+			  <td colspan="2">Sorry, you can not bid this item because you have been banned by the admin.</a></td>
+		  		</tr>
+		  		</table>
+
+			  <%
+		  }
+		 	%>
+		 
 		</form>		
 		
 		<br><br>
@@ -100,6 +131,6 @@
 		</form>			
 		</center>
 		<br><br>
-		<center><a href= homepage.jsp" class="btn btn-warning">Back to shopping</a></center>  
+		<center><a href="dispatcher?operation=homepage" class="btn btn-info">Back to shopping</a></center>  
 </body>
 </html>

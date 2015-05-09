@@ -9,12 +9,12 @@
 </head>
 <body>
 
-	<c:if test="${user.uid < 2}">
+	<c:if test="${user.accessLevel < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
     Welcome ${user.firstName}, click <a href="adminMenu.jsp">HERE</a> to enter menu.
     </c:if>
 	
-	<c:if test="${user.uid >= 2 || user.uid == null }">
+	<c:if test="${user.accessLevel >= 2 || user.uid == null }">
 	<!--USED WHEN USER LOGGED IN ISN'T ADMIN OR NO ONE IS LOGGED IN-->
 	<form action="dispatcher?operation=adminLogin" method="post">
 		<center>

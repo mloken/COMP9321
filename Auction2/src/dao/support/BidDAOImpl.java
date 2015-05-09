@@ -220,6 +220,37 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 		}
 		return updateditem;
 	}
+	
+	@Override
+	public BidBean updateBidStatusFrom2(String itemid, int newstatus){
+		BidBean updateditem = new BidBean();
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_bid SET status = ? WHERE item_id = ? AND status = ?");
+
+			update.setInt(1, newstatus);
+			update.setString(2, itemid);
+			update.setInt(3, 2);
+			
+			int n = update.executeUpdate();
+			} catch (ServiceLocatorException e) {
+				throw new DataAccessException("Unable to retrieve connection; "
+						+ e.getMessage(), e);
+			} catch (SQLException e) {
+				throw new DataAccessException("Unable to execute query; "
+						+ e.getMessage(), e);
+			} finally {
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+		}
+		return updateditem;
+	}
 
 	@Override
 	public BidBean deleteBidItemById(String item_id) {

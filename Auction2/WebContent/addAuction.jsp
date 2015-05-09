@@ -86,7 +86,7 @@
 		                <div class="form-group">
 		                    <label for="picture">Picture</label>
 		                    <div class="input-group">
-		                        <input id="picture" name="picture" class="input-file" type="file">
+		                        <input id="picture" name="picture" class="input-file" type="text" class="form-control" placeholder="Enter Picture URL">
 		                    </div>
 		                </div>
 		                <div class="form-group">
@@ -168,8 +168,16 @@
 		                        <input type="text" class="form-control" id="endTime" name="endTime" placeholder="Eg. 2015-01-31-23:59">
 		                        <span class="input-group-addon"></span>
 		                    </div>
-		                    <p class="help-block">Must have format: yyyy-MM-dd-hh:mm (If left empty: end time set to 10 minutes from now)</p>
+		                    <p class="help-block">Must have format: yyyy-MM-dd-hh:mm</p>
 		                </div>
+		                <!-- <div class="form-group">
+		                    <label for="closingtime">Closing Time (3-60 minutes. If left empty: end time set to 10 minutes)</label>
+		                    <div class="input-group">
+		                        <input type="text" class="form-control" id="closingtime" name="closingtime" placeholder="10" required>
+		                        <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+		                    </div>
+		                </div>
+		                 -->
 		                <div class="form-group">
 		                    <label for="notes">Notes</label>
 		                    <div class="input-group">

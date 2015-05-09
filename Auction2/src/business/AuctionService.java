@@ -26,4 +26,6 @@ public interface AuctionService {
 	ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid);
 	
 	List<AuctionItemBean> getTenRandomAuctionItems();
+
+	AuctionItemBean updateBidPrice(AuctionItemBean item, Float price);
 }

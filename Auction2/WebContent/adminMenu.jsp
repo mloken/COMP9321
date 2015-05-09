@@ -10,7 +10,7 @@
 </head>
 <body>
 	<a href="dispatcher?operation=logout">Log out</a>
-	<c:if test="${user.uid < 2}">
+	<c:if test="${user.accessLevel < 2}">
 	<!--USED WHEN USER LOGGED IN IS ADMIN-->
 		<h2>Admin functions</h2>
 		<p>
@@ -19,7 +19,7 @@
 			<a href="dispatcher?operation=adminBanUser">Ban user</a>
 	</c:if>
 
-	<c:if test="${user.uid >= 2}">
+	<c:if test="${user.accessLevel >= 2}">
 	<!--USED WHEN USER LOGGED IN IS NOT ADMIN-->
     You do not have admin permission
     </c:if>
