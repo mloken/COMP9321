@@ -30,7 +30,18 @@ public class UserServiceImpl implements UserService{
 	}
 	
 
-	
+	@Override
+	public UserBean findById(int id)
+			throws UserLoginFailedException {
+		UserBean user = null;
+		
+		try {
+			user = userDao.findByID(id);
+			return user;
+		} catch (DataAccessException e) {
+			throw new UserLoginFailedException("Unable to find user", e);
+		}
+	}
 	
 	public UserBean register(UserBean user){
 		

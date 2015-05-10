@@ -12,7 +12,9 @@ import javax.servlet.http.HttpSession;
 
 import beans.BidBean;
 import beans.UserBean;
+import business.UserLoginFailedException;
 import business.support.BidServiceImpl;
+import business.support.UserServiceImpl;
 import beans.AuctionItemBean;
 import business.support.AuctionServiceImpl;
 
@@ -65,7 +67,7 @@ public class BidCommand implements Command {
 		
 		boolean iswin = false;
 		
-		
+		UserServiceImpl lostService = new UserServiceImpl();
 		
 		if (bidItem == null) {//the item hasn't been bid by other users
 			if (bidprice > reserveprice){//win because bid price is higher than reserve price
@@ -135,6 +137,15 @@ public class BidCommand implements Command {
 				return "/itemDetail.jsp";
 			}
 			System.out.println("notify user id : "+bidItem.getBidderId()+" that he/she lost the bidding of item "+bidItem.getItemId());
+			
+			try {
+				UserBean lost = lostService.findById(bidItem.getBidderId());
+				lost.sendemail("Auction Lost : Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have lost an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
+			} catch (UserLoginFailedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			//bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
 			AuctionItemBean.check = true;
 			auctionService.updateBidPrice(item, bidprice);

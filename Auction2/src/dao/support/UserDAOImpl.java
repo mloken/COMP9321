@@ -61,6 +61,36 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 	}
 	
 	@Override
+	public UserBean findByID(int id)
+			throws DataAccessException {
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con.prepareStatement("select * from tbl_users where uid = ?");
+			stmt.setInt(1, id);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				UserBean user = createUserBean(rs);
+				stmt.close(); 
+				return user;
+			}
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
+	
+	@Override
 	public ArrayList<UserBean> getAllUsers() {
 		Connection con = null;
 		ResultSet rs = null;

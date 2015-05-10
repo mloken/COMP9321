@@ -9,6 +9,8 @@ public interface UserDAO {
 
 	UserBean findByLoginDetails(String username, String password) throws DataAccessException;
 	
+	UserBean findByID(int id);
+	
 	ArrayList<UserBean> getAllUsers();
 	
 	UserBean addNewUser(UserBean user);
