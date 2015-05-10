@@ -1,12 +1,19 @@
-insert into TBL_USERS values (1, 'Helen', 'Paik', 'Hel', 1, 'helen', 'helen','abc@gmail.com','0403727910', '1985', '1000200030004000', 'George Street 2', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (2, 'Yun Ki', 'Lee', 'Yun', 2, 'yunki', 'yunki','jen@aniston.net', '22230098', '1965', '1000200030004000', 'Park Street 3', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (3, 'Chaa', 'Parker', 'Park', 1, 'cha', 'cha','cha@gmail.com','044403727910', '1975', '1000200030004000', 'Short Street 2', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (4, 'Ann', 'Lee', 'Annie', 1, 'lll', 'lll','lll@aniston.net', '5522230098', '1995', '1000200030004000', 'Long Street 1', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (5, 'Marcus', 'Loken', 'Marc', 2, 'marcus', 'marcus','marcus@gmail.com','044403727910', '1991', '1000200030004000', 'Anzac Parade 303', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (6, 'Chien', 'Huang', 'Chi', 2, 'ccc', 'ccc','ccc@aniston.net', '5522230098', '1993', '1000200030004000', 'Wide Street 3', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (7, 'Bryan', 'Park', 'Bry', 2, 'bbb', 'bbbb','cha@gmail.com','044403727910', '1992', '1000200030004000', 'Narrow Street 55', 'Sydney', 'NSW', 'Australia', '2000');
-insert into TBL_USERS values (8, 'Harry', 'Harry', 'Har', 4, 'hrrr', 'hhhlll','hrrr@aniston.net', '5522230098', '1985', '1000200030004000', 'The Street 2', 'Sydney', 'NSW', 'Australia', '2000');
-
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Helen', 'Paik', 'Hel', 1, 'helen', 'helen','abc@gmail.com','0403727910', '1985', '1000200030004000', 'George Street 2', 'Sydney', 'NSW', 'Australia', '2000','231a82dd-9856-4b09-9906-3787d6745ba5');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ('Yun Ki', 'Lee', 'Yun', 2, 'yunki', 'yunki','jen@aniston.net', '22230098', '1965', '1000200030004000', 'Park Street 3', 'Sydney', 'NSW', 'Australia', '2000','624ddcf3-9039-427b-8e0a-6fb66f36d91b');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Chaa', 'Parker', 'Park', 1, 'cha', 'cha','cha@gmail.com','044403727910', '1975', '1000200030004000', 'Short Street 2', 'Sydney', 'NSW', 'Australia', '2000','cab98987-8d36-498c-bd36-920ee9008246');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Ann', 'Lee', 'Annie', 1, 'lll', 'lll','lll@aniston.net', '5522230098', '1995', '1000200030004000', 'Long Street 1', 'Sydney', 'NSW', 'Australia', '2000','2e419d49-1ca9-4074-ad0b-fd769042e667');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Marcus', 'Loken', 'Marc', 2, 'marcus', 'marcus','marcus@gmail.com','044403727910', '1991', '1000200030004000', 'Anzac Parade 303', 'Sydney', 'NSW', 'Australia', '2000','1b097adc-fa92-4642-ad78-3e01e06425cf');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Chien', 'Huang', 'Chi', 2, 'ccc', 'ccc','ccc@aniston.net', '5522230098', '1993', '1000200030004000', 'Wide Street 3', 'Sydney', 'NSW', 'Australia', '2000','174c97c9-7c88-406f-91a5-31b37932ea10');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Bryan', 'Park', 'Bry', 2, 'bbb', 'bbbb','cha@gmail.com','044403727910', '1992', '1000200030004000', 'Narrow Street 55', 'Sydney', 'NSW', 'Australia', '2000','56a1af13-ad3f-4cfb-a002-1c87452e86fc');
+insert into TBL_USERS (firstname, lastname,nickname ,access_level,username ,password,email,contact_number,year_of_birth,credit_card,streetAddress,city,state,country,postalCode ,confirmCode)
+values ( 'Harry', 'Harry', 'Har', 4, 'hrrr', 'hhhlll','hrrr@aniston.net', '5522230098', '1985', '1000200030004000', 'The Street 2', 'Sydney', 'NSW', 'Australia', '2000','c6108122-b11d-4eee-b8fa-f8c2294cc1e6');
 
 
 

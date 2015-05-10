@@ -20,7 +20,11 @@ public class WishlistServiceImpl implements WishlistService{
 		return wishlist;
 	}
 	
-
+	public ArrayList<WishlistItemBean> getWishlistFromItemId(String itemId){
+		ArrayList<WishlistItemBean> wishlist = wishlistDao.getWishlistFromItemId(itemId);
+		return wishlist;
+	}
+	
 	
 	@Override
 	public String addToWishlist(String itemId, int userId) {

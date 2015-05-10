@@ -20,33 +20,38 @@ import dao.support.UserDAOImpl;
 import business.UserLoginFailedException;
 import business.support.UserServiceImpl;
 
-public class RegisterCommand implements Command {
+public class UserConfirmCommand implements Command {
 
 	private static UserServiceImpl userService;
 
 	/** Creates a new instance of LoginCommand */
-	public RegisterCommand() {
+	public UserConfirmCommand() {
 		userService = new UserServiceImpl();
 	}
 
 	@Override
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
+		HttpSession session = request.getSession();
 		boolean success = true; //change the default to false after implementing input validation
 		String message = "";
-		UserBean newuser = new UserBean();
+//		UserBean newuser = new UserBean();
 		UserDAO userDao = new UserDAOImpl();
+		UserBean currentUser = (UserBean) session.getAttribute("user");
+		
+		if (currentUser == null) {
+			System.out.println("user = null, not login");
+			return "/login.jsp";
+		}
 		
 		/*
 		 * Input Validation Here.
 		 * Add each error message to the 'message' ArrayList to be shown in registration.jsp
 		 */
 		
-		if (request.getParameter("NewUserName")!=null){
+		if (currentUser.getUsername()!=null){
 			String firstname = request.getParameter("NewFirstName");
 			String lastname = request.getParameter("NewLastName");
-			String username = request.getParameter("NewUserName");
 			String nickname = request.getParameter("NewNickname");
 			String email = request.getParameter("NewEmail");
 			String password = request.getParameter("NewPassword");
@@ -60,17 +65,6 @@ public class RegisterCommand implements Command {
 			String postalCode = request.getParameter("NewPostalCode");
 			boolean valid = true;
 			
-			if(!userService.isUsernameAvailable(username)){
-				message+="Username has been taken. Create new username</br>";
-				username="";
-				valid = false;
-			} else if (!username.matches("^[^\\d][a-zA-Z0-9._-]{6,25}")){
-                message+= "Your username must be between 6-25 characters!\n";
-                username="";
-                valid = false;
-			} else {
-				valid = valid&&true;
-			}
 			
 			if(firstname==""){
                 message+="Please fill your first name<br>";
@@ -117,7 +111,7 @@ public class RegisterCommand implements Command {
 			
 			if (!number.matches("[0-9]{6,15}+")){
                 message+= "Your contact number is not valid!\n";
-                username="";
+                number="";
                 valid = false;
 	        } else {
 	        valid = valid&&true;
@@ -174,39 +168,36 @@ public class RegisterCommand implements Command {
 			
 			if (valid){
 				//newuser.setUid(Integer.parseInt(UUID.randomUUID().toString()));
-				newuser.setFirstName(firstname);
-				newuser.setLastName(lastname);
-				newuser.setUsername(username);
-				newuser.setNickname(nickname);
-				newuser.setEmail(email);
-				newuser.setPassword(password);
-				newuser.setContactNumber(number);
-				newuser.setYearOfBirth(yearOfBirth);
-				newuser.setCreditCard(creditCard);
+				currentUser.setFirstName(firstname);
+				currentUser.setLastName(lastname);
+				currentUser.setNickname(nickname);
+				currentUser.setEmail(email);
+				currentUser.setPassword(password);
+				currentUser.setContactNumber(number);
+				currentUser.setYearOfBirth(yearOfBirth);
+				currentUser.setCreditCard(creditCard);
 				AddressBean addr = new AddressBean();
 				addr.setStreetAddress(streetAddress);
 				addr.setCity(city);
 				addr.setState(state);
 				addr.setCountry(country);
 				addr.setPostalCode(postalCode);
-				newuser.setAddress(addr);
-				newuser.setAccessLevel(3);
-				newuser.setConfirmCode(UUID.randomUUID().toString());
-				userService.register(newuser);
-				message+="Congratulation! You have been successfully registered! Please check your confirmation letter in your mailbox.";
+				currentUser.setAddress(addr);
+				currentUser.setAccessLevel(2);
+				userService.editProfile(currentUser);
+				message+="Congratulation! You have successfully edited your profile";
 				request.setAttribute("valid", true);
 				
 			}
 			else {
-				message = "You have not been registered, there are some errors in your inputs <br>"+message;
+				message = "Edited failed, there are some errors in your inputs <br>"+message;
 				request.setAttribute("valid", false);
-				return "./registration.jsp";
 			}
 		}
 		
-		request.setAttribute("from", "registration");
-		request.setAttribute("newuser", newuser);
+		request.setAttribute("from", "editProfile");
+		request.setAttribute("currentUser", currentUser);
 		request.setAttribute("message", message);
-		return "sendConfirmation";
+		return "/login.jsp";
 	}
 }

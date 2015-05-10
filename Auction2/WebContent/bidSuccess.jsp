@@ -28,35 +28,6 @@
 	 <h2>____________</h2>  
  
    see  
-    <a href= "wishlist.jsp" >My Wishlist</a> 
+    <a href="dispatcher?operation=showBidList">My Bidlist</a> 
     
-    <table class="table table-hover"  style="margin:0px auto; text-align: center;width:70%">
-    	<c:forEach var="bid" items="${bidlist}">
-			   <tr>
-			   		<td>Item ID</td>
-					<td>
-			   			${bid.itemId}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bidder ID</td>
-			   		<td>
-			   			${bid.bidderId}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bid Price</td>
-			   		<td>
-			   			${bid.price}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bid Date</td>
-			   		<td>
-			   			${bid.date}
-			   		</td>
-				</tr>
-				<td>&nbsp</td>
-			</c:forEach>
-		</table>
-		
+    

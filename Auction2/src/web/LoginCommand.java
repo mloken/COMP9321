@@ -50,20 +50,21 @@ public class LoginCommand implements Command {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
 				System.out.println("CHECK : "+AuctionItemBean.check);
-				boolean sellsomething = user.checkAuction();
-				if (sellsomething){
-					session.setAttribute("sellsomething", true);
-					System.out.println("sell : "+session.getAttribute("sellsomething"));
-				}
-				else {
-					session.setAttribute("sellsomething", false);
-					System.out.println("sell : "+session.getAttribute("sellsomething"));
-				}
+				
+				
 				//user.sendemail("");
 				if (AuctionItemBean.check){
 					session.setAttribute("checkauction", true);
 					//AuctionItemBean.check = false;
-					
+					boolean sellsomething = user.checkAuction();
+					if (sellsomething){
+						session.setAttribute("sellsomething", true);
+						System.out.println("sell : "+session.getAttribute("sellsomething"));
+					}
+					else {
+						session.setAttribute("sellsomething", false);
+						System.out.println("sell : "+session.getAttribute("sellsomething"));
+					}
 					boolean winsomething = user.checkBid();
 					if (winsomething){
 						session.setAttribute("winsomething", true);

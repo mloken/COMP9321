@@ -18,6 +18,8 @@ public interface WishlistDAO {
 	WishlistItemBean deleteWishlistItemByItemAndUser(String itemId,int userId);
 	
 	boolean deleteWishlistItemByItemId(String itemId);
-
+	
+	ArrayList<WishlistItemBean> getWishlistFromItemId(String itemId);
+	
 	ArrayList<WishlistItemBean> getAllWishlists();
 }

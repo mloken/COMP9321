@@ -59,10 +59,7 @@ public class ItemDetailCommand implements Command {
 			
 			HttpSession session = request.getSession();
 			UserBean currentUser = (UserBean) session.getAttribute("user");
-			//if (currentUser.getAccessLevel() == 3){
-				request.setAttribute("level", currentUser.getAccessLevel());
-			//}
-
+			
 			request.setAttribute("auctionItem", auctionItem);
 			return "/itemDetail.jsp";
 		}

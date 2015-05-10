@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import beans.AuctionItemBean;
+import beans.BidBean;
 import beans.UserBean;
 import beans.WishlistItemBean;
 import business.AdminService;
 import business.AuctionService;
 import business.support.AdminServiceImpl;
 import business.support.AuctionServiceImpl;
+import business.support.BidServiceImpl;
 import business.support.WishlistServiceImpl;
 
 public class AdminRemoveItemCommand implements Command {
@@ -22,11 +24,13 @@ public class AdminRemoveItemCommand implements Command {
 	private static AuctionService auctionService;
 	private static WishlistServiceImpl wishlistService;
 	private static AdminService adminService;
+	private static BidServiceImpl bidService;
 	
 	public AdminRemoveItemCommand(){
 		auctionService = new AuctionServiceImpl();
 		wishlistService = new WishlistServiceImpl();
 		adminService = new AdminServiceImpl();
+		bidService = new BidServiceImpl();
 	}
 	
 	@Override
@@ -35,28 +39,33 @@ public class AdminRemoveItemCommand implements Command {
 
 		String itemIdToRemove = request.getParameter("itemIdToRemove");
 		HttpSession session = request.getSession();
-//		WishlistItemBean wishlistItem;
-//		ArrayList<UserBean> allUsers = adminService.getAllUsers();
+
 		ArrayList<WishlistItemBean> wishlistItems =null;
+		ArrayList<BidBean> bidItems =null;
 		if(itemIdToRemove != null){
-			
-			wishlistItems =adminService.getAllWishlists();
+			wishlistItems = wishlistService.getWishlistFromItemId(itemIdToRemove);
+
 			for(WishlistItemBean element:wishlistItems){
-				if(element.getItemId()==itemIdToRemove){
-					wishlistService.deleteWishlistItemById(element.getId());
-				}
+				
+				wishlistService.deleteWishlistItemById(element.getId());
+				
+			}
+			
+			bidItems=bidService.getAllBidItems();
+				for(BidBean element:bidItems){
+					if(element.getItemId().equalsIgnoreCase(itemIdToRemove)){
+						bidService.deleteBidItem(element.getItemId());
+					}
+				
+			
+			
+				
 			}
 			auctionService.deleteItem(itemIdToRemove);
 		}
 		
 		
 
-//		wishlistItems = wishlistService.getWishlistFromUserId(currentUser.getUid());
-//		wishlistService.deleteWishlistItemByItemId(itemIdToRemove)
-////		if(wishlistService.deleteWishlistItemByItemId(itemIdToRemove)){
-//			System.out.println("delete items that also in wishlist");
-//		}
-		
 		ArrayList<AuctionItemBean> allAuctionItems = auctionService.getAllAuctionItems();
 		session.setAttribute("allAuctionItems", allAuctionItems);
 		

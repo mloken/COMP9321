@@ -100,22 +100,7 @@
 		  		</table>
 		  		<%
 		  	}
-		  if (request.getAttribute("level")=="3"){
-			  %>
-			  <td colspan="2">Sorry, you can not bid this item because you haven't registered yet. <a href= registration.jsp">Register?</a></td>
-		  		</tr>
-		  		</table>
-			  
-			  <%
-		  }
-		  if (request.getAttribute("level")=="4"){
-			  %>
-			  <td colspan="2">Sorry, you can not bid this item because you have been banned by the admin.</a></td>
-		  		</tr>
-		  		</table>
-
-			  <%
-		  }
+		  
 		 	%>
 		 
 		</form>		

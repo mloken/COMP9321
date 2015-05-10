@@ -17,4 +17,5 @@ public interface WishlistService {
 
 	boolean deleteWishlistItemByItemId(String itemId);
 	
+	ArrayList<WishlistItemBean> getWishlistFromItemId(String itemId);
 }

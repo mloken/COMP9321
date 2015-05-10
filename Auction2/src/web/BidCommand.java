@@ -61,17 +61,21 @@ public class BidCommand implements Command {
 			resetBid = false;
 		}
 		
-		if (bidprice > reserveprice){//win because bid price is higher than reserve price
-			System.out.println(userid + " win item "+item_id);
-			//Remove item from auctionlist & auction table
-			session.setAttribute("winsomething", true);
-			bidService.updateBidStatusFrom2(item.getId(), 1);
-			auctionService.updateBidPrice(item, bidprice);
-			auctionService.updatePriceToZero(item);
-			win = true;
-		}
+		boolean iswin = false;
+		
+		
 		
 		if (bidItem == null) {//the item hasn't been bid by other users
+			if (bidprice > reserveprice){//win because bid price is higher than reserve price
+				System.out.println(userid + " win item "+item_id);
+				//Remove item from auctionlist & auction table
+				session.setAttribute("winsomething", true);
+				AuctionItemBean.check = true;
+				//bidService.updateBidStatus(item.getId(), 1, 2);
+				auctionService.updateBidPrice(item, bidprice);
+				auctionService.updatePriceToZero(item);
+				win = true;
+			}
 			if ((bidprice - startprice) < 0){ //user put bid price less than bidding start price
 				System.out.println("lower bid price");
 				request.setAttribute("valid", false);
@@ -80,8 +84,40 @@ public class BidCommand implements Command {
 				request.setAttribute("currentprice", startprice);
 				return "/itemDetail.jsp";
 			}
+			bidItem = new BidBean();
+			bidItem.setItemId(item_id);
+			bidItem.setBidderId(userid);
+			bidItem.setPrice(bidprice);
+			bidItem.setDate(new Date());
+			if (win){
+				bidItem.setStatus(1);
+			}
+			else {
+				bidItem.setStatus(2);
+			}
+			bidService.addBidItem(bidItem);
+			auctionService.updateBidPrice(item, bidprice);
+			System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice() +" & status : "+bidItem.getStatus());
+			
+			request.setAttribute("bidItem", bidItem);
+			ArrayList<BidBean> bidlist = bidService.getAllWinBidItems();
+			request.setAttribute("bidlist", bidlist);
+			request.setAttribute("valid", true);
+			request.setAttribute("win", win);
+			return "/bidSuccess.jsp";
+			
 		}
 		else{
+			if (bidprice > reserveprice){//win because bid price is higher than reserve price
+				System.out.println(userid + " win item "+item_id);
+				//Remove item from auctionlist & auction table
+				session.setAttribute("winsomething", true);
+				AuctionItemBean.check = true;
+				//bidService.updateBidStatus(item.getId(), 1, 2);
+				auctionService.updateBidPrice(item, bidprice);
+				auctionService.updatePriceToZero(item);
+				win = true;
+			}
 			if ((bidprice - bidItem.getPrice()) < inc){ //user put bid price with increment lower than minimum increment from current price
 				System.out.println("less than increment");
 				request.setAttribute("valid", false);
@@ -92,26 +128,34 @@ public class BidCommand implements Command {
 			}
 			System.out.println("notify user id : "+bidItem.getBidderId()+" that he/she lost the bidding of item "+bidItem.getItemId());
 			//bidService.updateBid(item_id, userid, Float.parseFloat(request.getParameter("bidPrice")), new Date());
+			AuctionItemBean.check = true;
 			auctionService.updateBidPrice(item, bidprice);
-			bidService.updateBidStatus(item_id, 0);
+			bidService.updateBidStatus(item_id, 0, 2);
+		
+			bidItem = new BidBean();
+			bidItem.setItemId(item_id);
+			bidItem.setBidderId(userid);
+			bidItem.setPrice(bidprice);
+			bidItem.setDate(new Date());
+			if (win){
+				bidItem.setStatus(1);
+			}
+			else {
+				bidItem.setStatus(2);
+			}
+			bidService.addBidItem(bidItem);
+			auctionService.updateBidPrice(item, bidprice);
+			System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice() +" & status : "+bidItem.getStatus());
+			
+			request.setAttribute("bidItem", bidItem);
+			ArrayList<BidBean> bidlist = bidService.getAllWinBidItems();
+			request.setAttribute("bidlist", bidlist);
+			request.setAttribute("valid", true);
+			request.setAttribute("win", win);
+			return "/bidSuccess.jsp";
 		}
 		
-		bidItem = new BidBean();
-		bidItem.setItemId(item_id);
-		bidItem.setBidderId(userid);
-		bidItem.setPrice(bidprice);
-		bidItem.setDate(new Date());
-		bidItem.setStatus(2);
-		bidService.addBidItem(bidItem);
-		auctionService.updateBidPrice(item, bidprice);
-		System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice());
 		
-		request.setAttribute("bidItem", bidItem);
-		ArrayList<BidBean> bidlist = bidService.getAllWinBidItems();
-		request.setAttribute("bidlist", bidlist);
-		request.setAttribute("valid", true);
-		request.setAttribute("win", win);
-		return "/bidSuccess.jsp";
 		
 //		return searchKey;
 		

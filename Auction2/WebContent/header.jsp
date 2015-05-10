@@ -1,4 +1,3 @@
-
 <div class="row">
 			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 			</div>
@@ -51,8 +50,8 @@
 							      User <span class="caret"></span></button>
 							       <ul class="dropdown-menu" role="menu">
 							           <li><a href="userProfile.jsp">Profile</a></li>
-							           <li><a href="dispatcher?operation=logout">Log out</a></li>
 							           <li><a href="dispatcher?operation=showAuctionList">My Auction</a></li>
+							           <li><a href="dispatcher?operation=logout">Log out</a></li>
 							      </ul>
 						 </div>
 		 			</c:otherwise>
@@ -60,7 +59,3 @@
 	 		</div>	
 	 		
 </div>
-
-	
-
-	

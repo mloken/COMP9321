@@ -30,6 +30,7 @@ public class UserBean {
 	private String yearOfBirth;
 	private AddressBean address;
 	private String creditCard;
+	private String confirmCode;
 	private boolean isOnline;
 	public UserBean(){
 		super();
@@ -39,6 +40,12 @@ public class UserBean {
 	}
 	public void setYearOfBirth(String yearOfBirth) {
 		this.yearOfBirth = yearOfBirth;
+	}
+	public String getConfirmCode() {
+		return confirmCode;
+	}
+	public void setConfirmCode(String confirmCode) {
+		this.confirmCode = confirmCode;
 	}
 	public AddressBean getAddress() {
 		return address;
@@ -150,7 +157,6 @@ public class UserBean {
 		}
 		return true;
 	}
-	
 	public boolean checkAuction(){
 		AuctionServiceImpl auctionService = new AuctionServiceImpl();
 		ArrayList<AuctionItemBean> closedbidlist = auctionService.getAllAuctionItemsByOwner(uid);
@@ -162,7 +168,8 @@ public class UserBean {
 				BidServiceImpl bidService = new BidServiceImpl();
 				//BidBean closedbid = bidService.getBidItemById(closedbidlist.get(i).getId());
 				auctionService.updatePriceToZero(closedbidlist.get(i));
-				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1);
+				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1, 2);
+				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1, 0);
 				return true;
 			}
 		}

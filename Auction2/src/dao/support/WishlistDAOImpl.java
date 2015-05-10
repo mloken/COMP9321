@@ -59,6 +59,38 @@ public class WishlistDAOImpl extends GenericDAO implements WishlistDAO{
 		}
 		return wishlists;
 	}
+
+	public ArrayList<WishlistItemBean> getWishlistFromItemId(String itemId){
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<WishlistItemBean> list = new ArrayList<WishlistItemBean>() ;
+		try {
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_WISHLIST WHERE item_id = ?");
+			stmt.setString(1, itemId);
+			rs = stmt.executeQuery();
+			while (rs.next())
+				list.add(createWishlistItem(rs));
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
 	
 	public ArrayList<WishlistItemBean> getWishlistFromUserId(int userId){
 		Connection con = null;

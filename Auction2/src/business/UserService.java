@@ -8,4 +8,7 @@ public interface UserService {
 	boolean isUsernameAvailable(String username);
 	
 	UserBean editProfile(UserBean user);
+
+	UserBean confirm(String username, String password, String confirmCode)
+			throws UserLoginFailedException;
 }

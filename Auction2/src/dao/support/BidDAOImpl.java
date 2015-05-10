@@ -65,7 +65,7 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 			con = services.createConnection();
 			PreparedStatement stmt = con.prepareStatement("SELECT * FROM TBL_BID WHERE item_id = ? AND status = ?");
 			stmt.setString(1, item_id);
-			stmt.setInt(2, 1);
+			stmt.setInt(2, 2);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
 				BidBean biditem = createBidItemBean(rs);
@@ -192,15 +192,16 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 	}
 	
 	@Override
-	public BidBean updateBidStatus(String itemid, int newstatus){
+	public BidBean updateBidStatus(String itemid, int newstatus, int oldstatus){
 		BidBean updateditem = new BidBean();
 		Connection con = null;
 		try {
 			con = services.createConnection();
-			PreparedStatement update = con.prepareStatement("UPDATE tbl_bid SET status = ? WHERE item_id = ?");
+			PreparedStatement update = con.prepareStatement("UPDATE tbl_bid SET status = ? WHERE item_id = ? AND status = ?");
 
 			update.setInt(1, newstatus);
 			update.setString(2, itemid);
+			update.setInt(3, oldstatus);
 			
 			int n = update.executeUpdate();
 			} catch (ServiceLocatorException e) {

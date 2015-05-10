@@ -45,7 +45,7 @@ public class ShowBidListCommand implements Command {
 			System.out.println("user = null, not login");
 			return "/login.jsp";
 		}
-		System.out.println("user_id= "+currentUser.getUid());
+		System.out.println("user_id looks at bid list= "+currentUser.getUid());
 		winbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 1);
 		highbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 2);
 		lostbidItems = bidService.getBidItemsByUserAndStatus(currentUser.getUid(), 0);

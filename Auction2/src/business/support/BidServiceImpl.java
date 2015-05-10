@@ -32,8 +32,8 @@ public class BidServiceImpl implements BidService{
 	}
 	
 	@Override
-	public BidBean updateBidStatus(String itemid, int newstatus){
-		BidBean updatedItem = bidDao.updateBidStatus(itemid, newstatus);
+	public BidBean updateBidStatus(String itemid, int newstatus, int oldstatus){
+		BidBean updatedItem = bidDao.updateBidStatus(itemid, newstatus, oldstatus);
 		return updatedItem;
 	}
 	

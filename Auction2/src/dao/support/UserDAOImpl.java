@@ -100,7 +100,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		try {
 			con = services.createConnection();
 			PreparedStatement stmt = con
-					.prepareStatement("insert into tbl_users (firstname, lastname, nickname, access_level, username, password, email, contact_number, year_of_birth, credit_card, streetAddress, city, state, country, postalCode) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					.prepareStatement("insert into tbl_users (firstname, lastname, nickname, access_level, username, password, email, contact_number, year_of_birth, credit_card, streetAddress, city, state, country, postalCode,confirmCode ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
 
 			stmt.setString(1, user.getFirstName());
 			stmt.setString(2, user.getLastName());
@@ -117,6 +117,7 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 			stmt.setString(13, user.getAddress().getState());
 			stmt.setString(14, user.getAddress().getCountry());
 			stmt.setString(15, user.getAddress().getPostalCode());
+			stmt.setString(16, user.getConfirmCode());
 
 			int n = stmt.executeUpdate();
 			if (n != 1)
@@ -339,6 +340,37 @@ public class UserDAOImpl extends GenericDAO implements UserDAO{
 		return user;
 	}
 
+	@Override
+	public UserBean findByConfirmDetails(String username, String password,String confirmCode)
+			throws DataAccessException {
+		Connection con = null;
+		try {
+			con = services.createConnection();
+			PreparedStatement stmt = con.prepareStatement("select * from tbl_users where username = ? and password = ?");
+			stmt.setString(1, username);
+			stmt.setString(2, password);
+			stmt.setString(3, confirmCode);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				UserBean user = createUserBean(rs);
+				stmt.close(); 
+				return user;
+			}
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; " + e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; " + e.getMessage(), e);
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return null;
+	}
 
 	
 }

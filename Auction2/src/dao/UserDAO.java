@@ -20,4 +20,7 @@ public interface UserDAO {
 	boolean unbanUserById(int uid);
 
 	UserBean editUser(UserBean user);
+
+	UserBean findByConfirmDetails(String username, String password,
+			String confirmCode);
 }
