@@ -19,13 +19,7 @@
 			   <tr>
 			   		<td>Item ID</td>
 					<td>
-			   			${bid.itemId}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bidder ID</td>
-			   		<td>
-			   			${bid.bidderId}
+			   			${bid.name}
 			   		</td>
 			   	</tr>
 			   	<tr>
@@ -52,13 +46,7 @@
 			   <tr>
 			   		<td>Item ID</td>
 					<td>
-			   			${bid.itemId}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bidder ID</td>
-			   		<td>
-			   			${bid.bidderId}
+			   			${bid.name}
 			   		</td>
 			   	</tr>
 			   	<tr>
@@ -85,13 +73,7 @@
 			   <tr>
 			   		<td>Item ID</td>
 					<td>
-			   			${bid.itemId}
-			   		</td>
-			   	</tr>
-			   	<tr>
-			   		<td>Bidder ID</td>
-			   		<td>
-			   			${bid.bidderId}
+			   			${bid.name}
 			   		</td>
 			   	</tr>
 			   	<tr>

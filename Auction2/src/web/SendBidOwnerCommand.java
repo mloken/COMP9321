@@ -14,16 +14,17 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.AuctionItemBean;
 import beans.UserBean;
 import business.UserService;
 import business.support.UserServiceImpl;
 
-public class SendConfirmationCommand implements Command{
+public class SendBidOwnerCommand implements Command{
 	
 	private static UserService userService;
 
 	/** Creates a new instance of LoginCommand */
-	public SendConfirmationCommand() {
+	public SendBidOwnerCommand() {
 		userService = new UserServiceImpl();
 	}
 	
@@ -31,7 +32,8 @@ public class SendConfirmationCommand implements Command{
 			HttpServletResponse response) throws ServletException, IOException {
 	  UserBean user=(UserBean) request.getAttribute("newuser");
 	  String userEmail=user.getEmail();	
-
+	  AuctionItemBean item=(AuctionItemBean) request.getAttribute("item");
+	  
 	  String host = "smtp.gmail.com";
 	  int port = 587;
 	  final String username = "auctiontime.roo@gmail.com";
@@ -53,8 +55,8 @@ public class SendConfirmationCommand implements Command{
 	   Message message = new MimeMessage(session);
 	   message.setFrom(new InternetAddress("auctiontime.roo@gmail.com"));
 	   message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
-	   message.setSubject("Auction Time :Confirmation Letter");
-	   message.setText("Dear "+user.getNickname()+",\n Welcome to Auction Time!\n\nYour username:"+user.getUsername()+" \n\nYour password:"+user.getPassword()+" \n\nPlease click this url to confirm your registration!\n http://localhost:8080/Auction2/userConfirm.jsp?confirmCode="+user.getConfirmCode()+"\n\nThank you!");
+	   message.setSubject("Auction Time :Auction Owner Reminder");
+	   message.setText("Dear "+user.getNickname()+",\n Welcome to Auction Time!\n\nYour auction item :"+item.getItemName()+" has been won by others.\nPlease check into your account to agree or reject the bid.\n"+" \nAuction Time: http://localhost:8080/Auction2/");
 	
 	   Transport transport = session.getTransport("smtp");
 	   transport.connect(host, port, username, password);

@@ -4,6 +4,14 @@ import java.util.Date;
 
 public class BidBean {
 	private String itemId;
+	private String Name;
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		Name = name;
+	}
 	private int bidderId;
 	private float price;
 	private Date date;

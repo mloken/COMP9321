@@ -2,6 +2,7 @@ package business.support;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -55,6 +56,12 @@ public class AuctionServiceImpl implements AuctionService{
 	}
 	
 	@Override
+	public ArrayList<AuctionItemBean> getItemBySearchKeyAdv(String searchKey, String category, float minPrice, float maxPrice) {
+		ArrayList<AuctionItemBean> searchResults = auctionItemDao.getAuctionItemBySearchKeyAdv(searchKey, category, minPrice, maxPrice);
+		return searchResults;
+	}
+	
+	@Override
 	public ArrayList<AuctionItemBean> getAllAuctionItems() {
 		ArrayList<AuctionItemBean> allItems = auctionItemDao.getAllAuctionItems();
 		return allItems;
@@ -87,6 +94,11 @@ public class AuctionServiceImpl implements AuctionService{
 	@Override
 	public ArrayList<AuctionItemBean> getAllAuctionItemsByOwner(int uid){
 		return auctionItemDao.getAllAuctionItemsByOwner(uid);
+	}
+	
+	@Override
+	public ArrayList<AuctionItemBean> getClosedAuctionItemsByOwner(int uid, Date date){
+		return auctionItemDao.getClosedAuctionItemsByOwner(uid);
 	}
 
 }

@@ -1,6 +1,7 @@
 package business;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import beans.AuctionItemBean;
@@ -28,4 +29,9 @@ public interface AuctionService {
 	List<AuctionItemBean> getTenRandomAuctionItems();
 
 	AuctionItemBean updateBidPrice(AuctionItemBean item, Float price);
+
+	ArrayList<AuctionItemBean> getItemBySearchKeyAdv(String searchKey,
+			String category, float minPrice, float maxPrice);
+
+	ArrayList<AuctionItemBean> getClosedAuctionItemsByOwner(int uid, Date date);
 }

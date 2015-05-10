@@ -127,7 +127,7 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 		Connection con = null;
 		try {
 			con = services.createConnection();
-			PreparedStatement stmt = con.prepareStatement("insert into tbl_bid (item_id, bidder_id, price, bid_date, status) values (?, ?, ?, ?, ?)");
+			PreparedStatement stmt = con.prepareStatement("insert into tbl_bid (item_id, bidder_id, price, bid_date, status, item_name) values (?, ?, ?, ?, ?, ?)");
 			stmt.setString(1, item.getItemId());
 			stmt.setInt(2, item.getBidderId());
 			stmt.setFloat(3, item.getPrice());
@@ -135,6 +135,7 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 			java.sql.Date sqlDate = new java.sql.Date(item.getDate().getTime());
 			stmt.setDate(4, sqlDate);
 			stmt.setInt(5, item.getStatus());
+			stmt.setString(6, item.getName());
 			
 			int n = stmt.executeUpdate();
 			if (n != 1)
@@ -362,6 +363,7 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 		item.setBidderId(rs.getInt("bidder_id"));
 		item.setPrice(rs.getFloat("price"));
 		item.setDate(rs.getDate("bid_date"));
+		item.setName(rs.getString("item_name"));
 		return item;
 	}
 	

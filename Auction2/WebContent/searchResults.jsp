@@ -19,18 +19,8 @@
 <center>
    <div class="container">
 		<div class="row">
-			<form action="dispatcher?operation=search" method="post">
-				 <div class="col-md-offset-2 col-md-8">
-			    	<div style="width:50%;"  class="input-group">
-			    		
-						<input type="text" class="form-control"  name="searchKey" placeholder="New Search for...">
-			     		<span class="input-group-btn">
-			       		 <button type="submit" class="btn btn-primary " type="button">Go!</button>
-			      		</span>
-			      		
-			   		 </div><!-- /input-group -->
-			 	 </div><!-- /.col-lg-6 -->
-			</form>
+			<!-- search-->
+	<%@ include file="search.jsp" %>
 		</div>
 		<br>
 		<div class="row">

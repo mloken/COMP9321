@@ -49,6 +49,7 @@ public class BidCommand implements Command {
 		
 		bidItem = bidService.getWinBidItemById(item_id);
 		item = auctionService.getItemById(item_id);
+		String itemname = item.getItemName();
 		Float inc = item.getBiddingIncrements();
 		Float reserveprice = item.getReservePrice();
 		Float startprice = item.getBiddingStartPrice();
@@ -74,6 +75,7 @@ public class BidCommand implements Command {
 				//bidService.updateBidStatus(item.getId(), 1, 2);
 				auctionService.updateBidPrice(item, bidprice);
 				auctionService.updatePriceToZero(item);
+				currentUser.sendemail("Auction Win :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have won an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
 				win = true;
 			}
 			if ((bidprice - startprice) < 0){ //user put bid price less than bidding start price
@@ -88,6 +90,7 @@ public class BidCommand implements Command {
 			bidItem.setItemId(item_id);
 			bidItem.setBidderId(userid);
 			bidItem.setPrice(bidprice);
+			bidItem.setName(itemname);
 			bidItem.setDate(new Date());
 			if (win){
 				bidItem.setStatus(1);
@@ -104,6 +107,9 @@ public class BidCommand implements Command {
 			request.setAttribute("bidlist", bidlist);
 			request.setAttribute("valid", true);
 			request.setAttribute("win", win);
+			if (!win){
+				currentUser.sendemail("Bid Successful :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have successfully bid an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
+			}
 			return "/bidSuccess.jsp";
 			
 		}
@@ -116,6 +122,7 @@ public class BidCommand implements Command {
 				//bidService.updateBidStatus(item.getId(), 1, 2);
 				auctionService.updateBidPrice(item, bidprice);
 				auctionService.updatePriceToZero(item);
+				currentUser.sendemail("Auction Win :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have won an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
 				win = true;
 			}
 			if ((bidprice - bidItem.getPrice()) < inc){ //user put bid price with increment lower than minimum increment from current price
@@ -136,6 +143,7 @@ public class BidCommand implements Command {
 			bidItem.setItemId(item_id);
 			bidItem.setBidderId(userid);
 			bidItem.setPrice(bidprice);
+			bidItem.setName(itemname);
 			bidItem.setDate(new Date());
 			if (win){
 				bidItem.setStatus(1);
@@ -146,7 +154,9 @@ public class BidCommand implements Command {
 			bidService.addBidItem(bidItem);
 			auctionService.updateBidPrice(item, bidprice);
 			System.out.println("Successfully bid "+item_id+" with price : "+bidItem.getPrice() +" & status : "+bidItem.getStatus());
-			
+			if (!win){
+				currentUser.sendemail("Bid Successful :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have successfully bid an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
+			}
 			request.setAttribute("bidItem", bidItem);
 			ArrayList<BidBean> bidlist = bidService.getAllWinBidItems();
 			request.setAttribute("bidlist", bidlist);

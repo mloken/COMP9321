@@ -9,6 +9,5 @@ public interface UserService {
 	
 	UserBean editProfile(UserBean user);
 
-	UserBean confirm(String username, String password, String confirmCode)
-			throws UserLoginFailedException;
+	boolean confirmUserById(int userId);
 }

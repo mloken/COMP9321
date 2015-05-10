@@ -43,24 +43,33 @@
 						<button type="submit" class="btn btn-primary " type="button">Confirm</button>
 					
 				</form>
-				<!-- MESSAGE : FAILED show message from arraylist-->
 				<div class="row">
-					<p></p>
-					<div class="col-md-offset-0 col-md-12">
-						<%
-							if (request.getAttribute("valid") != null) {
-								if (request.getAttribute("valid").toString() == "false") {
-						%>
-						<div class="alert alert-danger">
-							<span class="glyphicon glyphicon-remove"></span><strong>
-								<%
-									}
-									}
-								%> <b>${message}</b>
-							</strong>
-						</div>
-					</div>
-				</div>
+					<div class="col-md-offset-2 col-md-8">
+				           
+				            <%
+				            	if (request.getAttribute("valid")!=null){
+				            		if (request.getAttribute("valid").toString()=="true"){
+				            		%><div class="alert alert-success">
+				            		<strong><span class="glyphicon glyphicon-ok">
+				            		<b><a href="login.jsp" type="button" class="btn btn-warning">Login now!</a></b>
+				            		<%
+					            	}
+					            	else {
+					            		%>
+					            		<div class="alert alert-danger">
+				                   			 <span class="glyphicon glyphicon-remove"></span><strong>
+					            		<%
+					            	}
+				            	}
+				            %>
+				                
+				                    <b>${message}</b>
+				                    
+				                    </span></strong>
+				                </div>
+				            
+				    </div>
+			    </div>
 				
 				
 			</div>

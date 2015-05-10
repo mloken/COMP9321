@@ -21,6 +21,5 @@ public interface UserDAO {
 
 	UserBean editUser(UserBean user);
 
-	UserBean findByConfirmDetails(String username, String password,
-			String confirmCode);
+
 }

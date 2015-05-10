@@ -2,6 +2,7 @@ package web;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -44,8 +45,8 @@ public class ShowAuctionListCommand implements Command {
 			System.out.println("user = null, not login");
 			return "/login.jsp";
 		}
-		System.out.println("user_id= "+currentUser.getUid());
-		closedItems = auctionService.getAllAuctionItemsByOwner(currentUser.getUid());
+		System.out.println("user_id show= "+currentUser.getUid());
+		closedItems = auctionService.getClosedAuctionItemsByOwner(currentUser.getUid(), new Date());
 //		auctionItems = auctionService.getItemById(wishlistItems);
 		request.setAttribute("from", "sellnotif");
 		request.setAttribute("closedItems", closedItems);

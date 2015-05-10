@@ -29,18 +29,7 @@ public class UserServiceImpl implements UserService{
 		}
 	}
 	
-	@Override
-	public UserBean confirm(String username, String password,String confirmCode)
-			throws UserLoginFailedException {
-		UserBean user = null;
-		
-		try {
-			user = userDao.findByConfirmDetails(username, password,confirmCode);
-			return user;
-		} catch (DataAccessException e) {
-			throw new UserLoginFailedException("Unable to find user or wrong confirmCode", e);
-		}
-	}
+
 	
 	
 	public UserBean register(UserBean user){
@@ -61,4 +50,8 @@ public class UserServiceImpl implements UserService{
 		return isAvailable;
 	}
 	
+	public boolean confirmUserById(int userId){
+		boolean user=userDao.unbanUserById(userId);
+		return user;
+	}
 }

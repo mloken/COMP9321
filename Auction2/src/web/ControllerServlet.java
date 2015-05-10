@@ -41,6 +41,10 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("editProfile", new EditProfileCommand());
 		commands.put("showAuctionList", new ShowAuctionListCommand());
 		commands.put("sendConfirmation", new SendConfirmationCommand());
+//		commands.put("sendBidOwner", new SendBidOwnerCommand());
+//		commands.put("sendBidWinner", new SendBidWinnerCommand());
+//		commands.put("sendBidMail", new SendBidMailCommand());
+//		commands.put("userConfirm", new UserConfirmCommand());
 		
 	}
 
@@ -63,6 +67,7 @@ public class ControllerServlet extends HttpServlet {
 		RequestDispatcher dispatcher = getServletContext()
 				.getRequestDispatcher(next);
 		dispatcher.forward(request, response);
+//		response.sendRedirect(next);
 	}
 
 	private Command resolveCommand(HttpServletRequest request) {

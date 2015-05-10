@@ -14,22 +14,24 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import beans.AuctionItemBean;
 import beans.UserBean;
 import business.UserService;
 import business.support.UserServiceImpl;
 
-public class SendConfirmationCommand implements Command{
+public class SendBidMailCommand implements Command{
 	
 	private static UserService userService;
 
 	/** Creates a new instance of LoginCommand */
-	public SendConfirmationCommand() {
+	public SendBidMailCommand() {
 		userService = new UserServiceImpl();
 	}
 	
 	public String execute(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-	  UserBean user=(UserBean) request.getAttribute("newuser");
+	  UserBean user=(UserBean) request.getAttribute("user");
+	  AuctionItemBean item=(AuctionItemBean) request.getAttribute("item");
 	  String userEmail=user.getEmail();	
 
 	  String host = "smtp.gmail.com";
@@ -53,8 +55,8 @@ public class SendConfirmationCommand implements Command{
 	   Message message = new MimeMessage(session);
 	   message.setFrom(new InternetAddress("auctiontime.roo@gmail.com"));
 	   message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
-	   message.setSubject("Auction Time :Confirmation Letter");
-	   message.setText("Dear "+user.getNickname()+",\n Welcome to Auction Time!\n\nYour username:"+user.getUsername()+" \n\nYour password:"+user.getPassword()+" \n\nPlease click this url to confirm your registration!\n http://localhost:8080/Auction2/userConfirm.jsp?confirmCode="+user.getConfirmCode()+"\n\nThank you!");
+	   message.setSubject("Auction Time :Bid Notification Letter");
+	   message.setText("Dear "+user.getNickname()+",\n Welcome to Auction Time!\n\nYou have made a bit on"+item.getItemName()+" !\n\nAuction Time: http://localhost:8080/Auction2/ \n\n");
 	
 	   Transport transport = session.getTransport("smtp");
 	   transport.connect(host, port, username, password);
@@ -67,9 +69,9 @@ public class SendConfirmationCommand implements Command{
 	   throw new RuntimeException(e);
 	  }
 	  request.setAttribute("valid", true);
-	  request.setAttribute("from", "registration");
+	  request.setAttribute("from", "bid");
 	  request.setAttribute("newuser", user);
 	  request.setAttribute("message", request.getAttribute("message"));
-	  return "/registration.jsp";
+	  return "/bidSuccess.jsp";
 	 }
 }

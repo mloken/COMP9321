@@ -26,11 +26,24 @@ public class SearchCommand implements Command {
 			HttpServletResponse response) throws ServletException, IOException {
 		ArrayList<AuctionItemBean> auctionItems = null;
 		String searchKey = request.getParameter("searchKey");
+		String category = request.getParameter("category");
+		String minPrice = request.getParameter("minPrice");
+		String maxPrice = request.getParameter("maxPrice");
 		String message =request.getParameter("message");
 		request.setAttribute("valid", request.getAttribute("valid"));
 		System.out.println("message"+message);
 		
-		auctionItems = auctionService.getItemBySearchKey(searchKey);
+		if (minPrice==""){minPrice = "0";}
+		if (maxPrice==""){maxPrice = "1000000";}
+		if (category==""){category = "";}
+		
+		//
+		if (request.getParameter("search")!=null){
+			auctionItems = auctionService.getItemBySearchKey(searchKey);
+		}
+		else {
+			auctionItems = auctionService.getItemBySearchKeyAdv(searchKey, category, Float.parseFloat(minPrice), Float.parseFloat(maxPrice));
+		}
 		if (auctionItems == null) {
 			System.out.println("searchKey == null");
 			/**BTW: for this to work  "|| auctionItems.size()==0" has to be included in the if,

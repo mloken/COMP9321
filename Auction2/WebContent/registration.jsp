@@ -38,7 +38,7 @@ if (request.getAttribute("newuser")==null){
 		            		if (request.getAttribute("valid").toString()=="true"){
 		            		%><div class="alert alert-success">
 		            		<strong><span class="glyphicon glyphicon-ok">
-		            		<b><a href="login.jsp" type="button" class="btn btn-warning">Login now!</a></b>
+		            		
 		            		<%
 			            	}
 			            	else {

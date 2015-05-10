@@ -18,12 +18,12 @@ import beans.UserBean;
 import business.UserService;
 import business.support.UserServiceImpl;
 
-public class SendConfirmationCommand implements Command{
+public class SendBidWinnerCommand implements Command{
 	
 	private static UserService userService;
 
 	/** Creates a new instance of LoginCommand */
-	public SendConfirmationCommand() {
+	public SendBidWinnerCommand() {
 		userService = new UserServiceImpl();
 	}
 	
@@ -34,8 +34,8 @@ public class SendConfirmationCommand implements Command{
 
 	  String host = "smtp.gmail.com";
 	  int port = 587;
-	  final String username = "auctiontime.roo@gmail.com";
-	  final String password = "AdminRoo";//your password
+	  final String username = "swps64@gmail.com";
+	  final String password = "chien1000";//your password
 	
 	  Properties props = new Properties();
 	  props.put("mail.smtp.host", host);
@@ -51,7 +51,7 @@ public class SendConfirmationCommand implements Command{
 	  try {
 	
 	   Message message = new MimeMessage(session);
-	   message.setFrom(new InternetAddress("auctiontime.roo@gmail.com"));
+	   message.setFrom(new InternetAddress("swps64@gmail.com"));
 	   message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
 	   message.setSubject("Auction Time :Confirmation Letter");
 	   message.setText("Dear "+user.getNickname()+",\n Welcome to Auction Time!\n\nYour username:"+user.getUsername()+" \n\nYour password:"+user.getPassword()+" \n\nPlease click this url to confirm your registration!\n http://localhost:8080/Auction2/userConfirm.jsp?confirmCode="+user.getConfirmCode()+"\n\nThank you!");

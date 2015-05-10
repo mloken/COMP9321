@@ -63,6 +63,7 @@ public class EditProfileCommand implements Command {
 			String state = request.getParameter("NewState");
 			String country = request.getParameter("NewCountry");
 			String postalCode = request.getParameter("NewPostalCode");
+			String confirmCode = request.getParameter("NewConfirmCode");
 			boolean valid = true;
 			
 			
@@ -184,6 +185,7 @@ public class EditProfileCommand implements Command {
 				addr.setPostalCode(postalCode);
 				currentUser.setAddress(addr);
 				currentUser.setAccessLevel(2);
+//				currentUser.setConfirmCode(confirmCode);
 				userService.editProfile(currentUser);
 				message+="Congratulation! You have successfully edited your profile";
 				request.setAttribute("valid", true);

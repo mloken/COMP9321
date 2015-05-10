@@ -139,6 +139,50 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 	}
 	
 	@Override
+	public ArrayList<AuctionItemBean> getAuctionItemBySearchKeyAdv(String searchKey, String category, float minPrice, float maxPrice) throws DataAccessException {
+		Connection con = null;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<AuctionItemBean> list = new ArrayList<AuctionItemBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE reservePrice <> ? AND (UPPER(CATEGORY) LIKE UPPER(?) OR UPPER(ITEM_NAME) LIKE UPPER(?) OR UPPER(DESCRIPTION) LIKE UPPER(?)) AND category = ? AND bidPrice >= ? AND bidPrice <= ?");
+			stmt.setString(2, "%"+searchKey+"%");
+			stmt.setString(3, "%"+searchKey+"%");
+			stmt.setString(4, "%"+searchKey+"%");
+			stmt.setFloat(1, 0);
+			stmt.setString(5, category);
+			stmt.setFloat(6, minPrice);
+			stmt.setFloat(7, maxPrice);
+			rs = stmt.executeQuery();
+			while (rs.next()){
+				AuctionItemBean i = createAuctionItemBean(rs); 
+				list.add(i);
+				//System.out.println("add item : " + i.getItemName() +" price : "+i.getReservePrice());
+			}
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
 	public AuctionItemBean updatePriceToZero(AuctionItemBean item){
 		Connection con = null;
 		try {
@@ -205,9 +249,53 @@ public class AuctionItemDAOImpl extends GenericDAO implements AuctionItemDAO {
 		try {
 			
 			con = services.createConnection();
-			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ? AND reservePrice = ?");
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ? AND reservePrice <> ?");
 			stmt.setInt(1, uid);
 			stmt.setFloat(2, 0);
+			rs = stmt.executeQuery();
+			while (rs.next())
+				list.add(createAuctionItemBean(rs));
+			
+		} catch (ServiceLocatorException e) {
+			throw new DataAccessException("Unable to retrieve connection; "
+					+ e.getMessage(), e);
+		} catch (SQLException e) {
+			throw new DataAccessException("Unable to execute query; "
+					+ e.getMessage(), e);
+		} finally {
+			
+			if (con != null) {
+				try {
+					stmt.close();
+					con.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return list;
+	}
+	
+	public java.sql.Date getCurrentDatetime() {
+	    java.util.Date today = new java.util.Date();
+	    return new java.sql.Date(today.getTime());
+	}
+	
+	@Override
+	public ArrayList<AuctionItemBean> getClosedAuctionItemsByOwner(int uid){
+		Connection con = null;
+		System.out.println("enter get closed");
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		ArrayList<AuctionItemBean> list = new ArrayList<AuctionItemBean>() ;
+		try {
+			
+			con = services.createConnection();
+			stmt = con.prepareStatement("SELECT * FROM TBL_ITEMS WHERE owner_id = ? AND endTime > ?");
+			stmt.setInt(1, uid);
+			java.sql.Date d = getCurrentDatetime();
+			System.out.println("now : "+d);
+			stmt.setDate(2, d);
 			rs = stmt.executeQuery();
 			while (rs.next())
 				list.add(createAuctionItemBean(rs));

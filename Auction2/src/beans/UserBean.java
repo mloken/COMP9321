@@ -7,6 +7,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Properties;
 
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 /*import javax.mail.*;
 import javax.mail.internet.*;*/
 import javax.swing.JOptionPane;
@@ -131,7 +140,8 @@ public class UserBean {
 				else {
 					System.out.println("not online, send email only to owner");
 				}
-				sendemail(this.getEmail());
+				//return "sendBidOwner";
+				sendemail("Auction Closed Time", "Your auction item has reached its closing time. Log in to http://localhost:8080/Auction2/ and check your Auction List page");
 			}
 			else {
 				if (this.isOnline){
@@ -141,12 +151,13 @@ public class UserBean {
 				else {
 					System.out.println("not online, send email only to bidder");
 				}
-				sendemail(this.getEmail());
+				sendemail("WIN A BID Notification", "Congratulation, You have won an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
 			}
 		}
-		else {//there's a bidder who bid >= reserve price before closing time
-			
-		}
+		//else {//there's a bidder who bid >= reserve price before closing time
+			//sendemail();
+		//}
+		//sendemail();
 	}
 	
 	public boolean checkBid(){
@@ -157,9 +168,10 @@ public class UserBean {
 		}
 		return true;
 	}
+	
 	public boolean checkAuction(){
 		AuctionServiceImpl auctionService = new AuctionServiceImpl();
-		ArrayList<AuctionItemBean> closedbidlist = auctionService.getAllAuctionItemsByOwner(uid);
+		ArrayList<AuctionItemBean> closedbidlist = auctionService.getClosedAuctionItemsByOwner(uid, new Date());
 		if (closedbidlist.isEmpty()){
 			return false;
 		}
@@ -169,90 +181,51 @@ public class UserBean {
 				//BidBean closedbid = bidService.getBidItemById(closedbidlist.get(i).getId());
 				auctionService.updatePriceToZero(closedbidlist.get(i));
 				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1, 2);
-				bidService.updateBidStatus(closedbidlist.get(i).getId(), 1, 0);
+				//bidService.updateBidStatus(closedbidlist.get(i).getId(), 1, 0);
 				return true;
 			}
 		}
 		return false;
 	}
 	
-	public void sendemail(String email){
+	public void sendemail(String subject, String content){
 		System.out.println("send email");
-		/*final String username = "christa.chiquita@gmail.com";
-        final String password = "Rndyxta11";
+		  String userEmail=this.getEmail();	
 
-        Properties props = new Properties();
-        props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.port", "587");
-
-        Session session = Session.getInstance(props,
-          new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(username, password);
-            }
-          });
-
-        try {
-
-            Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(username));
-            message.setRecipients(Message.RecipientType.TO,
-                InternetAddress.parse("christa.chiquita@gmail.com"));
-            message.setSubject("Testing Subject");
-            message.setText("Dear Mail Crawler,"
-                + "\n\n No spam to my email, please!");
-
-            Transport.send(message);
-
-            System.out.println("Done");
-
-        } catch (MessagingException e) {
-            throw new RuntimeException(e);
-        }*/
-        /*
-		// Recipient's email ID needs to be mentioned.
-	      String to = "christa.chiquita@gmail.com";
-
-	      // Sender's email ID needs to be mentioned
-	      String from = "swps64@gmail.com";
-
-	      // Assuming you are sending email from localhost
-	      String host = "localhost";
-
-	      // Get system properties
-	      Properties properties = System.getProperties();
-
-	      // Setup mail server
-	      properties.setProperty("mail.smtp.host", host);
-
-	      // Get the default Session object.
-	      Session session = Session.getDefaultInstance(properties);
-
-	      try{
-	         // Create a default MimeMessage object.
-	         MimeMessage message = new MimeMessage(session);
-
-	         // Set From: header field of the header.
-	         message.setFrom(new InternetAddress(from));
-
-	         // Set To: header field of the header.
-	         message.addRecipient(Message.RecipientType.TO,
-	                                  new InternetAddress(to));
-
-	         // Set Subject: header field
-	         message.setSubject("This is the Subject Line!");
-
-	         // Now set the actual message
-	         message.setText("This is actual message");
-
-	         // Send message
-	         Transport.send(message);
-	         System.out.println("Sent message successfully....");
-	      }catch (MessagingException mex) {
-	         mex.printStackTrace();
-	      }*/
+		  String host = "smtp.gmail.com";
+		  int port = 587;
+		  final String username = "auctiontime.Roo@gmail.com";
+		  final String password = "AdminRoo";//your password
+		
+		  Properties props = new Properties();
+		  props.put("mail.smtp.host", host);
+		  props.put("mail.smtp.auth", "true");
+		  props.put("mail.smtp.starttls.enable", "true");
+		  props.put("mail.smtp.port", port);
+		  Session session = Session.getInstance(props, new Authenticator() {
+		   protected PasswordAuthentication getPasswordAuthentication() {
+		    return new PasswordAuthentication(username, password);
+		   }
+		  });
+		
+		  try {
+		
+		   Message message = new MimeMessage(session);
+		   message.setFrom(new InternetAddress("auctiontime.roo@gmail.com"));
+		   message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(userEmail));
+		   message.setSubject(subject);
+		   message.setText(content);
+		
+		   Transport transport = session.getTransport("smtp");
+		   transport.connect(host, port, username, password);
+		
+		   Transport.send(message);
+		
+		   System.out.println("Email is sent.");
+		
+		  } catch (MessagingException e) {
+		   throw new RuntimeException(e);
+		  }
     }
 	
 }
