@@ -41,10 +41,10 @@ public class ControllerServlet extends HttpServlet {
 		commands.put("editProfile", new EditProfileCommand());
 		commands.put("showAuctionList", new ShowAuctionListCommand());
 		commands.put("sendConfirmation", new SendConfirmationCommand());
-//		commands.put("sendBidOwner", new SendBidOwnerCommand());
-//		commands.put("sendBidWinner", new SendBidWinnerCommand());
-//		commands.put("sendBidMail", new SendBidMailCommand());
-//		commands.put("userConfirm", new UserConfirmCommand());
+		commands.put("sendBidOwner", new SendBidOwnerCommand());
+		commands.put("sendBidWinner", new SendBidWinnerCommand());
+		commands.put("sendBidMail", new SendBidMailCommand());
+		commands.put("userConfirm", new UserConfirmCommand());
 		
 	}
 

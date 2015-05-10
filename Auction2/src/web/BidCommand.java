@@ -50,6 +50,7 @@ public class BidCommand implements Command {
 		bidItem = bidService.getWinBidItemById(item_id);
 		item = auctionService.getItemById(item_id);
 		String itemname = item.getItemName();
+		Float currentPrice = item.getCurrentBid();
 		Float inc = item.getBiddingIncrements();
 		Float reserveprice = item.getReservePrice();
 		Float startprice = item.getBiddingStartPrice();
@@ -73,7 +74,7 @@ public class BidCommand implements Command {
 				session.setAttribute("winsomething", true);
 				AuctionItemBean.check = true;
 				//bidService.updateBidStatus(item.getId(), 1, 2);
-				auctionService.updateBidPrice(item, bidprice);
+				//auctionService.updateBidPrice(item, bidprice);
 				auctionService.updatePriceToZero(item);
 				currentUser.sendemail("Auction Win :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have won an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
 				win = true;
@@ -125,7 +126,7 @@ public class BidCommand implements Command {
 				currentUser.sendemail("Auction Win :Notification", "Dear "+currentUser.getNickname()+",\nCongratulation, You have won an item. Log in To http://localhost:8080/Auction2/ and check your Bid List page");
 				win = true;
 			}
-			if ((bidprice - bidItem.getPrice()) < inc){ //user put bid price with increment lower than minimum increment from current price
+			if ((bidprice - currentPrice) < inc){ //user put bid price with increment lower than minimum increment from current price
 				System.out.println("less than increment");
 				request.setAttribute("valid", false);
 				request.setAttribute("message", "Please put bid price higher than bidding increment value from current price<br>");

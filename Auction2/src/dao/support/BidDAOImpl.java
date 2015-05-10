@@ -331,7 +331,7 @@ public class BidDAOImpl extends GenericDAO implements BidDAO{
 			
 			con = services.createConnection();
 			stmt = con.prepareStatement("SELECT * FROM TBL_BID WHERE status = ?");
-			stmt.setInt(1, 1);
+			stmt.setInt(1, 2);
 			rs = stmt.executeQuery();
 			while (rs.next())
 				list.add(createBidItemBean(rs));

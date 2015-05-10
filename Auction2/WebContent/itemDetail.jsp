@@ -37,7 +37,7 @@
 		  </tr>
 		  <tr>
 		    <td >Current Price</td>
-		    <td >${currentprice}</td>
+		    <td >${auctionItem.currentBid}</td>
 		  </tr>
 		  <tr>
 		    <td >biddingStartPrice</td>
@@ -77,7 +77,7 @@
 		 </tr>
 		  <tr>
 		  <%
-		  	if (request.getAttribute("halt").toString()=="false"){
+		  	if (request.getAttribute("halt")==null || request.getAttribute("halt").toString()=="false"){
 		  		System.out.println("item not halted");
 		  %>
 		 	<td>Input Bid Price</td>
